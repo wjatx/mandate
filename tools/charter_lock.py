@@ -43,7 +43,7 @@ PINNED_FILES = [
     "shim/defined_risk.py",
     "manifest.yaml",
     "supervisor-manifest.yaml",
-    "drafts/CHARTER.md",
+    "CHARTER.md",
 ]
 
 
