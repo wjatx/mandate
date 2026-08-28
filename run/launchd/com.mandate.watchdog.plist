@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>HOME</key>
+		<string>/Users/wesjackson</string>
+		<key>PATH</key>
+		<string>/opt/homebrew/bin:/Users/wesjackson/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+	</dict>
+	<key>Label</key>
+	<string>com.mandate.watchdog</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/Users/wesjackson/Code/mandate/.venv/bin/python</string>
+		<string>/Users/wesjackson/Code/mandate/watchdog/watchdog.py</string>
+	</array>
+	<key>RunAtLoad</key>
+	<false/>
+	<key>StandardErrorPath</key>
+	<string>/Users/wesjackson/Code/mandate/state/logs/com.mandate.watchdog.err.log</string>
+	<key>StandardOutPath</key>
+	<string>/Users/wesjackson/Code/mandate/state/logs/com.mandate.watchdog.out.log</string>
+	<key>StartInterval</key>
+	<integer>180</integer>
+	<key>WorkingDirectory</key>
+	<string>/Users/wesjackson/Code/mandate</string>
+</dict>
+</plist>

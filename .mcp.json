@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "broker": {
+      "command": "./bin/gateway.sh",
+      "args": []
+    }
+  }
+}

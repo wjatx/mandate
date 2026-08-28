@@ -1,0 +1,117 @@
+# Supervisor manifest — the dead-agent backstop.
+#
+# A SECOND principal against the SAME broker store and the SAME shim server.
+# Its whole reason to exist: the agent's exits (charter §4) must hold even if
+# the agent process is dead, and multi-leg options cannot rest bracket orders
+# at the venue. So a deterministic, model-free process re-checks the book on a
+# timer and closes what the rules say to close.
+#
+# The safety property is in the ABSENCE: there is no place op of any kind in
+# this file. A supervisor bug can only ever reduce exposure — close a position
+# early, cancel a resting order — never open one. That is what makes it safe
+# to run unattended on a 15-minute timer with no human in the loop.
+#
+# Deliberately absent relative to manifest.yaml: place_defined_risk_spread
+# (the point), and the discovery reads the supervisor has no use for
+# (get_calendar, get_stock_latest_quote, get_option_chain,
+# get_option_contracts) — it never shops for a position, it only manages the
+# ones already on the books.
+
+principal:
+  agentId: hackathon-supervisor
+  skill: position-supervisor
+  user: wes
+  tier: B
+
+grant_classes:
+  - alpaca.get_account_info
+  - alpaca.get_clock
+  - alpaca.get_all_positions
+  - alpaca.get_open_position
+  - alpaca.get_orders
+  - alpaca.get_option_latest_quote
+  - alpaca.get_option_snapshot
+  - alpaca.close_position
+  - alpaca.cancel_order_by_id
+
+connectors:
+  - alpaca
+
+mcp_servers:
+  alpaca:
+    # Same shim binary as the agent's manifest. Admission rows are keyed by
+    # server/tool, so this principal reuses the already-admitted surface and
+    # needs only its own grant seed — but it declares just the nine tools it
+    # is allowed to reach, and the gateway serves only what is declared here.
+    command: /Users/wesjackson/Code/mandate/.venv/bin/python
+    args: ["/Users/wesjackson/Code/mandate/shim/alpaca_shim.py"]
+    env:
+      ALPACA_PAPER_TRADE: "true"
+      # Points at the TRADING manifest, not this one: the dollar caps are
+      # book-level quantities and have one home. This principal's own envelope
+      # (below) is untouched by a cap change, so a quarantine on the trading
+      # side never freezes the supervisor's close-only grants — exits keep
+      # working while the agent is demoted.
+      BROKER_MANIFEST: /Users/wesjackson/Code/mandate/manifest.yaml
+    tools:
+      - {tool_name: get_account_info, structured_output: true}
+      - {tool_name: get_clock, structured_output: true}
+      - {tool_name: get_all_positions, structured_output: true}
+      - {tool_name: get_open_position, structured_output: true}
+      - {tool_name: get_orders, structured_output: true}
+      - {tool_name: get_option_latest_quote, structured_output: true}
+      - {tool_name: get_option_snapshot, structured_output: true}
+      - {tool_name: close_position, structured_output: true}
+      - {tool_name: cancel_order_by_id, structured_output: true}
+
+connector_secrets:
+  alpaca: "alpaca-mcp-paper"
+
+connector_auth:
+  alpaca:
+    env_map:
+      ALPACA_API_KEY: ALPACA_KEY
+      ALPACA_SECRET_KEY: ALPACA_SECRET
+
+# Same reversibility argument as the agent's manifest (D5): a paper options
+# position is closable at market cost, and close/cancel only ever shrink
+# exposure. There is no irreversible op on this surface to argue about.
+tool_ops:
+  - {tool: alpaca, op: get_account_info, effect: read, external: true}
+  - {tool: alpaca, op: get_clock, effect: read, external: true}
+  - {tool: alpaca, op: get_all_positions, effect: read, external: true}
+  - {tool: alpaca, op: get_open_position, effect: read, external: true}
+  - {tool: alpaca, op: get_orders, effect: read, external: true}
+  - {tool: alpaca, op: get_option_latest_quote, effect: read, external: true}
+  - {tool: alpaca, op: get_option_snapshot, effect: read, external: true}
+  - {tool: alpaca, op: close_position, effect: write, external: true, reversible: true}
+  - {tool: alpaca, op: cancel_order_by_id, effect: write, external: true, reversible: true}
+
+# polarity: abstain — a supervisor that cannot read the book leaves the
+# position alone rather than guessing. actions_per_utc_day 60 is sized for the
+# timer: 28 passes a day (15-minute cadence, 08:30-15:30 CT) against a book
+# capped at 6 positions of up to 4 legs each; 60 close ops is far more than a
+# correct pass needs and still a hard stop on a close loop gone wrong.
+envelope:
+  polarity: abstain
+  caps:
+    actions_per_utc_day: 60
+  allowlists:
+    tools:
+      - alpaca.get_account_info
+      - alpaca.get_clock
+      - alpaca.get_all_positions
+      - alpaca.get_open_position
+      - alpaca.get_orders
+      - alpaca.get_option_latest_quote
+      - alpaca.get_option_snapshot
+      - alpaca.close_position
+      - alpaca.cancel_order_by_id
+  trusted_read_sources:
+    - connector:alpaca.get_account_info
+    - connector:alpaca.get_clock
+    - connector:alpaca.get_all_positions
+    - connector:alpaca.get_open_position
+    - connector:alpaca.get_orders
+    - connector:alpaca.get_option_latest_quote
+    - connector:alpaca.get_option_snapshot

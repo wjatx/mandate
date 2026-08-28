@@ -1,0 +1,146 @@
+# War-room manifest — Wed leg: options surface through the gateway.
+#
+# Derived from the RI's alpaca_paper_drill manifest (read-only ceiling); this
+# copy adds the options reads and the acting ops, per PLAN.md's admitted
+# surface. Scratch/dev only — the public repo authors its own manifest fresh
+# at kickoff. D6 Option A adopted: the server is the defined-risk shim; the
+# raw-order write path was proven 2026-08-25 morning before the swap.
+#
+# Deliberately absent (missileer posture): place_stock_order, the exercise
+# ops, all crypto, watchlists, account mutations — 58 of the 69 discovered
+# tools. Absent = not in this file = structurally uncallable.
+
+principal:
+  agentId: hackathon-dev
+  skill: options-trader
+  user: wes
+  tier: B
+
+grant_classes:
+  - alpaca.get_account_info
+  - alpaca.get_clock
+  - alpaca.get_calendar
+  - alpaca.get_stock_latest_quote
+  - alpaca.get_all_positions
+  - alpaca.get_open_position
+  - alpaca.get_option_chain
+  - alpaca.get_option_contracts
+  - alpaca.get_option_snapshot
+  - alpaca.get_option_latest_quote
+  - alpaca.get_orders
+  - alpaca.place_defined_risk_spread
+  - alpaca.close_position
+  - alpaca.cancel_order_by_id
+
+connectors:
+  - alpaca
+
+mcp_servers:
+  alpaca:
+    # D6 Option A: the manifest's alpaca server IS the defined-risk shim; it
+    # spawns the pinned vendor server as its own child. Raw place_option_order
+    # exists nowhere in the admitted chain.
+    command: /Users/wesjackson/Code/mandate/.venv/bin/python
+    args: ["/Users/wesjackson/Code/mandate/shim/alpaca_shim.py"]
+    env:
+      ALPACA_PAPER_TRADE: "true"
+      # The shim reads its dollar caps from THIS manifest's envelope block at
+      # startup and refuses to start without them. The gateway independently
+      # hashes the same block into every grant (envelopeHash), so an edited
+      # cap quarantines the grants before a capped-differently shim can act.
+      BROKER_MANIFEST: /Users/wesjackson/Code/mandate/manifest.yaml
+    tools:
+      - {tool_name: get_account_info, structured_output: true}
+      - {tool_name: get_clock, structured_output: true}
+      - {tool_name: get_calendar, structured_output: true}
+      - {tool_name: get_stock_latest_quote, structured_output: true}
+      - {tool_name: get_all_positions, structured_output: true}
+      - {tool_name: get_open_position, structured_output: true}
+      - {tool_name: get_option_chain, structured_output: true}
+      - {tool_name: get_option_contracts, structured_output: true}
+      - {tool_name: get_option_snapshot, structured_output: true}
+      - {tool_name: get_option_latest_quote, structured_output: true}
+      - {tool_name: get_orders, structured_output: true}
+      - {tool_name: place_defined_risk_spread, structured_output: true}
+      - {tool_name: close_position, structured_output: true}
+      - {tool_name: cancel_order_by_id, structured_output: true}
+
+connector_secrets:
+  alpaca: "alpaca-mcp-paper"
+
+connector_auth:
+  alpaca:
+    env_map:
+      ALPACA_API_KEY: ALPACA_KEY
+      ALPACA_SECRET_KEY: ALPACA_SECRET
+
+# Reads are the venue's own structured API data (quotes, chains, positions,
+# clock) — declared trusted in the envelope below so acting turns are not
+# self-tainted by them. News/free-text NEVER enters this surface; the taint
+# split is the design (PLAN.md "Trusted reads and the taint split").
+#
+# reversible: true on the acting ops per D5 (ratified 2026-08-25): a paper
+# options position is closable at market cost — mistakes are structurally
+# bounded by the caps and the defined-risk gate, which is the RI's own
+# definition of recoverable. cancel_order_by_id is trivially recoverable
+# (re-place the order).
+tool_ops:
+  - {tool: alpaca, op: get_account_info, effect: read, external: true}
+  - {tool: alpaca, op: get_clock, effect: read, external: true}
+  - {tool: alpaca, op: get_calendar, effect: read, external: true}
+  - {tool: alpaca, op: get_stock_latest_quote, effect: read, external: true}
+  - {tool: alpaca, op: get_all_positions, effect: read, external: true}
+  - {tool: alpaca, op: get_open_position, effect: read, external: true}
+  - {tool: alpaca, op: get_option_chain, effect: read, external: true}
+  - {tool: alpaca, op: get_option_contracts, effect: read, external: true}
+  - {tool: alpaca, op: get_option_snapshot, effect: read, external: true}
+  - {tool: alpaca, op: get_option_latest_quote, effect: read, external: true}
+  - {tool: alpaca, op: get_orders, effect: read, external: true}
+  - {tool: alpaca, op: place_defined_risk_spread, effect: write, external: true, reversible: true}
+  - {tool: alpaca, op: close_position, effect: write, external: true, reversible: true}
+  - {tool: alpaca, op: cancel_order_by_id, effect: write, external: true, reversible: true}
+
+# polarity: abstain — a silent options agent loses theta, not the account
+# (PLAN.md "Autonomy story"). actions_per_utc_day is metered PER-OP
+# (principal+op+utc-day), one shared value: the coarse runaway backstop.
+# Fine-grained budgets (2 new positions per run, sizing) are PDP/charter
+# layer, not this cap.
+envelope:
+  polarity: abstain
+  caps:
+    actions_per_utc_day: 40
+    # Dollar caps (charter §5, amended 2026-08-26). They live HERE, not in
+    # shim code, so they ride the envelope content-hash that every grant
+    # pins: changing them quarantines the grants at first exercise until
+    # bin/rekey.sh re-attests. The Caps schema passes extra keys through
+    # into the hash by design (safe_agents sa#135).
+    max_loss_per_position_usd: 5000
+    max_total_open_risk_usd: 30000
+  allowlists:
+    tools:
+      - alpaca.get_account_info
+      - alpaca.get_clock
+      - alpaca.get_calendar
+      - alpaca.get_stock_latest_quote
+      - alpaca.get_all_positions
+      - alpaca.get_open_position
+      - alpaca.get_option_chain
+      - alpaca.get_option_contracts
+      - alpaca.get_option_snapshot
+      - alpaca.get_option_latest_quote
+      - alpaca.get_orders
+      - alpaca.place_defined_risk_spread
+      - alpaca.close_position
+      - alpaca.cancel_order_by_id
+  trusted_read_sources:
+    - connector:alpaca.get_account_info
+    - connector:alpaca.get_clock
+    - connector:alpaca.get_calendar
+    - connector:alpaca.get_stock_latest_quote
+    - connector:alpaca.get_all_positions
+    - connector:alpaca.get_open_position
+    - connector:alpaca.get_option_chain
+    - connector:alpaca.get_option_contracts
+    - connector:alpaca.get_option_snapshot
+    - connector:alpaca.get_option_latest_quote
+    - connector:alpaca.get_orders
