@@ -1,0 +1,6 @@
+# Runtime state: keys, tapes, ledgers, logs. Never committed.
+state/
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
