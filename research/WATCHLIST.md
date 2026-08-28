@@ -7,6 +7,16 @@ per-run limits, and the broker's gate.
 
 ## Approved standing intents
 
+- **WL-4** (cal-1345 → approved with modification 2026-08-28 14:12 CT): if QQQ trades
+  above 718 while this intent stands, open a second QQQ Sep 4 bull call debit vertical,
+  long strike nearest below spot at trigger, $5 wide, 4 contracts, total debit at most
+  $2,500 — provided the QQQ regime still measures Low, a slot is free, and the thesis is
+  unfalsified. MODIFICATION (netting guard, per cal-1335's precedent): neither strike may
+  coincide with an existing ledger leg's strike on the same expiry and right; if the
+  indicated strike would net against a book leg at the venue, shift the spread $1 further
+  from it. Expires 2026-08-31 close; any extension toward the Sep 2 earnings binary waits
+  on the weekend memo refresh.
+
 - **WL-3** (cal-1325 → approved 2026-08-28 13:38 CT): thesis-falsification close. If QQQ
   trades below 706 before the Sep 4 close, close cal-1315's QQQ 717/722 bull call at
   market, whether or not the stored value stop (1.24) has triggered. Basis: 706 is the
