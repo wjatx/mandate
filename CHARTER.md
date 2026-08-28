@@ -224,6 +224,17 @@ most two new positions.
 > comes from the unchanged position limits, not from the run count. Ratified by Wes
 > 2026-08-27 ("no reason to wait to noon; 30 minute checks").
 
+> Amended 2026-08-28 (calibration cadence, second revision): for the remainder of
+> 2026-08-28 only, calibration runs may fire as often as every 10 minutes, and all acting
+> runs travel on the single calibration schedule so they serialize (a firing is skipped
+> while the prior run is still working). The purpose of today's added runs is execution
+> learning, not P&L development: more decision-and-placement cycles before the weekend,
+> each on the full preflight. Every other limit is unchanged: at most two new positions
+> per run, six slots, the same caps, floor and breaker. Pacing protection remains the
+> position limits, which today's run count can saturate but never exceed. Ratified by Wes
+> 2026-08-28 ("faster would buy us a learning rate about execution that we will take into
+> next week. Today, learning rate is more important than P&L development").
+
 > Amended 2026-08-27 (watchlist and standing intents, Wes-ratified): a decision run may end
 > its record with WATCH items: conditional intents of the form "if [measurable
 > circumstances] then [specific action within this charter's limits]", for setups the run

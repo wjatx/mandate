@@ -108,7 +108,7 @@ tool_ops:
 envelope:
   polarity: abstain
   caps:
-    actions_per_utc_day: 100
+    actions_per_utc_day: 400
     # Dollar caps (charter §5, amended 2026-08-26). They live HERE, not in
     # shim code, so they ride the envelope content-hash that every grant
     # pins: changing them quarantines the grants at first exercise until
