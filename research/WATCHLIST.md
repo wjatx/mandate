@@ -7,7 +7,12 @@ per-run limits, and the broker's gate.
 
 ## Approved standing intents
 
-(none)
+- **WL-3** (cal-1325 → approved 2026-08-28 13:38 CT): thesis-falsification close. If QQQ
+  trades below 706 before the Sep 4 close, close cal-1315's QQQ 717/722 bull call at
+  market, whether or not the stored value stop (1.24) has triggered. Basis: 706 is the
+  memo's own falsification level, cited at entry; this is a pre-registered invalidation
+  condition ruled in advance, not an in-band discretionary close, and it only reduces
+  risk. Executable by any acting run observing the trigger. Expires 2026-09-04 close.
 
 
 ## Proposed, awaiting ruling
