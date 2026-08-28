@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mandate — audit dashboard</title>
+<style>
+:root { color-scheme: light;
+  --surface: #fcfcfb; --plane: #f9f9f7; --ink: #0b0b0b; --ink-2: #52514e;
+  --muted: #898781; --grid: #e1e0d9; --axis: #c3c2b7; --up: #006300;
+  --border: rgba(11,11,11,0.10); --series: #2a78d6; --wash: rgba(42,120,214,0.10);
+  --deny-bg: rgba(208,59,59,0.055); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  color-scheme: dark;
+  --surface: #1a1a19; --plane: #0d0d0d; --ink: #fff; --ink-2: #c3c2b7;
+  --muted: #898781; --grid: #2c2c2a; --axis: #383835; --up: #0ca30c;
+  --border: rgba(255,255,255,0.10); --series: #3987e5; --wash: rgba(57,135,229,0.12);
+  --deny-bg: rgba(208,59,59,0.14); } }
+/* Status steps are fixed, never themed; each ships beside a text label. */
+:root { --good: #0ca30c; --critical: #d03b3b; --down: #d03b3b; }
+
+* { box-sizing: border-box; }
+body { margin: 0; padding: 2rem 1.25rem 4rem; background: var(--plane); color: var(--ink);
+  font: 15px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main, footer { max-width: 1080px; margin: 0 auto; }
+h1 { font-size: 2rem; margin: 0; letter-spacing: -0.02em; }
+h2 { font-size: 1.05rem; margin: 0 0 .2rem; letter-spacing: -0.01em; }
+.sub { color: var(--ink-2); margin: .25rem 0 1.5rem; }
+section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  padding: 1.25rem 1.35rem; margin: 1.1rem 0; }
+/* Hero figure: exactly one per view, in the same sans as everything else. */
+.hero { font-size: 3.1rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.05; }
+.tiles { display: grid; gap: .9rem; margin-top: 1.35rem;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.tile { display: flex; flex-direction: column; gap: .1rem; padding-left: .8rem;
+  border-left: 2px solid var(--border); }
+.tv { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; }
+.tl, .shead, .note, .unavail, .cap, .hero-label, footer { color: var(--ink-2); }
+.td, code, .tick { color: var(--muted); }
+.pos { color: var(--up); } .neg, .reason { color: var(--down); }
+.reason { font-weight: 500; }
+.shead, .cap { font-size: .85rem; margin: 0 0 .9rem; }
+.tl, .td, .hero-label, .note, .unavail { font-size: .84rem; }
+.hero-label { margin-top: .15rem; } .note, .unavail { margin: 0; }
+.unavail { border-left: 2px solid var(--muted); padding-left: .7rem; }
+.verdict { margin-top: 1.35rem; padding-top: 1rem; border-top: 1px solid var(--border);
+  display: flex; flex-wrap: wrap; gap: .6rem 1.1rem; align-items: baseline; font-size: .88rem; }
+.badge { display: inline-block; padding: .08rem .5rem; border-radius: 999px; font-size: .76rem;
+  font-weight: 600; border: 1px solid currentColor; white-space: nowrap; }
+.badge.ok { color: var(--good); } .badge.crit { color: var(--critical); }
+.badge.neutral { color: var(--muted); }
+.chart { width: 100%; height: auto; display: block; }
+.grid { stroke: var(--grid); } .axis { stroke: var(--axis); }
+.grid, .axis { stroke-width: 1; }
+.line { fill: none; stroke: var(--series); stroke-width: 2; stroke-linejoin: round;
+  stroke-linecap: round; }
+.wash { fill: var(--wash); stroke: none; } .hit { fill: transparent; }
+.dot { fill: var(--series); stroke: var(--surface); stroke-width: 2; }
+.tick { font-size: 11px; font-variant-numeric: tabular-nums; }
+.tick-y { text-anchor: end; }
+.endlabel { fill: var(--ink-2); font-size: 12px; font-weight: 600; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .86rem; }
+th { text-align: left; font-weight: 600; color: var(--ink-2); font-size: .78rem;
+  text-transform: uppercase; letter-spacing: .04em; padding: .4rem .6rem .45rem;
+  white-space: nowrap; }
+td { padding: .45rem .6rem; vertical-align: top; }
+th, td { border-bottom: 1px solid var(--border); }
+tbody tr:last-child td { border-bottom: none; }
+table.num td:nth-child(n+3) { font-variant-numeric: tabular-nums; }
+tr.deny td { background: var(--deny-bg); }
+tr.deny td:first-child { box-shadow: inset 2px 0 0 var(--critical); }
+code { font: .8rem/1 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.refusals { border-color: var(--critical); } .refusals h2 { font-size: 1.2rem; }
+.split { margin-top: 1.3rem; } .split h3 { font-size: .9rem; margin: 0 0 .15rem; }
+footer { margin-top: 2rem; font-size: .82rem; line-height: 1.6; padding-top: 1rem;
+  border-top: 1px solid var(--border); }
+</style></head><body><main>
+
+<section>
+  <h1>mandate</h1>
+  <p class="sub">an autonomous options agent under an enforced mandate</p>
+  <div class="hero">—</div><p class="unavail">Unavailable — HTTP 401 from /v2/account. No data is shown.</p>
+  
+  <div class="verdict">
+    <span><span class="badge ok">tape consistent</span></span>
+    <span>CHAIN CONSISTENT — 3 records, seq 0..2</span>
+    <span>Generated 2026-08-28 15:08:51 UTC</span>
+  </div>
+</section>
+
+<section>
+  <h2>Account equity</h2>
+  <p class="shead">Past week, 15-minute marks from the broker's portfolio history,
+    which reports to the dollar. The headline figure above is the live account value.</p>
+  <p class="unavail">Unavailable — HTTP 401 from /v2/account/portfolio/history?period=1W&amp;timeframe=15Min. No data is shown.</p>
+</section>
+
+<section class="refusals">
+  <h2>Refusals</h2>
+  <p class="shead">What the mandate stopped. 0 calls
+    denied at the broker; 0 placements
+    refused at execution by the defined-risk shim.</p>
+  <div class="split">
+    <h3>Broker denies</h3>
+    <p class="cap">The call never reached Alpaca. The manifest had no entry for it.</p>
+    <p class="note">No broker denies on the tape.</p>
+  </div>
+  <div class="split">
+    <h3>Defined-risk refusals</h3>
+    <p class="cap">The broker allowed the call; the shim refused to place the order.
+      These reach the tape as ordinary executed calls, so they are logged separately.</p>
+    <p class="note">No defined-risk refusals recorded (shim_refusals.jsonl not present).</p>
+  </div>
+</section>
+
+<section>
+  <h2>Open positions</h2>
+  <p class="shead">Live from the paper account, joined to the risk ledger by leg symbol.</p>
+  <p class="unavail">Unavailable — HTTP 401 from /v2/positions. No data is shown.</p>
+</section>
+
+<section>
+  <h2>Decision log</h2>
+  <p class="shead">Every brokered call, newest first. 3 records.</p>
+  <div class="scroll"><table class=""><thead><tr><th>Seq</th><th>Timestamp</th><th>Call</th><th>Principal</th><th>Decision</th><th>Reason</th><th>Args</th></tr></thead><tbody><tr class=""><td>2</td><td>2026-08-28 15:04:46 UTC</td><td>alpaca.get_stock_latest_quote</td><td>hackathon-dev / options-trader</td><td><span class="badge ok">allow · executed</span></td><td>—</td><td><code>ba3b7f1422d1</code></td></tr><tr class=""><td>1</td><td>2026-08-28 15:04:41 UTC</td><td>alpaca.get_stock_latest_quote</td><td>hackathon-dev / options-trader</td><td><span class="badge ok">allow · executed</span></td><td>—</td><td><code>e2a03ccfcaff</code></td></tr><tr class=""><td>0</td><td>2026-08-28 15:04:41 UTC</td><td>alpaca.get_clock</td><td>hackathon-dev / options-trader</td><td><span class="badge ok">allow · executed</span></td><td>—</td><td><code>44136fa355b3</code></td></tr></tbody></table></div>
+</section>
+
+<section>
+  <h2>Recent orders</h2>
+  <p class="shead">Last 50 orders at the broker, any status.</p>
+  <p class="unavail">Unavailable — HTTP 401 from /v2/orders?status=all&amp;limit=50. No data is shown.</p>
+</section>
+
+</main><footer>
+<p>The audit chain is unkeyed SHA-256. Verification proves the tape is
+<strong>self-consistent</strong> — no record was edited, dropped, or reordered in
+place. It is not tamper-proof: anyone who can write the file can rewrite it whole
+and recompute every hash. Tamper-evidence needs off-device append-only storage.</p>
+<p>This page is regenerated from the audit tape; the agent cannot write this page.</p>
+</footer></body></html>
