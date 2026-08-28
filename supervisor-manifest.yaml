@@ -88,14 +88,16 @@ tool_ops:
   - {tool: alpaca, op: cancel_order_by_id, effect: write, external: true, reversible: true}
 
 # polarity: abstain — a supervisor that cannot read the book leaves the
-# position alone rather than guessing. actions_per_utc_day 60 is sized for the
-# timer: 28 passes a day (15-minute cadence, 08:30-15:30 CT) against a book
-# capped at 6 positions of up to 4 legs each; 60 close ops is far more than a
-# correct pass needs and still a hard stop on a close loop gone wrong.
+# position alone rather than guessing. actions_per_utc_day 400 is sized for
+# READS, which draw the same per-op counter as acting ops (safe_agents sa#137):
+# 28 passes a day (15-minute cadence, 08:30-15:30 CT) quoting a book capped at
+# 6 positions x 2 legs is ~340 get_option_latest_quote calls worst case. The
+# war-room stack's 60, sized for close ops alone, went quote-blind mid-day on
+# 2026-08-28 with a full book.
 envelope:
   polarity: abstain
   caps:
-    actions_per_utc_day: 60
+    actions_per_utc_day: 400
   allowlists:
     tools:
       - alpaca.get_account_info
