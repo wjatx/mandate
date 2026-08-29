@@ -1,5 +1,5 @@
 #!/bin/bash
-# Install mandate's six launchd jobs. NOT run as part of any build — a human
+# Install mandate's seven launchd jobs. NOT run as part of any build — a human
 # runs this deliberately, once, when the schedule should actually start.
 #
 #   run/install_launchd.sh            install and load
@@ -13,6 +13,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")/.." && pwd)"
 SRC="$ROOT/run/launchd"
 DEST="$HOME/Library/LaunchAgents"
 JOBS=(
+  com.mandate.research
   com.mandate.decision-1
   com.mandate.decision-2
   com.mandate.decision-3
