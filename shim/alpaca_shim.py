@@ -22,10 +22,6 @@ import os
 from datetime import UTC, datetime
 from pathlib import Path
 
-from mcp import ClientSession, StdioServerParameters
-from mcp.client.stdio import stdio_client
-from mcp.server.fastmcp import FastMCP
-
 # Sibling module, deliberately import-only: all accept/refuse arithmetic lives
 # there so it can be tested without an MCP session (see test_alpaca_shim.py).
 from defined_risk import (
@@ -40,6 +36,9 @@ from defined_risk import (
     prune_ledger,
     zero_dte_refusal,
 )
+from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
+from mcp.server.fastmcp import FastMCP
 
 VENDOR_PIN = "alpaca-mcp-server==2.1.1"
 
@@ -181,7 +180,10 @@ async def _exchange_now() -> datetime:
     """Exchange-local wall clock, taken from the broker rather than this host."""
     data = _vendor_data(await _forward("get_clock"))
     if not isinstance(data, dict):
-        raise ValueError("market clock was unreadable; refusing to open a position")
+        # TRY004 silenced: ValueError is the refusal channel here — the place
+        # tool's handler catches it to write the shim refusal log. A TypeError
+        # would skip that log and surface as a crash instead of a refusal.
+        raise ValueError("market clock was unreadable; refusing to open a position")  # noqa: TRY004
     return parse_clock_timestamp(data)
 
 
@@ -438,11 +440,13 @@ async def main() -> None:
         "ALPACA_PAPER_TRADE": os.environ.get("ALPACA_PAPER_TRADE", "true"),
     }
     params = StdioServerParameters(command="uvx", args=[VENDOR_PIN], env=env)
-    async with stdio_client(params) as (read, write):
-        async with ClientSession(read, write) as session:
-            await session.initialize()
-            _child = session
-            await mcp.run_stdio_async()
+    async with (
+        stdio_client(params) as (read, write),
+        ClientSession(read, write) as session,
+    ):
+        await session.initialize()
+        _child = session
+        await mcp.run_stdio_async()
 
 
 if __name__ == "__main__":

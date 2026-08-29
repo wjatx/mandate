@@ -19,7 +19,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from defined_risk import (  # noqa: E402
+from defined_risk import (
     ZERO_DTE_CUTOFF_LABEL,
     exit_values,
     max_loss_usd,
@@ -38,7 +38,7 @@ def leg(cp: str, strike: float, side: str, *, expiry: str = EXP, root: str = "SP
     """Build a parsed Leg from readable parts (strike in dollars)."""
     return parse_leg(
         {
-            "symbol": f"{root}{expiry}{cp}{int(round(strike * 1000)):08d}",
+            "symbol": f"{root}{expiry}{cp}{round(strike * 1000):08d}",
             "side": side,
             "ratio_qty": str(ratio),
         }
@@ -502,7 +502,7 @@ def test_parse_clock_timestamp_refuses_unusable_clock(clock):
 # Signed caps: the envelope block is the only source (2026-08-26 re-key design)
 # ---------------------------------------------------------------------------
 
-from defined_risk import CapsError, caps_from_manifest  # noqa: E402
+from defined_risk import CapsError, caps_from_manifest
 
 
 def envelope_manifest(caps: dict | None) -> dict:

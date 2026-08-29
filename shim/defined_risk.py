@@ -291,7 +291,9 @@ def parse_clock_timestamp(clock: dict) -> datetime:
     """Exchange-local 'now' from get_clock's data; the offset is ET."""
     ts = clock.get("timestamp")
     if not isinstance(ts, str):
-        raise ValueError("market clock carried no timestamp; refusing to open a position")
+        # TRY004 silenced: ValueError is the refusal channel — the shim's place
+        # tool catches it to write the refusal log before re-raising.
+        raise ValueError("market clock carried no timestamp; refusing to open a position")  # noqa: TRY004
     return datetime.fromisoformat(ts)
 
 
