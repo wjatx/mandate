@@ -308,3 +308,27 @@ def close_order(legs: list[str], qty_by_symbol: dict[str, float]) -> list[str]:
     return sorted(legs, key=lambda s: (qty_by_symbol.get(s, 0.0) >= 0, s))
 
 
+def long_only_fragment(present: list[str], qty_by_symbol: dict[str, float]) -> bool:
+    """True when every remaining open leg of an entry is long (qty > 0).
+
+    An entry in this state is not a spread any more. The shim places spreads
+    as one multi-leg order, so a long-only remainder means a shorts-first
+    close broke half-way (the 2026-08-28 fill race left two of these).
+    Finishing the exit only sells owned contracts; it can never uncover
+    anything.
+    """
+    return bool(present) and all(qty_by_symbol.get(s, 0.0) > 0 for s in present)
+
+
+def assignment_suspected(present: list[str], qty_by_symbol: dict[str, float]) -> bool:
+    """True when a bare stock position exists in a fragment's underlying.
+
+    Early assignment on a short leg turns that leg into stock and leaves the
+    long leg as the stock's hedge. Selling the hedge is an owner decision,
+    never a backstop's — assignment handling is outside the admitted surface
+    by design — so a fragment with stock alongside it is left alone.
+    """
+    roots = {m.group("root") for s in present if (m := OCC_RE.match(s))}
+    return any(r in qty_by_symbol for r in roots)
+
+

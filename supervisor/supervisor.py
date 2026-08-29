@@ -38,9 +38,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from rules import (
     CIRCUIT_BREAKER_PCT,
     VALUE_MANAGED_STRUCTURES,
+    assignment_suspected,
     breach_pct,
     classify_exit,
     close_order,
+    long_only_fragment,
     parse_clock_timestamp,
 )
 
@@ -51,6 +53,14 @@ ALARM = ROOT / "state" / "ALARM"
 
 TIGHTEN_TIMEOUT_S = 60
 GATEWAY_INIT_TIMEOUT_S = 180
+
+# The 2026-08-28 fill race, twice observed: a long-leg sell submitted while
+# the short leg's buy-back was still filling drew a venue 403 ("uncovered")
+# and orphaned the long. Shorts are now polled OFF the book before any
+# long-leg close is sent; if they have not cleared inside the budget, the
+# longs wait for the next pass (the long-only fragment rule finishes them).
+SHORT_CLEAR_TIMEOUT_S = 30
+SHORT_CLEAR_POLL_S = 3
 
 DEMOTE_ACTION_CLASS = "alpaca.place_defined_risk_spread"
 
@@ -208,11 +218,10 @@ def shell_env(env_file: Path) -> dict[str, str]:
 # --- acting ----------------------------------------------------------------
 
 
-async def close_entry(session, entry: dict, legs: list[str], dry_run: bool) -> bool:
-    """Close every leg. Returns True if all closes succeeded."""
-    tag = entry.get("client_order_id") or entry.get("order_id") or "?"
+async def close_legs(session, syms: list[str], tag: str, dry_run: bool) -> bool:
+    """Close each listed leg. Returns True if every close succeeded."""
     ok = True
-    for sym in legs:
+    for sym in syms:
         if dry_run:
             log("WOULD_CLOSE", sym, f"entry={tag} (dry run; nothing sent)")
             continue
@@ -231,6 +240,53 @@ async def close_entry(session, entry: dict, legs: list[str], dry_run: bool) -> b
             ok = False
             log("CLOSE_FAILED", sym, f"entry={tag} {type(e).__name__}: {e}")
     return ok
+
+
+async def shorts_cleared(session, shorts: list[str], tag: str) -> bool:
+    """Poll the book until no short leg is still an open position.
+
+    A market buy-to-close on a liquid index option fills in seconds; the
+    budget exists for the day that stops being true. Returning False defers
+    the long legs to the next pass rather than selling a spread's cover out
+    from under a still-open short.
+    """
+    attempts = SHORT_CLEAR_TIMEOUT_S // SHORT_CLEAR_POLL_S
+    for i in range(attempts):
+        if i:
+            await asyncio.sleep(SHORT_CLEAR_POLL_S)
+        try:
+            open_now = {
+                p.get("symbol")
+                for p in rows(await read_tool(session, "alpaca__get_all_positions"))
+            }
+        except Exception as e:  # noqa: BLE001 - an unreadable book defers, never proceeds
+            log("CLEAR_CHECK_FAILED", "-", f"entry={tag} {explain(e)}")
+            return False
+        still = [s for s in shorts if s in open_now]
+        if not still:
+            return True
+    log("SHORTS_STILL_OPEN", ",".join(still),
+        f"entry={tag} shorts not cleared after {SHORT_CLEAR_TIMEOUT_S}s; "
+        "long legs deferred to the next pass")
+    return False
+
+
+async def close_entry(session, entry: dict, legs: list[str],
+                      qty_by_symbol: dict[str, float], dry_run: bool) -> bool:
+    """Close every leg: shorts first, longs only once the shorts have left
+    the book. Returns True if all closes succeeded."""
+    tag = entry.get("client_order_id") or entry.get("order_id") or "?"
+    shorts = [s for s in legs if qty_by_symbol.get(s, 0.0) < 0]
+    longs = [s for s in legs if s not in shorts]
+    ok = await close_legs(session, shorts, tag, dry_run)
+    if shorts and longs and not dry_run:
+        if not ok:
+            log("CLOSE_DEFERRED", tag,
+                "a short-leg close failed; long legs held so the shorts stay covered")
+            return False
+        if not await shorts_cleared(session, shorts, tag):
+            return False
+    return await close_legs(session, longs, tag, dry_run) and ok
 
 
 def demote(reason: str, dry_run: bool) -> None:
@@ -336,6 +392,20 @@ async def run_pass(session, dry_run: bool) -> int:
                                 "the shim prunes it on the next placement")
                 continue
             if len(present) != len(legs):
+                # A long-only remainder is a close that broke half-way (the
+                # 2026-08-28 fill race); finishing it is the exit the rules
+                # already ordered. Anything else — shorts remaining, or stock
+                # in the underlying suggesting early assignment — stays the
+                # owner's call.
+                if long_only_fragment(present, qty_by_symbol) and \
+                        not assignment_suspected(present, qty_by_symbol):
+                    log("FRAGMENT_EXIT", tag,
+                        f"only {len(present)}/{len(legs)} legs remain and all are "
+                        "long; finishing the broken close")
+                    if not await close_entry(session, entry, present,
+                                             qty_by_symbol, dry_run):
+                        failed = True
+                    continue
                 log("SKIP", tag, f"only {len(present)}/{len(legs)} legs are open "
                                  "positions; partial book, leaving it to the agent")
                 continue
@@ -362,7 +432,7 @@ async def run_pass(session, dry_run: bool) -> int:
             ordered = close_order(legs, qty_by_symbol)
             log("EXIT", tag, f"{rule}: {reason}; closing shorts-first "
                              f"{' -> '.join(ordered)}")
-            if not await close_entry(session, entry, ordered, dry_run):
+            if not await close_entry(session, entry, ordered, qty_by_symbol, dry_run):
                 failed = True
         except Exception as e:  # noqa: BLE001 - never let one entry abort the rest of the book
             failed = True

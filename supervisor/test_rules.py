@@ -28,11 +28,13 @@ from rules import (
     CREDIT_STRUCTURES,
     DEBIT_STRUCTURES,
     VALUE_MANAGED_STRUCTURES,
+    assignment_suspected,
     breach_pct,
     classify_exit,
     close_order,
     entry_credit,
     entry_debit,
+    long_only_fragment,
     stored_exits,
 )
 
@@ -638,3 +640,35 @@ def test_close_order_is_stable_when_qty_is_unknown():
 def test_breach_pct(account, pct):
     got = breach_pct(account)
     assert got is None if pct is None else got == pytest.approx(pct)
+
+
+# --- broken-close fragments (the 2026-08-28 fill race) ----------------------
+
+
+@pytest.mark.parametrize(
+    "present_qty, is_fragment",
+    [
+        pytest.param({occ("C", 650.0): 1.0}, True, id="single-long-remainder"),
+        pytest.param({occ("C", 650.0): 1.0, occ("C", 655.0): 2.0}, True,
+                     id="all-longs-remainder"),
+        pytest.param({occ("C", 645.0): -1.0}, False, id="short-remainder"),
+        pytest.param({occ("C", 645.0): -1.0, occ("C", 650.0): 1.0}, False,
+                     id="mixed-remainder"),
+        pytest.param({}, False, id="nothing-present"),
+        pytest.param({occ("C", 650.0): 0.0}, False, id="zero-qty-is-not-long"),
+    ],
+)
+def test_long_only_fragment(present_qty, is_fragment):
+    """Only a remainder that is entirely long may be auto-finished."""
+    assert long_only_fragment(list(present_qty), present_qty) == is_fragment
+
+
+def test_assignment_guard_spares_a_hedge():
+    """Stock in the fragment's underlying means early assignment: the long
+    leg is now that stock's hedge and belongs to the owner, not the backstop."""
+    frag = occ("C", 650.0)
+    with_stock = {frag: 1.0, "SPY": 100.0}
+    without_stock = {frag: 1.0, "QQQ": 100.0}
+    assert assignment_suspected([frag], with_stock)
+    assert not assignment_suspected([frag], without_stock)
+    assert not assignment_suspected([], with_stock)
