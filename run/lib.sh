@@ -120,6 +120,10 @@ postflight() {
 
   # The dashboard is a nice-to-have; never let it fail a trading run.
   "$ROOT/.venv/bin/python" "$ROOT/tools/build_dashboard.py" || true
+
+  # Advisory only: diffs this run's printed record against the risk ledger and
+  # prints XCHECK lines into this same log. It never fails a run.
+  "$ROOT/.venv/bin/python" "$ROOT/tools/xcheck_record.py" || true
 }
 
 # The charter IS the prompt. Nothing outside it authorizes a trade (§ preamble),
