@@ -25,6 +25,7 @@ AUDIT = ROOT / "state" / "audit.jsonl"
 REFUSALS = ROOT / "state" / "shim_refusals.jsonl"
 LEDGER = ROOT / "state" / "risk_ledger.json"
 ENV_SH = ROOT / "state" / "env.sh"
+BROKER_SECRETS = ROOT / "state" / "secrets.json"
 SECRETS = Path.home() / ".secrets" / "alpaca.txt"
 
 API = "https://paper-api.alpaca.markets"
@@ -124,6 +125,19 @@ def read_ledger() -> list[dict]:
 # -------------------------------------------------------------- data access
 
 def load_keys() -> dict[str, str]:
+    # The stack's own secrets file is authoritative: it is what the re-key
+    # ceremony updates on rotation, so the dashboard can never trade on a
+    # different key generation than the agent. ~/.secrets is the fallback.
+    try:
+        blob = json.loads(BROKER_SECRETS.read_text())
+        entry = next(v for k, v in blob.items() if "alpaca" in k.lower())
+        inner = json.loads(entry)
+        return {
+            "ALPACA_KEY": inner["ALPACA_KEY"],
+            "ALPACA_SECRET": inner["ALPACA_SECRET"],
+        }
+    except (OSError, KeyError, ValueError, StopIteration):
+        pass
     kv: dict[str, str] = {}
     for line in SECRETS.read_text().splitlines():
         line = line.strip()
