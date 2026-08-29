@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<rect width="1200" height="630" fill="#12233a"/>
+<rect x="0" y="0" width="1200" height="6" fill="#e8452c"/>
+<text x="88" y="228" fill="#ffffff" font-size="104" font-weight="600" letter-spacing="-4">mandate</text>
+<text x="88" y="300" fill="#7fb2ef" font-size="34" font-weight="500">an autonomous options agent under an enforced mandate</text>
+<text x="88" y="386" fill="#c9d4e2" font-size="29">The agent holds no broker credential.</text>
+<text x="88" y="428" fill="#c9d4e2" font-size="29">Every call is decided against a signed grant</text>
+<text x="88" y="470" fill="#c9d4e2" font-size="29">and lands on a hash-chained tape.</text>
+<rect x="88" y="524" width="88" height="4" fill="#e8452c"/>
+<text x="88" y="576" fill="#8a97a8" font-size="23">Alpaca paper account · audit tape rebuilt 2026-08-29</text>
+</svg>
