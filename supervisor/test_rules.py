@@ -642,6 +642,50 @@ def test_breach_pct(account, pct):
     assert got is None if pct is None else got == pytest.approx(pct)
 
 
+# --- vol-pair rows: take-profit and clock only (§4, 2026-08-29) --------------
+
+
+def _vol_pair_book(*, long_bid: float, short_ask: float,
+                   tp: float | None = 3.0, expiry: str = TOMORROW) -> Book:
+    """A debit vertical stamped as one leg of a §3 volatility pair."""
+    book = debit_book(long_bid=long_bid, short_ask=short_ask, expiry=expiry)
+    book.entry["vol_pair"] = True
+    if tp is not None:
+        book.entry["exit_tp_value"] = tp
+    return book
+
+
+def test_vol_pair_leg_never_value_stops():
+    """The 2026-08-28 failure: a per-leg stop closed the losing half of a
+    hedged pair. A vol-pair row deep underwater is held, not stopped."""
+    book = _vol_pair_book(long_bid=0.30, short_ask=0.05)  # value 0.25x the debit
+    rule, reason = book.classify()
+    assert rule is None
+    assert "no value stop" in reason
+
+
+def test_vol_pair_take_profit_still_fires():
+    book = _vol_pair_book(long_bid=3.20, short_ask=0.10, tp=3.0)  # value 3.10
+    rule, reason = book.classify()
+    assert rule == "TAKE_PROFIT"
+    assert "vol pair" in reason
+
+
+def test_vol_pair_without_stored_tp_falls_to_clock_only():
+    """The marker without a stamp must not resurrect the constant stop, and
+    must not invent a take-profit either: clock rule only, said plainly."""
+    book = _vol_pair_book(long_bid=0.30, short_ask=0.05, tp=None)
+    rule, reason = book.classify()
+    assert rule is None
+    assert "no stored take-profit" in reason
+
+
+def test_vol_pair_clock_still_outranks():
+    book = _vol_pair_book(long_bid=0.30, short_ask=0.05, expiry=TODAY)
+    rule, _ = book.classify(now=PAST_CUTOFF)
+    assert rule == "CLOCK"
+
+
 # --- broken-close fragments (the 2026-08-28 fill race) ----------------------
 
 

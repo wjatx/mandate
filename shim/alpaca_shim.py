@@ -84,6 +84,9 @@ PLACE_DESCRIPTION = (
     f"the per-position cap (${CAPS.max_loss_per_position_usd:,.0f}), any order that "
     f"would push total open risk over the book cap (${CAPS.max_total_open_risk_usd:,.0f}), "
     "and any 0DTE opener after the afternoon cutoff. "
+    "Set vol_pair=true on each debit vertical of a charter §3 volatility pair: "
+    "the leg is stamped with no value stop (take-profit and same-day clock "
+    "unchanged, §4 as amended 2026-08-29); refused on any other structure. "
     f"Enforcing envelope {CAPS.envelope_hash}."
 )
 
@@ -352,6 +355,7 @@ async def place_defined_risk_spread(
     limit_price: str,
     legs: list[dict],
     client_order_id: str | None = None,
+    vol_pair: bool = False,
 ) -> str:
     assert _child is not None
     try:
@@ -361,6 +365,11 @@ async def place_defined_risk_spread(
             raise ValueError("qty must be >= 1")
         lp = float(limit_price)
         loss, structure = max_loss_usd(parsed, q, lp)
+        if vol_pair and structure != "debit_vertical":
+            raise ValueError(
+                f"vol_pair applies to the debit verticals of a §3 volatility "
+                f"pair only; this order parsed as {structure}"
+            )
         if loss > CAPS.max_loss_per_position_usd:
             raise ValueError(
                 f"defined-risk refusal: max loss ${loss:,.0f} exceeds per-position "
@@ -421,11 +430,16 @@ async def place_defined_risk_spread(
                 # entry limit, vendor sign convention (negative = net credit).
                 "limit_price": limit_price,
                 "max_loss_usd": loss,
+                # §4 vol-pair marker (2026-08-29 amendment): the supervisor
+                # reads this to enforce take-profit and clock with no value
+                # stop. Only ever written as True, never False, so rows
+                # predating the amendment are byte-identical to new ones.
+                **({"vol_pair": True} if vol_pair else {}),
                 # Charter §4: exits are decided at entry and stored with the
                 # position, so a later amendment to §4 cannot re-litigate a
                 # live one. Per share, same units as limit_price. Absent for
                 # structures the supervisor does not value-manage.
-                **exit_values(parsed, structure, lp),
+                **exit_values(parsed, structure, lp, vol_pair=vol_pair),
                 "placed_at": now.isoformat(),
             }
         ]

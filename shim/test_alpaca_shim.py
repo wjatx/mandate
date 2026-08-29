@@ -337,6 +337,29 @@ def test_exit_values_stamps_nothing_rather_than_guessing(legs, structure, limit_
     assert exit_values(legs, structure, limit_price) == {}
 
 
+@pytest.mark.parametrize(
+    "legs, structure, limit_price, expected",
+    [
+        # Vol-pair leg (§4 as amended 2026-08-29): the same take-profit
+        # anchor, and no stop key at all.
+        pytest.param(DEBIT_VERT, "debit_vertical", 2.00,
+                     {"exit_tp_value": 3.50}, id="vol-pair-debit"),
+        # The flag governs debit verticals only; the shim refuses it on any
+        # other structure before this function runs, and here it never
+        # manufactures or removes keys a structure would not otherwise get.
+        pytest.param(CREDIT_VERT, "credit_vertical", -1.50,
+                     {"exit_tp_value": 0.75, "exit_stop_value": 3.00},
+                     id="flag-inert-on-credit"),
+        pytest.param([leg("C", 650.0, "buy")], "long_single", 2.50, {},
+                     id="flag-inert-on-long-single"),
+        pytest.param(DEBIT_VERT, "debit_vertical", 6.00, {},
+                     id="uncomputable-still-stamps-nothing"),
+    ],
+)
+def test_exit_values_vol_pair(legs, structure, limit_price, expected):
+    assert exit_values(legs, structure, limit_price, vol_pair=True) == expected
+
+
 def test_debit_take_profit_is_reachable_even_when_the_debit_exceeds_half_the_width():
     """The defect that re-anchored charter §4 the evening of 2026-08-27.
 

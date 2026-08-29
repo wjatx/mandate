@@ -243,7 +243,8 @@ def _vertical_width(legs: list[Leg]) -> float | None:
     return width if width > 0 else None
 
 
-def exit_values(legs: list[Leg], structure: str, limit_price: float) -> dict[str, float]:
+def exit_values(legs: list[Leg], structure: str, limit_price: float,
+                vol_pair: bool = False) -> dict[str, float]:
     """Charter §4 exits for an accepted order, per share, keyed for the ledger.
 
     Returns {} for anything it cannot compute honestly, and never raises. That
@@ -257,6 +258,11 @@ def exit_values(legs: list[Leg], structure: str, limit_price: float) -> dict[str
       the spread can be bought back for half the credit; stop when it costs 2x.
     - debit_vertical: spread-value thresholds. Take profit at half of maximum
       profit (debit + half of width - debit), stop at half the debit paid.
+    - debit_vertical with vol_pair (§4 as amended 2026-08-29): take-profit
+      only, no stop key. The pair is long the event; a per-leg stop closes
+      the losing half of a hedged structure exactly when the thesis needs it
+      held. The supervisor reads the row's vol_pair marker and enforces
+      take-profit and clock with no value stop.
     - long_single: no exit fields. The charter's debit rule speaks of
       *verticals*, and rules.py deliberately leaves a naked long to the agent;
       stamping exits on one here would legislate that ruling away by accident.
@@ -284,6 +290,8 @@ def exit_values(legs: list[Leg], structure: str, limit_price: float) -> dict[str
     stop = round(stop, _EXIT_VALUE_DP)
     if tp <= 0 or stop <= 0:
         return {}
+    if vol_pair and structure == "debit_vertical":
+        return {"exit_tp_value": tp}
     return {"exit_tp_value": tp, "exit_stop_value": stop}
 
 

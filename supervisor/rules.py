@@ -147,6 +147,21 @@ def stored_exits(entry: dict) -> tuple[float, float] | None:
     return found[0], found[1]
 
 
+def stored_tp(entry: dict) -> float | None:
+    """The stamped take-profit alone, for rows that carry no stop by design.
+
+    Vol-pair rows (§4 as amended 2026-08-29) are stamped with a take-profit
+    and no exit_stop_value, so stored_exits' both-or-neither rule would send
+    them to the constant fallback and quietly resurrect the stop the charter
+    removed. This reader exists so that cannot happen.
+    """
+    try:
+        value = float(entry["exit_tp_value"])
+    except (KeyError, TypeError, ValueError):
+        return None
+    return value if value > 0 else None
+
+
 def _stamped_note(stored: bool, tp: float, stop: float) -> str:
     """Audit suffix naming the stored thresholds, empty on the fallback path.
 
@@ -222,11 +237,27 @@ def _debit_exit(entry: dict, structure: str, legs: list[str],
             f"rules this pass ({clock_note})"
         )
 
-    stamped = stored_exits(entry)
-    tp, stop = stamped or (DEBIT_TAKE_PROFIT_MULTIPLE * debit, DEBIT_STOP_MULTIPLE * debit)
-
     value = -cost
     ratio = value / debit
+
+    # Vol-pair rows (§4 as amended 2026-08-29): take-profit and clock only,
+    # no value stop. The marker is only ever written by the gate, and the tp
+    # is read alone because these rows carry no stop to pair it with.
+    if entry.get("vol_pair") is True:
+        tp = stored_tp(entry)
+        if tp is None:
+            return None, (
+                f"vol-pair row carries no stored take-profit; clock rule only "
+                f"({clock_note})"
+            )
+        priced = (f"value {value:.2f} vs debit {debit:.2f} ({ratio:.2f}x), "
+                  f"vol pair: no value stop, tp stamped at entry {tp:.2f}, {clock_note}")
+        if value >= tp:
+            return "TAKE_PROFIT", f"spread value reached {ratio:.2f}x the debit; {priced}"
+        return None, f"inside the exit band; {priced}"
+
+    stamped = stored_exits(entry)
+    tp, stop = stamped or (DEBIT_TAKE_PROFIT_MULTIPLE * debit, DEBIT_STOP_MULTIPLE * debit)
     priced = (
         f"value {value:.2f} vs debit {debit:.2f} ({ratio:.2f}x)"
         f"{_stamped_note(stamped is not None, tp, stop)}, {clock_note}"

@@ -156,6 +156,16 @@ Exits are decided at entry and stored with the position. They are not re-litigat
   maximum value. Half-of-max-profit is the same anchor the credit rule above uses, so both
   books now take profit on the same principle. Positions opened under the old rule keep the
   exits they were entered with; see the next paragraph.)
+- **Volatility pairs carry no value stop.** A volatility pair is two debit verticals, a call
+  vertical and a put vertical on the same underlying and expiry, opened as one Low-regime
+  thesis under §3. Each leg keeps the debit take-profit and the same-day clock, but no value
+  stop is stamped: the pair is long the event, and a per-leg stop closes the losing half of a
+  hedged structure at exactly the moment the thesis needs it held (observed 2026-08-28: a stop
+  closed one half of a pair at 0.47x its debit while the pair as a whole stood at 0.84x). The
+  loss floor is the debit paid, which §5's sizing caps already price as the position's max
+  loss. The gate stamps this at entry via the placement flag; a pair leg placed without the
+  flag keeps the per-leg stop it was entered with. (Added 2026-08-29, Wes-ratified; applies to
+  placements from that date forward.)
 
 Exit values are computed once, at entry, by the defined-risk gate, and stamped into the
 position's ledger row. The supervisor enforces the stored numbers and never re-derives them
