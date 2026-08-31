@@ -53,6 +53,10 @@ mcp_servers:
       # side never freezes the supervisor's close-only grants — exits keep
       # working while the agent is demoted.
       BROKER_MANIFEST: /Users/wesjackson/Code/mandate/manifest.yaml
+      # Pin the vendor's transitive dep. Needed in BOTH manifests: this
+      # principal spawns its own shim child, so the trading manifest's
+      # copy never reaches it (proven by instrumentation 2026-08-31).
+      UV_CONSTRAINT: /Users/wesjackson/Code/mandate/run/uv-constraints.txt
     tools:
       - {tool_name: get_account_info, structured_output: true}
       - {tool_name: get_clock, structured_output: true}

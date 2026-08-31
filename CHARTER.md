@@ -67,6 +67,26 @@ Iron condors on the same underlyings when the read is genuinely range-bound. A c
 credit spreads, so it inherits every rule above on each side and is sized on its single-side
 max loss.
 
+> Amended 2026-08-31 (single-name admission, Wes-ratified). The income book above may
+> also trade **AVGO**, on the same structures and the same dollar caps. The tactical
+> directional book below stays SPY and QQQ only, so the new surface is as small as the
+> capability requires. Two conditions attach to any single-name income trade, and both
+> bind in addition to every rule above:
+>
+> 1. The regime is read against that name's own band row in section 3, never against
+>    the index rows.
+> 2. **Both short strikes must sit outside the market's own expected move for the
+>    holding period**, computed as `spot x ATM IV x sqrt(DTE/365)` from the same chain
+>    the run already reads. This is stricter than the 0.20-0.30 delta rule and does not
+>    replace it; a strike must satisfy both. Rationale: at the volatility a single name
+>    carries into a dated event, the delta band alone places the shorts inside the move
+>    the market is pricing, which is a coin flip wearing a strategy's clothes.
+>
+> A single-name proposal that cannot satisfy both conditions and the regime's credit
+> floor is abstained, not adjusted. On the day this was ratified, that is exactly what
+> AVGO measured: rich enough to look attractive and unable to clear the floor at safe
+> strikes.
+
 ### Tactical directional
 
 Debit verticals (bull call, bear put) on the admitted underlyings, SPY and QQQ, at 2 to 7
@@ -113,6 +133,14 @@ reading "unclear" and every run an abstention.)
 |---|---|---|---|
 | SPY | below 13% | 13% to 18% | above 18% |
 | QQQ | below 19% | 19% to 26% | above 26% |
+| AVGO | below 52% | 52% to 70% | above 70% |
+
+The AVGO row is derived, not chosen. Its anchor is the market's own estimate of the
+name's post-event baseline: ATM IV on the first expiry after the next earnings date,
+measured at 47% on 2026-08-31 against 98% on the 4-DTE chain. The band edges sit at the
+same multiples of baseline the index rows use, roughly 1.1x for Mid and 1.5x for High.
+Re-derive the row the same way if the baseline moves materially; do not adjust it to
+make a trade possible, which is the error this section already names.
 
 The strategy follows from the regime:
 

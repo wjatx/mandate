@@ -5,7 +5,7 @@ holds the API keys. The broker decides each call against a signed grant and
 writes one record here before returning. These two files are those records.
 
 - `audit.jsonl` — 142 records written for the trading agent.
-- `audit-supervisor.jsonl` — 276 records written for the exit supervisor,
+- `audit-supervisor.jsonl` — 285 records written for the exit supervisor,
   a separate principal with its own grant and no order-placing operation.
 
 ## Verify them yourself

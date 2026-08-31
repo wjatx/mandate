@@ -27,6 +27,9 @@ grant_classes:
   - alpaca.get_option_contracts
   - alpaca.get_option_snapshot
   - alpaca.get_option_latest_quote
+  - alpaca.get_stock_bars
+  - alpaca.get_option_bars
+  - alpaca.get_news
   - alpaca.get_orders
   - alpaca.place_defined_risk_spread
   - alpaca.close_position
@@ -49,6 +52,11 @@ mcp_servers:
       # hashes the same block into every grant (envelopeHash), so an edited
       # cap quarantines the grants before a capped-differently shim can act.
       BROKER_MANIFEST: /Users/wesjackson/Code/mandate/manifest.yaml
+      # Pin the vendor's transitive dep. fastmcp 4.0.0 deleted a module
+      # alpaca-mcp-server 2.1.1 imports, which killed the connector on both
+      # stacks 2026-08-31 13:30 CT. Must live here, not in the plist: the
+      # MCP SDK passes children only HOME/LOGNAME/PATH/SHELL/TERM/USER.
+      UV_CONSTRAINT: /Users/wesjackson/Code/mandate/run/uv-constraints.txt
     tools:
       - {tool_name: get_account_info, structured_output: true}
       - {tool_name: get_clock, structured_output: true}
@@ -60,6 +68,9 @@ mcp_servers:
       - {tool_name: get_option_contracts, structured_output: true}
       - {tool_name: get_option_snapshot, structured_output: true}
       - {tool_name: get_option_latest_quote, structured_output: true}
+      - {tool_name: get_stock_bars, structured_output: true}
+      - {tool_name: get_option_bars, structured_output: true}
+      - {tool_name: get_news, structured_output: true}
       - {tool_name: get_orders, structured_output: true}
       - {tool_name: place_defined_risk_spread, structured_output: true}
       - {tool_name: close_position, structured_output: true}
@@ -95,6 +106,9 @@ tool_ops:
   - {tool: alpaca, op: get_option_contracts, effect: read, external: true}
   - {tool: alpaca, op: get_option_snapshot, effect: read, external: true}
   - {tool: alpaca, op: get_option_latest_quote, effect: read, external: true}
+  - {tool: alpaca, op: get_stock_bars, effect: read, external: true}
+  - {tool: alpaca, op: get_option_bars, effect: read, external: true}
+  - {tool: alpaca, op: get_news, effect: read, external: true}
   - {tool: alpaca, op: get_orders, effect: read, external: true}
   - {tool: alpaca, op: place_defined_risk_spread, effect: write, external: true, reversible: true}
   - {tool: alpaca, op: close_position, effect: write, external: true, reversible: true}
@@ -128,6 +142,9 @@ envelope:
       - alpaca.get_option_contracts
       - alpaca.get_option_snapshot
       - alpaca.get_option_latest_quote
+      - alpaca.get_stock_bars
+      - alpaca.get_option_bars
+      - alpaca.get_news
       - alpaca.get_orders
       - alpaca.place_defined_risk_spread
       - alpaca.close_position
@@ -143,4 +160,9 @@ envelope:
     - connector:alpaca.get_option_contracts
     - connector:alpaca.get_option_snapshot
     - connector:alpaca.get_option_latest_quote
+    - connector:alpaca.get_stock_bars
+    - connector:alpaca.get_option_bars
+    # get_news is DELIBERATELY ABSENT from this list. That omission IS the
+    # airlock: reading news taints the turn, and the PDP's
+    # tainted_external_write rule then denies any order that turn attempts.
     - connector:alpaca.get_orders

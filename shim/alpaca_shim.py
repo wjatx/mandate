@@ -321,6 +321,66 @@ async def get_option_latest_quote(symbols: str, feed: str | None = None) -> str:
 
 
 @mcp.tool()
+async def get_stock_bars(
+    symbols: str,
+    timeframe: str = "1Day",
+    start: str | None = None,
+    end: str | None = None,
+    limit: int | None = None,
+) -> str:
+    """Historical OHLCV bars for stocks; symbols comma-separated."""
+    return await _forward(
+        "get_stock_bars",
+        symbols=symbols,
+        timeframe=timeframe,
+        start=start,
+        end=end,
+        limit=limit,
+    )
+
+
+@mcp.tool()
+async def get_option_bars(
+    symbols: str,
+    timeframe: str = "1Day",
+    start: str | None = None,
+    end: str | None = None,
+    limit: int | None = None,
+) -> str:
+    """Historical OHLCV bars for option contracts; symbols comma-separated."""
+    return await _forward(
+        "get_option_bars",
+        symbols=symbols,
+        timeframe=timeframe,
+        start=start,
+        end=end,
+        limit=limit,
+    )
+
+
+# NOT a structured venue read. The vendor's own registry marks get_news
+# output_risk="external_text", and it is the only tool in that catalog so
+# marked. Admitted for the section 7 research pass alone and deliberately
+# left out of the manifest's trusted_read_sources, so a turn that reads it is
+# tainted and the policy engine's tainted_external_write rule denies any order
+# that turn attempts. The charter says news never reaches an acting run; this
+# makes the broker enforce it rather than trust it.
+@mcp.tool()
+async def get_news(
+    symbols: str | None = None,
+    start: str | None = None,
+    end: str | None = None,
+    limit: int | None = None,
+    sort: str | None = None,
+) -> str:
+    """News articles for stocks/crypto. UNTRUSTED FREE TEXT: reading this
+    taints the turn and blocks any order it then tries to place."""
+    return await _forward(
+        "get_news", symbols=symbols, start=start, end=end, limit=limit, sort=sort
+    )
+
+
+@mcp.tool()
 async def get_orders(
     status: str | None = None,
     limit: int | None = None,
