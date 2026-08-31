@@ -1,0 +1,8 @@
+# Pin the vendor MCP server's transitive dependency.
+#
+# alpaca-mcp-server declares "fastmcp>=2.0.0" with no upper bound. fastmcp
+# 4.0.0 removed fastmcp/tools/tool.py, which the vendor imports, so uv
+# resolved a broken chain on 2026-08-31 at 13:30 CT and killed the broker
+# connector on both stacks until the next re-key. 3.1.1 is the last release
+# verified to import cleanly with alpaca-mcp-server 2.1.1.
+fastmcp==3.1.1
