@@ -651,8 +651,38 @@ def counts_strip(counts, n_gate) -> str:
             f'<p class="note">{esc(GATE_TAPE_CAVEAT)}</p>')
 
 
+def reproduce_section(records, sup_records, refusals) -> str:
+    """Tell the reader how to check the record themselves, with live numbers.
+
+    The dashboard is our rendering of the tape, so on its own it asks to be
+    trusted. This section hands over the file and the command instead.
+    """
+    head = records[-1]["hash"] if records else "—"
+    return f"""
+  <p class="shead">This page is our rendering of the record. Here is how to check
+  the record itself, without taking our word for any of it.</p>
+  <pre class="verify"><code>git clone https://github.com/wjatx/mandate
+cd mandate
+python3 tools/verify_tape.py tape/audit.jsonl</code></pre>
+  <p class="vnote">No credentials, no network, no dependencies outside the Python
+  standard library. The chain is unkeyed SHA-256, which is what makes it checkable
+  by anyone. Published now:
+  <strong>{len(records)}</strong> agent records,
+  <strong>{len(sup_records)}</strong> supervisor records, and
+  <strong>{len(refusals)}</strong> defined-risk refusals in the unchained sidecar.
+  Chain head <code>{esc(short_digest(head))}</code>.</p>
+  <p class="vnote">The two files are different kinds of evidence. The tapes are
+  hash-chained, so editing, dropping, or reordering any record breaks every hash
+  after it. <code>shim_refusals.jsonl</code> is an ordinary log with no integrity
+  claim: those refusals happen inside the admitted connector, so the broker sees a
+  tool returning a result rather than a decision of its own. We publish it anyway,
+  because the chained tape alone would show fewer refusals than the system actually
+  made.</p>"""
+
+
 def build() -> str:
     records, _ = read_jsonl(AUDIT)
+    sup_records, _ = read_jsonl(ROOT / "state" / "audit-supervisor.jsonl")
     refusals, refusal_note = read_jsonl(REFUSALS)
     ledger = read_ledger()
     chain_ok, verdict, _ = verify_tape()
@@ -760,6 +790,11 @@ def build() -> str:
   <h2>Recent orders</h2>
   <p class="shead">Last 50 orders at the broker, any status.</p>
   {orders_section(orders, ord_err)}
+</section>
+
+<section>
+  <h2>Verify this yourself</h2>
+  {reproduce_section(records, sup_records, refusals)}
 </section>
 
 </main><footer>
