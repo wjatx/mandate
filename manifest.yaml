@@ -116,13 +116,20 @@ tool_ops:
 
 # polarity: abstain — a silent options agent loses theta, not the account
 # (PLAN.md "Autonomy story"). actions_per_utc_day is metered PER-OP
+# (raised 60->400 on 2026-08-28 after the supervisor went quote-blind mid-day,
+# then 400->2000 on 2026-08-31 to stay out of the way of a fuller book: today's
+# supervisor spent 103 quote reads on 5 positions during a half-length day, and
+# the meter scales linearly with the book. The cap stays a runaway backstop, not
+# a working limit; the real limits are 2 opens per run, 6 slots and the dollar
+# caps. The control is not being retired: it fired live on the development stack
+# 2026-08-28T17:00:12Z, five denials on the chained supervisor tape at seq 342-346.)
 # (principal+op+utc-day), one shared value: the coarse runaway backstop.
 # Fine-grained budgets (2 new positions per run, sizing) are PDP/charter
 # layer, not this cap.
 envelope:
   polarity: abstain
   caps:
-    actions_per_utc_day: 400
+    actions_per_utc_day: 2000
     # Dollar caps (charter §5, amended 2026-08-26). They live HERE, not in
     # shim code, so they ride the envelope content-hash that every grant
     # pins: changing them quarantines the grants at first exercise until
