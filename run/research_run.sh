@@ -24,7 +24,9 @@ LOG_PREFIX="[$(date -u +%Y-%m-%dT%H:%M:%SZ)]"
 # Reference spots come in as arguments (measured by the operator or a decision
 # run through the gateway, on the tape), never hardcoded: a stale number
 # labeled "today" is worse than none.
-if [ $# -ge 2 ]; then
+if [ $# -ge 4 ]; then
+  SPOTS_LINE="Reference spots measured by the machine earlier today: SPY $1, QQQ $2, IWM $3, DIA $4."
+elif [ $# -ge 2 ]; then
   SPOTS_LINE="Reference spots measured by the machine earlier today: SPY $1, QQQ $2."
 else
   SPOTS_LINE="No reference spots were provided for this pass; treat any level you name as approximate until the acting run measures."
@@ -45,8 +47,9 @@ access, and NO account state, by design (charter §7): research and action are
 split so that text from the open web can never reach a run that places orders.
 Your entire output is one memo file.
 
-Task: research the current US market picture for SPY and QQQ and decide
-whether an honest short-term directional thesis exists for either. The
+Task: research the current US market picture for SPY, QQQ, IWM and DIA
+(amended 2026-09-01: IWM and DIA admitted to the charter) and decide
+whether an honest short-term directional thesis exists for each. The
 consumer of your memo trades debit verticals, 2-7 DTE, so a thesis must be
 about direction over the next several trading days, not a long-term view.
 
@@ -70,7 +73,8 @@ genuine absence described plainly beats both.
 Research with WebSearch/WebFetch: today's macro calendar and prints, index
 technicals and key levels, any event risk inside the next week (Fed
 communication, earnings concentration in QQQ's top weights, notable
-positioning). __SPOTS__
+positioning, small-cap rate sensitivity for IWM, price-weighted
+concentration for DIA). __SPOTS__
 
 Then write EXACTLY ONE file: __MEMO__ — nothing else. Format:
 
@@ -87,6 +91,12 @@ Horizon: <days, within 2-7 DTE>
 Basis: <3-6 sentences, your own words>
 
 ## QQQ
+<same shape>
+
+## IWM
+<same shape>
+
+## DIA
 <same shape>
 
 Memo hygiene rules (hard):
