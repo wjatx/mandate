@@ -69,7 +69,39 @@ sideways, bear call spreads when it is down or sideways.
 
 Iron condors on the same underlyings when the read is genuinely range-bound. A condor is two
 credit spreads, so it inherits every rule above on each side and is sized on its single-side
-max loss.
+max loss. **The credit floor is the one exception: it is tested on the condor's TOTAL credit
+against its widest wing, not on each side separately.**
+
+> Amended 2026-08-31 (evening, Wes-ratified). Testing each side against the floor
+> contradicted the sizing rule in the same sentence. Only one side of a condor can finish in
+> the money, which is why it is sized on single-side max loss; that max loss is the widest
+> wing minus the TOTAL credit, so total-over-widest is the ratio that describes the position
+> and per-side is measuring something the position cannot do. The practical cost was
+> concrete: measured 2026-08-31, SPY's put skew is steep enough that no bull put spread in
+> the 0.20-0.30 delta band clears the mid floor at natural pricing (all twenty candidates
+> fail; one $1-wide, 761/760, clears at mid pricing on 0.225), while the call side clears
+> comfortably. The first draft of this note said "no spread" without the pricing
+> qualification, which was stronger than the measurement supported. Per
+> side, that made condors unreachable on SPY and left the charter permitting call sales and
+> forbidding put sales, a directional tilt produced by a measurement error rather than by
+> any view. The degenerate case this rule might invite, padding total credit by selling a
+> near-worthless far wing, is already excluded: the 0.20-0.30 delta band still binds on both
+> shorts independently, so neither side can be a throwaway.
+
+**An opening proposal that materially offsets a position already held in the same
+underlying and expiry is an unwind, not an open, and must be abstained.** If the existing
+position should be closed, close it under section 4; do not neutralize it by opening
+against it.
+
+> Added 2026-08-31 (evening) from a rehearsal finding. The risk ledger sums each position's
+> maximum loss and nets nothing across positions, so an offsetting open records risk it does
+> not actually add and the defined-risk gate approves it, because the gate reasons about one
+> order at a time. The concrete case: a compliant SPY condor priced tonight would have
+> collected $1,520 and recorded $2,480 of new risk while largely cancelling the volatility
+> pair already on the book, unwinding a position through the opening path and bypassing the
+> exits stamped at its entry. The rehearsal caught this itself and abstained; this rule
+> makes that reasoning binding rather than dependent on the agent noticing. Netting the
+> ledger properly is the real fix and belongs after the contest.
 
 > Amended 2026-08-31 (single-name admission, Wes-ratified). The income book above may
 > also trade **AVGO**, on the same structures and the same dollar caps. The tactical
