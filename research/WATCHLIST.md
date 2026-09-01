@@ -7,7 +7,26 @@ per-run limits, and the broker's gate.
 
 ## Approved standing intents
 
-(none)
+- **WL-5** (run-0845 → approved 2026-09-01 09:00 CT): if a later run today measures SPY Sep 8
+  still inside the Mid band, sell a SPY Sep 8 bear call vertical, short strike inside the
+  0.20-0.30 delta band, half size (max loss at most $2,500), credit floor one fifth of the
+  width per §2's Mid-regime rule. Executable once; a second short-call structure in SPY beyond
+  this one is a fresh proposal.
+
+  MODIFICATION (strike guard): neither strike may coincide with an existing ledger leg's strike
+  at the same expiry and right; if the indicated strike would, shift the spread $1 further from
+  it.
+
+  On the collision the proposing run flagged: the Sep 4 pair's 768 and 773 are a different
+  expiry. The defined-risk gate computes worst case over same-expiry groups
+  (`shim/defined_risk.py:481`, and its refusal text names "the {root} {expiry} book"), and
+  distinct expiries are distinct contracts at the venue, so they neither net nor group with a
+  Sep 8 structure. The guard above therefore constrains nothing today and binds only if a Sep 8
+  position is opened first, which a later run could do. Strikes are chosen by the delta rule,
+  not named here, because naming them at 09:00 would fix a number the run must measure at
+  execution.
+
+  Expires 2026-09-01 close.
 
 ## Proposed, awaiting ruling
 
