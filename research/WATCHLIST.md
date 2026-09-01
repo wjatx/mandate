@@ -7,19 +7,24 @@ per-run limits, and the broker's gate.
 
 ## Approved standing intents
 
-- **WL-3** (cal-1325 → approved 2026-08-28 13:38 CT): thesis-falsification close. If QQQ
-  trades below 706 before the Sep 4 close, close cal-1315's QQQ 717/722 bull call at
-  market, whether or not the stored value stop (1.24) has triggered. Basis: 706 is the
-  memo's own falsification level, cited at entry; this is a pre-registered invalidation
-  condition ruled in advance, not an in-band discretionary close, and it only reduces
-  risk. Executable by any acting run observing the trigger. Expires 2026-09-04 close.
-
+(none)
 
 ## Proposed, awaiting ruling
 
 (none)
 
 ## Ruled: rejected, expired, executed
+
+- **WL-3** (cal-1325 → approved 2026-08-28 13:38 CT → **OVERTAKEN 2026-09-01 08:30 CT**): the
+  thesis-falsification close of cal-1315's QQQ 717/722 bull call below 706. The supervisor's
+  first pass of the day closed that position on its stored value stop before QQQ reached the
+  trigger: value 0.74 against a 2.48 debit (0.30x) versus the stop stamped at entry of 1.24,
+  both legs closed shorts-first. The intent's action target no longer exists and its trigger
+  can no longer do anything, so it is recorded overtaken rather than expired. The reasoning
+  behind it stands and is worth keeping: 706 was the memo's own falsification level, cited at
+  entry, and pre-registering the invalidation is what kept the position from being closed
+  discretionarily in-band over the weekend. That the value stop arrived first is the exit
+  precedence in §4 working as written, clock then value stop then take-profit.
 
 - **WL-4** (cal-1345 → approved with modification 2026-08-28 14:12 CT → **EXPIRED 2026-08-31
   close**): the second QQQ Sep 4 bull call debit vertical above 718. The intent ran its full
