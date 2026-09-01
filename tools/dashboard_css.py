@@ -98,9 +98,9 @@ tr.deny td:first-child { box-shadow: inset 2px 0 0 var(--critical); }
 tr.gate td { background: var(--gate-bg); }
 tr.gate td:first-child { box-shadow: inset 2px 0 0 var(--warn); }
 code { font: .8rem/1 ui-monospace, SFMono-Regular, Menlo, monospace; }
-pre.verify { background: var(--panel, #0f1115); border: 1px solid var(--line, #262a33);
+pre.verify { background: var(--plane); border: 1px solid var(--border);
   border-radius: 6px; padding: .85rem 1rem; overflow-x: auto; margin: 0 0 .9rem; }
-pre.verify code { font-size: .8rem; line-height: 1.6; color: var(--ink, #e6e8ec);
+pre.verify code { font-size: .8rem; line-height: 1.6; color: var(--ink);
   white-space: pre; }
 .vnote { color: var(--ink-2); font-size: .85rem; margin: 0 0 .7rem; max-width: 62ch; }
 details.reads { margin-top: 1.1rem; border-top: 1px solid var(--border); padding-top: .8rem; }

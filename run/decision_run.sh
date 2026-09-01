@@ -16,7 +16,7 @@ this run. A run that opens nothing is a successful run."
 
 log "=== decision run ${RUN_N} starting ==="
 
-charter_prompt "$CODA" | MCP_TIMEOUT=240000 claude -p \
+charter_prompt "$CODA" | MCP_TIMEOUT=240000 claude -p --model "$AGENT_MODEL" \
   --mcp-config .mcp.json --strict-mcp-config \
   --allowedTools \
   "${BROKER_READ_TOOLS[@]}" \

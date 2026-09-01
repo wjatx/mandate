@@ -651,6 +651,21 @@ def counts_strip(counts, n_gate) -> str:
             f'<p class="note">{esc(GATE_TAPE_CAVEAT)}</p>')
 
 
+def agent_model() -> str:
+    """The model that decides, read from the same line every acting run uses.
+
+    Reading run/lib.sh rather than hardcoding it here means the published page
+    cannot claim one model while the runs use another.
+    """
+    try:
+        for line in (ROOT / "run" / "lib.sh").read_text().splitlines():
+            if line.startswith("AGENT_MODEL="):
+                return line.split("=", 1)[1].strip().strip('"')
+    except OSError:
+        pass
+    return "unrecorded"
+
+
 def reproduce_section(records, sup_records, refusals) -> str:
     """Tell the reader how to check the record themselves, with live numbers.
 
@@ -671,6 +686,12 @@ python3 tools/verify_tape.py tape/audit.jsonl</code></pre>
   <strong>{len(sup_records)}</strong> supervisor records, and
   <strong>{len(refusals)}</strong> defined-risk refusals in the unchained sidecar.
   Chain head <code>{esc(short_digest(head))}</code>.</p>
+  <p class="vnote">The decisions are made by <strong>{esc(agent_model())}</strong>, pinned
+  in <code>run/lib.sh</code> and passed explicitly to every scheduled run. It is pinned for
+  the same reason the broker's dependencies are: an unpinned model can change under a
+  running system without raising anything, and a silent swap is worse than a loud break.
+  Each run also logs the model it actually used, so the record shows what decided rather
+  than what was configured.</p>
   <p class="vnote">The two files are different kinds of evidence. The tapes are
   hash-chained, so editing, dropping, or reordering any record breaks every hash
   after it. <code>shim_refusals.jsonl</code> is an ordinary log with no integrity

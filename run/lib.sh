@@ -19,6 +19,17 @@ cd "$ROOT" || exit 4
 ALARM_FILE="$ROOT/state/ALARM"
 AGENT_TAPE="$ROOT/state/audit.jsonl"
 
+# The model that decides. Pinned deliberately: `claude -p` without --model takes
+# whatever the CLI default happens to be, which is per-machine, unrecorded, and
+# can change under a running contest. It already did — the 2026-08-31 morning
+# decision runs and that evening's rehearsals ran on different models because
+# the operator changed a global default mid-day, and nothing anywhere recorded
+# it. A dependency that swaps silently is worse than one that breaks loudly;
+# fastmcp 4.0.0 at least raised ImportError. Every acting run passes this, and
+# tools/build_dashboard.py reads THIS line so the published page cannot drift
+# from what actually ran.
+AGENT_MODEL="opus[1m]"
+
 # The agent's full admitted surface, one quoted argument each. The check run
 # deliberately passes a subset — see run/check_run.sh.
 BROKER_READ_TOOLS=(
@@ -101,6 +112,7 @@ preflight() {
   rm -f /tmp/mandate-lock-pre.$$
 
   log "preflight OK: not a weekend, no ALARM, tape verifies, charter lock verifies."
+  log "model: $AGENT_MODEL"
 }
 
 postflight() {

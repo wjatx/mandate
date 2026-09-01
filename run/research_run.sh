@@ -10,6 +10,12 @@
 set -u
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")/.." && pwd)"
+
+# This pass does not source run/lib.sh (it deliberately carries no broker env),
+# so lift the single model pin out of it rather than keeping a second copy that
+# could drift. See the note beside AGENT_MODEL in lib.sh for why it is pinned.
+AGENT_MODEL="$(sed -n 's/^AGENT_MODEL="\(.*\)"$/\1/p' "$ROOT/run/lib.sh")"
+: "${AGENT_MODEL:?could not read AGENT_MODEL from run/lib.sh}"
 cd "$ROOT" || exit 4
 
 MEMO="research/MEMO-$(date +%F).md"
@@ -30,7 +36,7 @@ TODAY="$(date +%F)"
 
 # Heredoc piped straight through sed (no command substitution around it:
 # the system bash 3.2 cannot parse that) with the two placeholders filled.
-sed -e "s|__MEMO__|$MEMO|g" -e "s|__DATE__|$TODAY|g" -e "s|__SPOTS__|$SPOTS_LINE|g" <<'EOF' | claude -p \
+sed -e "s|__MEMO__|$MEMO|g" -e "s|__DATE__|$TODAY|g" -e "s|__SPOTS__|$SPOTS_LINE|g" <<'EOF' | claude -p --model "$AGENT_MODEL" \
   --strict-mcp-config \
   --allowedTools "WebSearch" "WebFetch" "Edit(research/**)"
 You are the research pass for mandate, an autonomous defined-risk options
