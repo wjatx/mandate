@@ -174,6 +174,46 @@ per-run limits, and the broker's gate.
   > RULING (2026-09-01 12:02 CT): DEFERRED, per §6's third option, session operator standing in. The intent gates itself on a research pass supplying an AVGO thesis, and none exists; approving before the thesis would authorize a trade on arithmetic alone, which §2 forbids, and rejecting would discard measured chain work that stays useful tomorrow. It stands deferred until a memo carries an AVGO read or the Sep 4 expiry makes it moot. Not executable while deferred.
 ## Ruled: rejected, expired, executed
 
+- **WL-14** (run-1415, proposed 2026-09-01 14:15 CT → **ROUTED TO THE DESIGN PASS 2026-09-01 14:25 CT**, written into this file by the run rather
+  than left for transcription): **aggregate identical legs against the per-position cap at the
+  gate.** Amendment candidate, not an executable standing intent. It names no trade, and like
+  WL-10 and WL-11 the operator should route it to the ceremony or the post-contest design list.
+
+  What this run hit, and unlike WL-11 it is observed rather than computed. run-1245 placed a
+  SPY Sep 3 767/768 bear call, 20 contracts at a $0.26 credit limit (order 47626973). It never
+  filled and was still resting `new` at 14:15 CT, 2h21m later. The book already held **66
+  contracts of that exact spread** from run-0845. Had the 20 filled, the venue would have held
+  86 contracts of one spread, one expiry, one strike pair: **86 x 0.74 x 100 = $6,364 of max
+  loss, against §5's $5,000 per-position ceiling.**
+
+  The gate passed it because it scores one order at a time. This is verified from the ledger,
+  not inferred [read: state/risk_ledger.json]: rows `run-0845-spy-bearcall-767-768` ($4,884)
+  and `47626973` ($1,480) carry **identical legs, identical expiry, and identical stamped exits**
+  (tp 0.13, stop 0.52), and are counted as two independent positions.
+
+  Why this outranks WL-10 and WL-11 in kind, not just in degree. Those two concern a limit the
+  charter does not have (concentration) and a supervisor hazard the gate cannot see (leg
+  collision). This one concerns a limit the charter **does** have, enforced structurally, pinned
+  in the signed envelope, and reachable around by splitting one position across two orders. No
+  intent to evade is needed; run-1245 was adding to a winner and the arithmetic did the rest.
+
+  Proposed shape, narrow: before admitting an opening order, sum its max loss with every existing
+  ledger row whose legs and expiry match exactly, and test the combined figure against the
+  per-position cap. Same ledger scan the gate already performs, one equality test wider than the
+  offsetting check. It would have refused this order and nothing else on the book.
+
+  **Second finding, smaller and fail-safe, recorded here rather than as its own item.** The
+  ledger keeps a row for an order that never filled: `47626973` still carries $1,480 after the
+  cancel, so aggregate open risk reads $29,076 when the true figure is $27,596. The bias runs
+  toward refusing trades the book could afford rather than admitting ones it cannot, which is the
+  right direction to fail, but the aggregate cap is enforced against this number and it drifts
+  upward with every unfilled day order the book leaves behind. A reconciliation pass at the
+  supervisor's cadence would settle it.
+
+  AWAITING OPERATOR RULING; not executable.
+
+  > RULING (2026-09-01 14:25 CT): ROUTED as it asks, session operator standing in. Third self-routing amendment candidate today and the sharpest: identical-leg aggregation is the narrow, mechanically checkable core of items 15 and 17, and the cancel that accompanied it is the pattern's first in-process enforcement. Design item 21, marked as the likely first fix of the post-contest pass because it is small, testable, and already has a live incident behind it.
+
 - **WL-11** (run-1245, proposed 2026-09-01 12:45 CT) → **ROUTED TO THE DESIGN PASS 2026-09-01 13:02 CT**): **a leg-collision check at the opening
   gate.** Amendment candidate, not an executable standing intent — it names no trade, and like
   WL-10 the operator should route it to the ceremony or the post-contest design list.
