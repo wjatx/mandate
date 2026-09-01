@@ -8,6 +8,8 @@
 		<string>/Users/wesjackson</string>
 		<key>PATH</key>
 		<string>/opt/homebrew/bin:/Users/wesjackson/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+		<key>UV_CONSTRAINT</key>
+		<string>/Users/wesjackson/Code/mandate/run/uv-constraints.txt</string>
 	</dict>
 	<key>Label</key>
 	<string>com.mandate.research</string>
