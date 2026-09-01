@@ -19,7 +19,6 @@ file cannot be shipped by accident.
 
 from __future__ import annotations
 
-import json
 import subprocess
 import sys
 from pathlib import Path
@@ -112,6 +111,7 @@ def verify(path: Path) -> bool:
         [sys.executable, str(ROOT / "tools" / "verify_tape.py"), str(path)],
         capture_output=True,
         text=True,
+        check=False,  # a non-zero verify is handled below, not raised
     )
     sys.stdout.write(result.stdout)
     return result.returncode == 0
