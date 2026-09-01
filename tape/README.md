@@ -4,7 +4,7 @@ Every call the agent or the supervisor makes goes through a broker process that
 holds the API keys. The broker decides each call against a signed grant and
 writes one record here before returning. These two files are those records.
 
-- `audit.jsonl` — 180 records written for the trading agent.
+- `audit.jsonl` — 190 records written for the trading agent.
 - `audit-supervisor.jsonl` — 317 records written for the exit supervisor,
   a separate principal with its own grant and no order-placing operation.
 

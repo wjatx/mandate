@@ -178,6 +178,14 @@ implied volatility on the 2-7 DTE chain, straddle-averaged, divided by 20-day re
 volatility from daily bars through the prior close. One ratio rule covers every admitted
 name, so there is no row per ticker to fit.
 
+The realized-volatility estimator is fixed, because leaving it open makes the regime
+ambiguous rather than merely approximate: **20 daily log returns, sample standard
+deviation (n-1), annualized by the square root of 252, computed through the most recent
+daily bar the feed will serve.** A rehearsal on 2026-08-31 found the available
+conventions straddling the Mid/High boundary on SPY at a ratio of 1.29 against an edge of
+1.30, which means two runs could read the same market and declare different regimes. A
+rule that does not name its estimator is not deterministic.
+
 Three measurement rules bind, each from an observed failure. Use the straddle average: the
 vendor's per-strike IV carries a call-over-put divergence at the same strike (2.31 vol
 points on QQQ, reproduced twice on 2026-08-31) that is a forward-assumption artifact, not

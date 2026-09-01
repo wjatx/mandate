@@ -45,8 +45,14 @@ log "=== REHEARSAL run starting (no open or exit tools) — ${WHY} ==="
 charter_prompt "$CODA" | MCP_TIMEOUT=240000 claude -p --model "$AGENT_MODEL" \
   --mcp-config .mcp.json --strict-mcp-config \
   --allowedTools \
-  "${BROKER_READ_TOOLS[@]}"
+  "${BROKER_READ_TOOLS[@]}" &
+AGENT_PID=$!
+# A hung agent would block every later run on this serialised schedule.
+timeout_sentinel "$AGENT_PID" &
+SENTINEL_PID=$!
+wait "$AGENT_PID"
 rc=$?
+kill "$SENTINEL_PID" 2>/dev/null || true
 
 log "=== REHEARSAL complete (exit $rc); nothing was placed ==="
 

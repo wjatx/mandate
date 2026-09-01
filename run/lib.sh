@@ -55,6 +55,39 @@ BROKER_OPEN_TOOLS=(
 
 log() { echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] $*"; }
 
+# Wall-clock ceiling on one agent invocation. macOS ships no timeout(1).
+#
+# A hung run is not a local failure. The half-hourly decision runs serialise on a
+# single launchd job, so launchd skips a firing while the previous one is still
+# working — one hang silently cancels every remaining run that day, and nothing
+# raises. The concrete risk the operator identified on 2026-08-31: exhausting a
+# model's credits mid-run may hang rather than error, and the only reason that
+# was caught during the day was a human watching an interactive session.
+#
+# 15 minutes is roughly three times an observed decision run and half the cadence
+# interval, so it cannot fire on a slow-but-working run and cannot overlap the
+# next one.
+RUN_TIMEOUT_S="${RUN_TIMEOUT_S:-900}"
+
+# Terminate $1 if it outlives RUN_TIMEOUT_S. Run as a background sentinel and
+# kill it once the agent exits normally.
+timeout_sentinel() {
+  local pid="$1" waited=0
+  while kill -0 "$pid" 2>/dev/null; do
+    sleep 5
+    waited=$((waited + 5))
+    if [ "$waited" -ge "$RUN_TIMEOUT_S" ]; then
+      log "TIMEOUT: agent exceeded ${RUN_TIMEOUT_S}s and is being terminated so the"
+      log "TIMEOUT: next scheduled run is not blocked behind it. Nothing was placed"
+      log "TIMEOUT: by this run beyond whatever already reached the broker."
+      kill -TERM "$pid" 2>/dev/null
+      sleep 10
+      kill -KILL "$pid" 2>/dev/null
+      return
+    fi
+  done
+}
+
 verify_tape() {
   # Verification needs the broker env floor for the HMAC key; run it in a
   # subshell so the floor does not leak into the `claude` process.
