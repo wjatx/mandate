@@ -7,6 +7,21 @@ per-run limits, and the broker's gate.
 
 ## Approved standing intents
 
+- **WL-13** (run-1345, proposed 2026-09-01 13:45 CT as "WL-12"; renumbered by the operator in
+  transcription because run-1315 had already claimed the number — both proposals exist only in
+  the run logs): if SPY trades back to 765 or higher and a Sep 8 call at 775 or above measures
+  inside the 0.20-0.30 delta band with credit clearing the Mid floor at natural pricing, one
+  bear call at half size, short strike 775 or above. The 775 floor keeps it collision-free and
+  strictly above every held short. Expires 2026-09-02 close. APPROVED by Wes 2026-09-01 14:50 CT, with the full-deployment package; executable within every ordinary limit.
+
+- **WL-12** (run-1315, proposed 2026-09-01 13:15 CT; transcribed from the run record by the
+  operator 2026-09-01 13:55 CT — the run did not write it into this file): if the next §7
+  research pass carries a SPY read that is up-or-sideways in the §2 sense, a decision run may
+  open one SPY bull put spread at half size, subject to every ordinary limit and the collision
+  check. Rationale as filed: the only admitted structure that would diversify the book's
+  single-question concentration rather than deepen it. Expires 2026-09-04 close. AWAITING
+  OPERATOR RULING; not executable.
+
 - **WL-6** (run-0915 → approved with modification 2026-09-01 09:25 CT → **OPENED 2026-09-01
   09:48 CT by run-0945**): open a QQQ Sep 8
   volatility pair, a call debit vertical and a put debit vertical on the same underlying and
@@ -102,22 +117,6 @@ per-run limits, and the broker's gate.
 (none — WL-5 executed by run-0915; see below)
 
 ## Proposed, awaiting ruling
-
-- **WL-12** (run-1315, proposed 2026-09-01 13:15 CT; transcribed from the run record by the
-  operator 2026-09-01 13:55 CT — the run did not write it into this file): if the next §7
-  research pass carries a SPY read that is up-or-sideways in the §2 sense, a decision run may
-  open one SPY bull put spread at half size, subject to every ordinary limit and the collision
-  check. Rationale as filed: the only admitted structure that would diversify the book's
-  single-question concentration rather than deepen it. Expires 2026-09-04 close. AWAITING
-  OPERATOR RULING; not executable.
-
-- **WL-13** (run-1345, proposed 2026-09-01 13:45 CT as "WL-12"; renumbered by the operator in
-  transcription because run-1315 had already claimed the number — both proposals exist only in
-  the run logs): if SPY trades back to 765 or higher and a Sep 8 call at 775 or above measures
-  inside the 0.20-0.30 delta band with credit clearing the Mid floor at natural pricing, one
-  bear call at half size, short strike 775 or above. The 775 floor keeps it collision-free and
-  strictly above every held short. Expires 2026-09-02 close. AWAITING OPERATOR RULING; not
-  executable.
 
 - **WL-9** (run-1145, proposed 2026-09-01 11:45 CT → **DEFERRED 2026-09-01 12:02 CT, awaiting an AVGO research thesis**): **AVGO Sep 4 income trade, gated on a
   directional read.** If the §7 research pass produces an AVGO directional thesis in the §2
