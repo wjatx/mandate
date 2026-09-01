@@ -103,7 +103,55 @@ per-run limits, and the broker's gate.
 
 ## Proposed, awaiting ruling
 
-(none)
+- **WL-9** (run-1145, proposed 2026-09-01 11:45 CT): **AVGO Sep 4 income trade, gated on a
+  directional read.** If the §7 research pass produces an AVGO directional thesis in the §2
+  sense (one sentence, falsified at a named level) before the Wednesday 2026-09-02 close, then
+  a decision run may open one AVGO Sep 4 credit spread on the side that thesis supports, at
+  full size under the High regime measured below, subject to every ordinary limit. If no such
+  thesis arrives, the item expires unexercised. Expiry: 2026-09-02 close, since AVGO reports
+  that evening and the setup does not survive it.
+
+  Why this is a watch item and not a trade. The measurement is the strongest dispersion signal
+  the book has seen: AVGO Sep 4 straddle-averaged ATM IV at the 370 strike (call 111.57%, put
+  112.24%) is **111.9%** against RV20 of **43.99%** through the 2026-08-31 close, a ratio of
+  **2.544**, deep High. QQQ Sep 8 measures **0.873**, Low, on the same rule. Selling rich
+  single-name variance while owning cheap index variance is a coherent pair, and the book
+  already holds the index leg (the WL-6 pair). The charter admits AVGO to the income book and
+  has already ruled that the gap risk is the deliberate choice.
+
+  What blocks it is §2's direction requirement, not the arithmetic. A bull put needs an "up or
+  sideways" read and a bear call a "down or sideways" one; today's memo carries **no AVGO
+  thesis at all**, and its only AVGO-adjacent sentence (the QQQ basis note that the debate is
+  "whether an AI revenue outlook clears a bar that has drifted above consensus") cuts against
+  the put side rather than supporting it. An iron condor needs a genuinely range-bound read,
+  which an 8.1% implied earnings move is the opposite of. So the run abstained on the read.
+
+  The arithmetic, recorded so the next run need not re-derive it. Spot 369.25. At natural
+  pricing nothing clears the High floor of one quarter of width; at mid, one candidate clears
+  with room: **350/345 bull put**, short delta -0.2794 (in band), mid credit **1.52** against a
+  **1.25** floor, natural 1.21. The call side is worse: the best bear call, 395/397.5, reaches
+  0.635 at mid against a 0.625 floor, a one-cent margin on a 41-cent-wide market, which is not
+  a measurement worth trading. Note the asymmetry this creates: if a read arrives, only the
+  **put** side is actually reachable, so a bearish AVGO thesis would authorize a trade the
+  chain cannot price. That is worth the operator knowing before ordering a research pass.
+
+  **Flagged for the operator, no action proposed — the ledger's blind spot runs both ways.**
+  §2's unwind guard exists because "the risk ledger sums each position's maximum loss and nets
+  nothing across positions", so an *offsetting* open records risk it does not add. The mirror
+  case is now the book's largest exposure and nothing checks it: **stacking** same-direction
+  positions in the same strike region records them as independent when they are nearly
+  perfectly correlated. After this run's open, SPY short-call risk is **$14,494** across five
+  spreads — Sep 3 767/768 ($4,884), Sep 8 770/772 ($2,400), 771/774 ($2,290), 769/772 ($2,464)
+  and 769/773 ($2,456) — about 14.7% of equity riding on one question, whether SPY rallies
+  through roughly 770 inside seven days. The $85,000 aggregate cap counts that as $14,494 of
+  diversified risk; economically it is closer to one position. This run took the fifth spread
+  anyway, because the charter has no concentration limit and a run should not invent one and
+  then abstain on it — but it is recording that the restraint it did exercise (one open, not
+  two, and a short strike no lower than the book's existing lowest) came from judgment the
+  rules do not supply. Whether the aggregate cap should net correlated exposure, or whether a
+  per underlying-and-direction sub-cap belongs in the envelope, is a design question for after
+  the contest.
+
 
 
 ## Ruled: rejected, expired, executed
