@@ -158,6 +158,47 @@ per-run limits, and the broker's gate.
   > RULING (2026-09-01 12:02 CT): DEFERRED, per §6's third option, session operator standing in. The intent gates itself on a research pass supplying an AVGO thesis, and none exists; approving before the thesis would authorize a trade on arithmetic alone, which §2 forbids, and rejecting would discard measured chain work that stays useful tomorrow. It stands deferred until a memo carries an AVGO read or the Sep 4 expiry makes it moot. Not executable while deferred.
 ## Ruled: rejected, expired, executed
 
+- **WL-10** (run-1215, proposed 2026-09-01 12:15 CT → **ROUTED TO THE DESIGN PASS 2026-09-01 12:25 CT**): **a per-underlying-and-direction sub-cap
+  on correlated open risk.** This is an amendment request, not an executable standing intent —
+  it names no trade and the operator should route it to the ceremony or the post-contest design
+  list rather than approve it as an intent. Proposed shape: the income book may hold at most
+  **$15,000** of open risk on one underlying in one direction (all SPY short-call spreads
+  together, all SPY short-put spreads together, and likewise per name), measured on the same
+  max-loss basis the aggregate cap uses. Nothing else changes.
+
+  Why it is being asked for now, with this run's own numbers. run-1145 flagged that §2's unwind
+  guard has a mirror the ledger cannot see: the guard catches *offsetting* opens, but nothing
+  catches *stacking*. After this run's fill, SPY short-call risk is **$16,884** across six
+  spreads — Sep 3 767/768 ($4,884), Sep 8 770/772 ($2,400), 771/774 ($2,290), 769/772 ($2,464),
+  769/773 ($2,456), and this run's 770/773 ($2,390). The $85,000 aggregate cap counts that as
+  six diversified positions. Economically it is close to one: every dollar of it turns on
+  whether SPY rallies through roughly 770 within seven days. That is 17.2% of equity on a single
+  question, and it grew from 14.7% this run because a run with a compliant trade in front of it
+  and no rule against concentration has no principled place to stop.
+
+  The counter-argument, recorded so the ruling is made on both sides, and it is stronger than
+  run-1145's framing suggested. The $16,884 figure is the *unstopped* max loss, and no position
+  in the stack is unstopped: each carries a value stop at 2x credit, and the total credit
+  collected across the six is **$5,416**. The supervisor closes each spread near the credit it
+  collected, so the realistic bound on the whole stack is roughly $5,400 plus slippage — about
+  5.5% of equity, not 17.2%. §5 says exactly this ("every position carries its own value stop,
+  so the supervisor closes losers long before the breaker is reached"). A sub-cap set against
+  the unstopped number would therefore bind on a risk the book does not actually run, and would
+  have blocked this run's trade for the wrong reason. If the operator wants a sub-cap, measuring
+  it in **credit collected** rather than max loss is the honest denominator, and $15,000 of
+  max-loss is the wrong number to write down.
+
+  This run acted before asking, deliberately and within every limit. The charter has no
+  concentration rule, run-1145 established that a run should not invent one and then abstain on
+  it, and the trade cleared the delta band, the Mid credit floor, the half-size cap and the
+  gate. What the run did instead was bound its own discretion in two ways it is recording rather
+  than leaving implicit: it took **one** open rather than two, and it placed the short at **770**
+  rather than at the 768 or 769 strikes that were also in band and paid better, so the new spread
+  sits no closer to the money than anything already on the book. Both were judgment the rules do
+  not supply, which is the argument for the rule.
+
+  > RULING (2026-09-01 12:25 CT): ROUTED as the proposal itself requests. It names no trade and no trigger, so it is not a standing intent and the watchlist cannot hold it executable; it is an amendment candidate, and no amendment lands today by the standing plan. The design-pass entry records both denominators and adds the caveat neither run stated: the credit-collected bound assumes stops execute near their triggers, and this book holds through Friday's payrolls print, where a gap moves losses from the $5,416 bound toward the $16,884 one. Any sub-cap design must price that regime, not only the continuous one.
+
 - **WL-8** (run-1115, proposed 2026-09-01 11:15 CT → **REJECTED 2026-09-01 11:30 CT**): treat the **SPY Sep 4 volatility pair as a
   unit on the downside**, the way §4's `vol_pair` flag would if the pair were not older than the
   fix. If the call leg (768/773, 6 contracts, 1.84 debit) is closed by the per-leg value stop
