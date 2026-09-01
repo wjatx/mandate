@@ -7,32 +7,49 @@ per-run limits, and the broker's gate.
 
 ## Approved standing intents
 
-- **WL-5** (run-0845 → approved 2026-09-01 09:00 CT): if a later run today measures SPY Sep 8
-  still inside the Mid band, sell a SPY Sep 8 bear call vertical, short strike inside the
-  0.20-0.30 delta band, half size (max loss at most $2,500), credit floor one fifth of the
-  width per §2's Mid-regime rule. Executable once; a second short-call structure in SPY beyond
-  this one is a fresh proposal.
-
-  MODIFICATION (strike guard): neither strike may coincide with an existing ledger leg's strike
-  at the same expiry and right; if the indicated strike would, shift the spread $1 further from
-  it.
-
-  On the collision the proposing run flagged: the Sep 4 pair's 768 and 773 are a different
-  expiry. The defined-risk gate computes worst case over same-expiry groups
-  (`shim/defined_risk.py:481`, and its refusal text names "the {root} {expiry} book"), and
-  distinct expiries are distinct contracts at the venue, so they neither net nor group with a
-  Sep 8 structure. The guard above therefore constrains nothing today and binds only if a Sep 8
-  position is opened first, which a later run could do. Strikes are chosen by the delta rule,
-  not named here, because naming them at 09:00 would fix a number the run must measure at
-  execution.
-
-  Expires 2026-09-01 close.
+(none — WL-5 executed by run-0915; see below)
 
 ## Proposed, awaiting ruling
 
-(none)
+- **WL-6** (run-0915, proposed 2026-09-01 09:20 CT): a QQQ **Sep 8 volatility pair** under §2's
+  volatility-thesis shape — paired call and put debit verticals, no directional view. Requesting a
+  ruling rather than acting on memo authority because WL-2 settled that a pair consumes both of a
+  run's two opens, and this run had already spent one on WL-5; a later run today could execute it
+  with both.
+
+  Measured this run, which is the point of the item: the §7 memo's QQQ volatility thesis was
+  explicitly flagged as *inferred from broad-market gauges, not from QQQ's own near-dated surface*,
+  and asked for a measured reading to settle it. That reading is now taken. QQQ Sep 8 ATM straddle
+  IV 14.74% (C/P both at the 709 strike, deltas 0.5016/-0.4984) against RV20 of 17.31% gives a
+  ratio of **0.851 — Low regime**, confirming the memo's claim: implied sits below what QQQ has
+  actually been realizing. The reading is not a band-edge case (710 gives 0.847, 711 gives 0.834;
+  the nearest edge is 1.00).
+
+  The thesis satisfies §2's volatility shape on every clause: dated macro events the position would
+  carry (Broadcom after Wednesday's close, August payrolls Friday), both after entry and before a
+  Sep 8 expiry; the position sits in the 2-7 DTE band at 7 DTE; measured IV in the low band. No
+  directional view is taken or needed, which matters because the memo names none for QQQ.
+  Falsified by the events passing, or by the regime leaving the low band.
+
+  Strikes and debits deliberately not fixed here, per the WL-5 precedent that a number chosen at
+  ruling time is stale by execution. Sizing would run inside §5 unchanged: each vertical at most
+  $5,000, tactical-book headroom ample ($2,234 of the $60,000 sub-cap in use). Low regime does not
+  halve size — that is the Mid income rule.
+
+  Requested expiry if approved: 2026-09-01 close, since the Broadcom binary is Wednesday evening
+  and the premium is cheapest before it.
 
 ## Ruled: rejected, expired, executed
+
+- **WL-5** (run-0845 → approved with modification 2026-09-01 09:00 CT → **EXECUTED 2026-09-01
+  09:18 CT by run-0915**): SPY **Sep 8 770/772 bear call**, 16 contracts, filled at $0.50 credit
+  (short 770 @ 1.62, long 772 @ 1.12) for $800 collected against $2,400 max loss. The trigger
+  measured true: SPY Sep 8 ATM straddle IV 10.38% against RV20 of 9.36% is a ratio of 1.109, inside
+  Mid and not near either edge. Short delta 0.2720 sits inside the 0.20-0.30 band; credit/width of
+  0.25 clears the Mid floor of one fifth with a quarter to spare; $2,400 is inside the half-size
+  ceiling of $2,500. The strike guard did not bind, as anticipated in the approval: no Sep 8 leg
+  existed to collide with. Gate stamped exits TP 0.25 and stop 1.00. Executable-once is now spent;
+  any further SPY short-call structure is a fresh proposal.
 
 - **WL-3** (cal-1325 → approved 2026-08-28 13:38 CT → **OVERTAKEN 2026-09-01 08:30 CT**): the
   thesis-falsification close of cal-1315's QQQ 717/722 bull call below 706. The supervisor's
