@@ -50,9 +50,18 @@ record as an inaction request and it is judged under the action mandate (section
 
 ## 2. The two books
 
+> Amended 2026-09-01 (IWM and DIA admitted to both books, Wes-ratified, full-deployment
+> package). Broad index ETFs only, on the unchanged section 3 ratio rule; the estimator is
+> honest for them exactly where the same day's AVGO finding shows it is dishonest for
+> single names. The point is structure supply: the collision and anti-offset guards bind
+> per underlying, and the cadence's first day exhausted SPY's compliant strike set by early
+> afternoon while eight slots sat open. These correlate with SPY, the concentration
+> findings routed to the design list apply across all four names, and a run declining a
+> correlated add on stated judgment remains approvable inaction.
+
 ### Core income
 
-Short vertical credit spreads on SPY and QQQ: bull put spreads when the read is up or
+Short vertical credit spreads on SPY, QQQ, IWM and DIA: bull put spreads when the read is up or
 sideways, bear call spreads when it is down or sideways.
 
 - Expiry 0 to 7 DTE, so theta realizes inside the trading window.
@@ -126,7 +135,7 @@ against it.
 
 ### Tactical directional
 
-Debit verticals (bull call, bear put) on the admitted underlyings, SPY and QQQ, at 2 to 7
+Debit verticals (bull call, bear put) on the admitted underlyings, SPY, QQQ, IWM and DIA, at 2 to 7
 DTE, entered only with genuine conviction sourced from the section 7 research memo. Defined
 risk equals the debit paid.
 
@@ -202,8 +211,16 @@ The strategy follows from the regime:
 
 - **High: sell premium** at full size. Credit spreads and iron condors, credit floor one
   quarter of width.
-- **Mid: sell premium at half size.** Credit spreads and iron condors at no more than half
-  the per-position risk cap, credit floor one fifth of width.
+- **Mid: sell premium** at the per-position cap, credit floor one fifth of width. Credit
+  spreads and iron condors. The tactical directional book may also **buy debit verticals
+  in Mid at half size** (max loss at most $2,500), on a section 2 conviction memo thesis
+  only. (Amended 2026-09-01: the half-size income rule is removed with section 5's, and
+  tactical conviction is admitted at Mid because the table's first live day left the
+  $60,000 tactical allocation reachable only in a Low regime; run-1415 correctly refused a
+  bear put at Mid as contradicting the declared regime while the memo's directional thesis
+  stood confirmed and unfalsified. Buying premium at a 1.1 to 1.3 ratio pays the variance
+  premium away, which is why this enters at half size and requires a named-falsifier
+  thesis; Low remains the full-size buying regime.)
 - **Low: buy premium.** Debit verticals on a directional thesis, or the long-volatility
   structures of section 2 on a volatility thesis. Low IV is the buying regime; the table
   is deliberately total, so every honest regime reading names a playable strategy.
@@ -214,7 +231,9 @@ a band edge, stale quotes, or a thin chain still resolve to abstain; "unclear" n
 measurement is untrustworthy, not that history is missing.
 
 A proposal that names no regime is invalid and must not be placed. A proposal whose strategy
-contradicts its own declared regime is invalid and must not be placed. Selling a full-size
+contradicts its own declared regime is invalid and must not be placed. (A half-size
+conviction debit vertical in Mid is regime-consistent under the 2026-09-01 amendment, not
+a contradiction.) Selling a full-size
 credit spread into low IV is the specific error this rule exists to catch, and the fix is to
 abstain rather than to re-argue the regime.
 
@@ -268,8 +287,12 @@ charter violation, not a discretionary hold.
 
 ## 5. Sizing
 
-- Max defined risk per position: **$5,000** (5% of the account). In a mid-IV regime the
-  income book enters at no more than half this, $2,500 (section 3).
+- Max defined risk per position: **$5,000** (5% of the account), in every regime that
+  permits the structure. (Amended 2026-09-01: the mid-IV half-size rule is removed. It
+  halved deployment on the trades the book actually finds, Mid was declared on SPY in ten
+  of twelve runs on the rule's first live day, while the Mid credit floor of one fifth of
+  width already prices the thinner premium. Size discipline in Mid is the floor's job, not
+  a second cap's.)
 - Total open defined risk across all positions: **$85,000** (about 88%). This is the
   structural ceiling on what the book can lose if every position maxes out; the daily
   circuit breaker below still trips first, so the breaker guards the day and this cap guards
