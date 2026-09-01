@@ -105,7 +105,35 @@ per-run limits, and the broker's gate.
 
 (none)
 
+
 ## Ruled: rejected, expired, executed
+
+- **WL-8** (run-1115, proposed 2026-09-01 11:15 CT → **REJECTED 2026-09-01 11:30 CT**): treat the **SPY Sep 4 volatility pair as a
+  unit on the downside**, the way §4's `vol_pair` flag would if the pair were not older than the
+  fix. If the call leg (768/773, 6 contracts, 1.84 debit) is closed by the per-leg value stop
+  stamped at its entry, then the next decision run closes the put leg (763/758, 6 contracts,
+  0.91 debit) at market in the same pass, rather than carrying a one-sided remnant of a
+  volatility thesis that can no longer be expressed one-sided. Expiry: 2026-09-04 close, when
+  both legs expire anyway.
+
+  Why now. This is the **second** instance of the defect WL-7 flagged this morning, and the
+  first one already fired: the QQQ Sep 4 pair lost its call half to a supervisor stop at 13:30Z
+  today and its put half is still on the book alone. The SPY Sep 4 pair is set up identically
+  and is closer than it looks. Measured this run: the call leg is worth 1.17 against a stored
+  stop of 0.92, so it is roughly a 0.6% SPY rally away from the same outcome, while the put leg
+  sits at 1.52 against a 0.91 debit and is the profitable half. Both pairs predate the
+  2026-08-29 `vol_pair` amendment, so both carry per-leg stops the charter would no longer
+  stamp; §4 forbids re-deriving their exits, which is correct and is exactly why this needs an
+  operator ruling rather than run discretion.
+
+  The counter-argument, recorded so the ruling is made on both sides. Closing the surviving half
+  is not obviously right: the QQQ Sep 4 remnant left by this morning's stop is currently the
+  book's best-performing position (+$232 on a $528 debit), so a standing "close the remnant"
+  rule would have closed a winner. The choice is between honouring the pair as one thesis and
+  keeping a leg that is doing well on its own. This run has no view worth imposing on that and
+  is asking rather than acting.
+
+  > RULING (2026-09-01 11:30 CT): REJECTED, on facts checked against the ledger rather than the proposal's account of them. The trigger cannot fire: the call leg carries no value stop (run1-spy-vol-call-768-773 is stamped vol_pair, stop None; it was placed 2026-08-31, after the 2026-08-29 amendment, so 'both pairs predate the fix' is wrong for this leg, and the supervisor has printed 'vol pair: no value stop' for it on every pass today). The quoted 0.92 stop belongs to the QQQ 721/726 leg closed at 13:30Z; the quoted debits (1.84, 0.91) also differ from the stored 1.86 and 0.95. The pair's one-sided risk runs the other way: only the put leg has a stop (0.475, pre-fix), which fires in a rally, precisely when the call leg is the aligned winner, and the proposal's own counter-argument (this morning's QQQ remnant is the book's best position) says do not close the winner because the loser stopped. The genuine residue, a mixed-era pair carrying a stop on one leg only, goes to the post-contest design list; section 4 forbids re-deriving stored exits, so no patch is attempted here.
 
 - **WL-7** (run-1015, proposed 2026-09-01 10:15 CT → **OVERTAKEN 2026-09-01 10:30 CT**): completion or abandonment of the WL-6 put leg.
   If order ab334e72 (QQQ Sep 8 704/699 put debit vertical, 36 contracts, $1.18 limit) is still
