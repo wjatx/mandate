@@ -7,37 +7,36 @@ per-run limits, and the broker's gate.
 
 ## Approved standing intents
 
+- **WL-6** (run-0915 → approved with modification 2026-09-01 09:25 CT): open a QQQ Sep 8
+  volatility pair, a call debit vertical and a put debit vertical on the same underlying and
+  expiry, as one §2 volatility thesis carrying Broadcom's Wednesday-evening report and Friday's
+  payrolls print. Executable only while QQQ Sep 8 still measures Low at the acting run's own
+  measurement. It consumes both of a run's opens and two slots per WL-2. Sizing, strike
+  selection and the credit/debit arithmetic are the charter's, not named here.
+
+  **MODIFICATION, and it is the condition of the approval: this pair is closed on Friday
+  2026-09-04 regardless of value.** Any decision run on that day at or after 13:15 CT closes
+  both legs at market; if none has by the 14:15 CT run, that run closes them. Basis: both
+  catalysts the thesis names are spent by Friday morning, Monday 2026-09-07 is a market
+  holiday, and a Sep 8 long-premium position held past Friday therefore pays three days of
+  decay against no remaining event. This is a pre-registered close on WL-3's precedent, ruled
+  in advance and risk-reducing, not a §4 re-litigation.
+
+  Two limits on that close, recorded so nobody assumes otherwise. The supervisor does not
+  enforce it: it enforces exits stamped at entry, and the §4 same-day clock only reaches legs
+  expiring that day, so a Sep 8 position on Friday is untouched by it. The close therefore
+  depends on a Friday decision run executing, and if Friday's runs fail the pair rides into the
+  holiday weekend unmanaged. And the charter's ordinary exits still take precedence: if the
+  take-profit fires first, the pair closes then and this clause never applies.
+
+  The opening authorization expires 2026-09-01 close. The closing obligation does not; it
+  attaches to the position if the pair is opened and binds through Friday.
+
 (none — WL-5 executed by run-0915; see below)
 
 ## Proposed, awaiting ruling
 
-- **WL-6** (run-0915, proposed 2026-09-01 09:20 CT): a QQQ **Sep 8 volatility pair** under §2's
-  volatility-thesis shape — paired call and put debit verticals, no directional view. Requesting a
-  ruling rather than acting on memo authority because WL-2 settled that a pair consumes both of a
-  run's two opens, and this run had already spent one on WL-5; a later run today could execute it
-  with both.
-
-  Measured this run, which is the point of the item: the §7 memo's QQQ volatility thesis was
-  explicitly flagged as *inferred from broad-market gauges, not from QQQ's own near-dated surface*,
-  and asked for a measured reading to settle it. That reading is now taken. QQQ Sep 8 ATM straddle
-  IV 14.74% (C/P both at the 709 strike, deltas 0.5016/-0.4984) against RV20 of 17.31% gives a
-  ratio of **0.851 — Low regime**, confirming the memo's claim: implied sits below what QQQ has
-  actually been realizing. The reading is not a band-edge case (710 gives 0.847, 711 gives 0.834;
-  the nearest edge is 1.00).
-
-  The thesis satisfies §2's volatility shape on every clause: dated macro events the position would
-  carry (Broadcom after Wednesday's close, August payrolls Friday), both after entry and before a
-  Sep 8 expiry; the position sits in the 2-7 DTE band at 7 DTE; measured IV in the low band. No
-  directional view is taken or needed, which matters because the memo names none for QQQ.
-  Falsified by the events passing, or by the regime leaving the low band.
-
-  Strikes and debits deliberately not fixed here, per the WL-5 precedent that a number chosen at
-  ruling time is stale by execution. Sizing would run inside §5 unchanged: each vertical at most
-  $5,000, tactical-book headroom ample ($2,234 of the $60,000 sub-cap in use). Low regime does not
-  halve size — that is the Mid income rule.
-
-  Requested expiry if approved: 2026-09-01 close, since the Broadcom binary is Wednesday evening
-  and the premium is cheapest before it.
+(none)
 
 ## Ruled: rejected, expired, executed
 
