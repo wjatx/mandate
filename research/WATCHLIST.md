@@ -7,16 +7,6 @@ per-run limits, and the broker's gate.
 
 ## Approved standing intents
 
-- **WL-4** (cal-1345 → approved with modification 2026-08-28 14:12 CT): if QQQ trades
-  above 718 while this intent stands, open a second QQQ Sep 4 bull call debit vertical,
-  long strike nearest below spot at trigger, $5 wide, 4 contracts, total debit at most
-  $2,500 — provided the QQQ regime still measures Low, a slot is free, and the thesis is
-  unfalsified. MODIFICATION (netting guard, per cal-1335's precedent): neither strike may
-  coincide with an existing ledger leg's strike on the same expiry and right; if the
-  indicated strike would net against a book leg at the venue, shift the spread $1 further
-  from it. Expires 2026-08-31 close; any extension toward the Sep 2 earnings binary waits
-  on the weekend memo refresh.
-
 - **WL-3** (cal-1325 → approved 2026-08-28 13:38 CT): thesis-falsification close. If QQQ
   trades below 706 before the Sep 4 close, close cal-1315's QQQ 717/722 bull call at
   market, whether or not the stored value stop (1.24) has triggered. Basis: 706 is the
@@ -30,6 +20,14 @@ per-run limits, and the broker's gate.
 (none)
 
 ## Ruled: rejected, expired, executed
+
+- **WL-4** (cal-1345 → approved with modification 2026-08-28 14:12 CT → **EXPIRED 2026-08-31
+  close**): the second QQQ Sep 4 bull call debit vertical above 718. The intent ran its full
+  term and the 718 trigger never fired while it stood. It was deliberately left unedited
+  through Monday so post 2's untouched-inputs claim stayed true, and is recorded as expired
+  here on 2026-09-01 before the day's first decision run. Not executable. By the entry's own
+  extension clause, any successor aimed at the Sep 2 earnings binary is a fresh proposal
+  needing its own ruling; it does not revive on WL-4's terms.
 
 - **WL-1** (cal-1315 → approved 13:25 CT → **OVERTAKEN 2026-08-28 13:32 CT**): the SPY
   Sep 4 volatility pair the intent authorized was opened directly by cal-1325 on its own
