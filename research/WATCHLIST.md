@@ -103,7 +103,23 @@ per-run limits, and the broker's gate.
 
 ## Proposed, awaiting ruling
 
-- **WL-9** (run-1145, proposed 2026-09-01 11 → **DEFERRED 2026-09-01 12:02 CT, awaiting an AVGO research thesis**:45 CT): **AVGO Sep 4 income trade, gated on a
+- **WL-12** (run-1315, proposed 2026-09-01 13:15 CT; transcribed from the run record by the
+  operator 2026-09-01 13:55 CT — the run did not write it into this file): if the next §7
+  research pass carries a SPY read that is up-or-sideways in the §2 sense, a decision run may
+  open one SPY bull put spread at half size, subject to every ordinary limit and the collision
+  check. Rationale as filed: the only admitted structure that would diversify the book's
+  single-question concentration rather than deepen it. Expires 2026-09-04 close. AWAITING
+  OPERATOR RULING; not executable.
+
+- **WL-13** (run-1345, proposed 2026-09-01 13:45 CT as "WL-12"; renumbered by the operator in
+  transcription because run-1315 had already claimed the number — both proposals exist only in
+  the run logs): if SPY trades back to 765 or higher and a Sep 8 call at 775 or above measures
+  inside the 0.20-0.30 delta band with credit clearing the Mid floor at natural pricing, one
+  bear call at half size, short strike 775 or above. The 775 floor keeps it collision-free and
+  strictly above every held short. Expires 2026-09-02 close. AWAITING OPERATOR RULING; not
+  executable.
+
+- **WL-9** (run-1145, proposed 2026-09-01 11:45 CT → **DEFERRED 2026-09-01 12:02 CT, awaiting an AVGO research thesis**): **AVGO Sep 4 income trade, gated on a
   directional read.** If the §7 research pass produces an AVGO directional thesis in the §2
   sense (one sentence, falsified at a named level) before the Wednesday 2026-09-02 close, then
   a decision run may open one AVGO Sep 4 credit spread on the side that thesis supports, at
