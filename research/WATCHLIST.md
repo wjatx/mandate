@@ -7,12 +7,38 @@ per-run limits, and the broker's gate.
 
 ## Approved standing intents
 
-- **WL-6** (run-0915 → approved with modification 2026-09-01 09:25 CT): open a QQQ Sep 8
+- **WL-6** (run-0915 → approved with modification 2026-09-01 09:25 CT → **OPENED 2026-09-01
+  09:48 CT by run-0945**): open a QQQ Sep 8
   volatility pair, a call debit vertical and a put debit vertical on the same underlying and
   expiry, as one §2 volatility thesis carrying Broadcom's Wednesday-evening report and Friday's
   payrolls print. Executable only while QQQ Sep 8 still measures Low at the acting run's own
   measurement. It consumes both of a run's opens and two slots per WL-2. Sizing, strike
   selection and the credit/debit arithmetic are the charter's, not named here.
+
+  **EXECUTION.** The trigger measured true on this run's own reading. QQQ Sep 8 straddle-averaged
+  ATM implied volatility at the 710 strike (call 14.44%, put 14.28%) is 14.36% against RV20 of
+  17.31% computed through the 2026-08-31 close, a ratio of **0.830**: Low, and not close enough
+  to the 1.00 edge to be ambiguous. The neighbouring strikes read 0.843 (709) and 0.816 (711),
+  so the declaration does not turn on which strike is called ATM. Spot 710.18, quotes fresh to
+  the minute, chain deep on every leg.
+
+  Structure, both legs 7 DTE and inside §2's 2-to-7 band: a **717/722 call debit vertical, 30
+  contracts at a $1.41 limit** ($4,230 max loss) and a **704/699 put debit vertical, 40 contracts
+  at a $1.05 limit** ($4,200 max loss). The 30/40 ratio is delta-balancing rather than
+  dollar-matching. The call spread carries +0.128 delta per contract and the put spread -0.094,
+  so at 30 and 40 the pair opens within 0.1 delta of flat, which is what a volatility thesis
+  taking no directional view should look like. Strikes were chosen on matched delta rather than
+  matched distance, because QQQ's put skew makes the equidistant put the smaller delta: long 717
+  call at 0.326 against long 704 put at -0.316, short 722 at 0.198 against short 699 at -0.222.
+  The gate stamped both legs **vol_pair**, so each carries a take-profit (3.205 on the call, 3.025
+  on the put) and no value stop, per §4 as amended 2026-08-29. Consumes both of this run's opens
+  and two slots, 5 to 7 of 20; aggregate open risk moves $9,518 to $17,948 against the $85,000 cap.
+
+  **Both orders were still resting unfilled at their mid-priced limits when this run ended**
+  (status `new`, day orders). That is ordinary, and run-0845's spread rested about fifteen
+  minutes before filling this morning, but it means the pair is authorized and working, not yet
+  held. The next decision run confirms the fills and reprices any leg still resting; if a leg is
+  never filled, the closing obligation below has nothing to attach to on that side.
 
   **MODIFICATION, and it is the condition of the approval: this pair is closed on Friday
   2026-09-04 regardless of value.** Any decision run on that day at or after 13:15 CT closes
@@ -29,8 +55,11 @@ per-run limits, and the broker's gate.
   holiday weekend unmanaged. And the charter's ordinary exits still take precedence: if the
   take-profit fires first, the pair closes then and this clause never applies.
 
-  The opening authorization expires 2026-09-01 close. The closing obligation does not; it
-  attaches to the position if the pair is opened and binds through Friday.
+  The opening authorization expires 2026-09-01 close, and is now spent in any case: run-0945
+  exercised it, so no further opening happens under WL-6 and any additional QQQ long-premium
+  structure is a fresh proposal. The closing obligation does not expire; it attaches to whichever
+  legs fill and binds through Friday. This item therefore stays under approved standing intents
+  rather than moving to the ruled section, because the live part of it is the Friday close.
 
 (none — WL-5 executed by run-0915; see below)
 
