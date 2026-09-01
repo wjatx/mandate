@@ -158,6 +158,42 @@ per-run limits, and the broker's gate.
   > RULING (2026-09-01 12:02 CT): DEFERRED, per §6's third option, session operator standing in. The intent gates itself on a research pass supplying an AVGO thesis, and none exists; approving before the thesis would authorize a trade on arithmetic alone, which §2 forbids, and rejecting would discard measured chain work that stays useful tomorrow. It stands deferred until a memo carries an AVGO read or the Sep 4 expiry makes it moot. Not executable while deferred.
 ## Ruled: rejected, expired, executed
 
+- **WL-11** (run-1245, proposed 2026-09-01 12:45 CT) → **ROUTED TO THE DESIGN PASS 2026-09-01 13:02 CT**): **a leg-collision check at the opening
+  gate.** Amendment candidate, not an executable standing intent — it names no trade, and like
+  WL-10 the operator should route it to the ceremony or the post-contest design list.
+
+  What this run hit. The best-scoring trade available was a SPY Sep 8 **769/771** bear call:
+  credit/width 0.285 against a short delta of 0.2614, the only clean positive edge on the Sep 8
+  board (769/772 reads 0.2467 vs 0.2614, 768/772 0.255 vs 0.2941, 770/773 0.220 vs 0.2282,
+  770/772 0.230 vs 0.2282). It was not taken, because the book holds **short** SPY Sep 8 771 x10
+  as the near leg of the 771/774 spread (ledger row fb1d2caf). A long 771 leg nets against that
+  short at the broker — same contract symbol — so the 771/774 position would lose its short leg
+  while its ledger row and stamped exits (TP 0.355, stop 1.42) kept pointing at legs that no
+  longer exist. Section 4 puts the exits in the supervisor's hands; this would hand it a
+  position it cannot close.
+
+  Why the existing guard does not cover it, and this is the part worth ruling on. Section 2's
+  offsetting guard is **economic**: `offsetting_refusal` compares the group's combined worst case
+  before and after and refuses when it rises by less than the order's own max loss
+  (`shim/defined_risk.py:504-556`). For 769/771 the combined worst case rises by the **full**
+  $1,440, because the held short 771 and the held long 774 both sit inside the tail above 774 and
+  the 771s cancel without changing it — so the guard would have **passed** the order. [inferred:
+  computed from the payoff model and the ledger, NOT tested — no order was submitted at that
+  strike pair with a correct sign, so this is arithmetic, not an observation.] The gate reasons in
+  dollars, the supervisor reasons in legs, and nothing currently checks that an opening order does
+  not dissolve a held position's legs at the broker.
+
+  Proposed shape, deliberately narrow: refuse an opening leg whose symbol matches a held leg of
+  the opposite side, unless the order is routed as a close under section 4. That is a symbol
+  comparison against the ledger, cheaper than the worst-case modelling already being done, and it
+  fails safe. It would not have blocked anything else this run.
+
+  Not urgent for P&L and no position is currently at risk from it: the trade was not placed, and
+  this run's actual open (below) has no collision, since both of its legs add to same-side
+  positions already held.
+
+  > RULING (2026-09-01 13:02 CT): ROUTED as the proposal asks, session operator standing in. Amendment candidate, not an intent. The collision mechanism is recorded with the proposal's own provenance honesty, computed rather than tested, and the design entry pairs it with item 15's stacking gap: both are the gate seeing rows where the venue sees legs.
+
 - **WL-10** (run-1215, proposed 2026-09-01 12:15 CT → **ROUTED TO THE DESIGN PASS 2026-09-01 12:25 CT**): **a per-underlying-and-direction sub-cap
   on correlated open risk.** This is an amendment request, not an executable standing intent —
   it names no trade and the operator should route it to the ceremony or the post-contest design
