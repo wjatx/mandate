@@ -8,6 +8,8 @@
 		<string>/Users/wesjackson</string>
 		<key>PATH</key>
 		<string>/opt/homebrew/bin:/Users/wesjackson/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+		<key>UV_CONSTRAINT</key>
+		<string>/Users/wesjackson/Code/mandate/run/uv-constraints.txt</string>
 	</dict>
 	<key>Label</key>
 	<string>com.mandate.supervisor</string>
@@ -981,6 +983,14 @@
 			<integer>14</integer>
 			<key>Minute</key>
 			<integer>15</integer>
+			<key>Weekday</key>
+			<integer>5</integer>
+		</dict>
+		<dict>
+			<key>Hour</key>
+			<integer>14</integer>
+			<key>Minute</key>
+			<integer>22</integer>
 			<key>Weekday</key>
 			<integer>5</integer>
 		</dict>
