@@ -136,7 +136,7 @@ envelope:
     # bin/rekey.sh re-attests. The Caps schema passes extra keys through
     # into the hash by design (safe_agents sa#135).
     max_loss_per_position_usd: 5000
-    max_total_open_risk_usd: 30000
+    max_total_open_risk_usd: 85000
   allowlists:
     tools:
       - alpaca.get_account_info

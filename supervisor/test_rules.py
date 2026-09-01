@@ -25,6 +25,7 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from rules import (
+    CIRCUIT_BREAKER_PCT,
     CREDIT_STRUCTURES,
     DEBIT_STRUCTURES,
     VALUE_MANAGED_STRUCTURES,
@@ -640,6 +641,25 @@ def test_close_order_is_stable_when_qty_is_unknown():
 def test_breach_pct(account, pct):
     got = breach_pct(account)
     assert got is None if pct is None else got == pytest.approx(pct)
+
+
+# The threshold itself had no test until 2026-08-31, which is how it drifted:
+# charter §5 moved to -25% and CIRCUIT_BREAKER_PCT stayed at -3% for several
+# minutes, with the supervisor logging the old number against the new charter.
+# The constant is not under the charter lock, so nothing else catches this.
+@pytest.mark.parametrize(
+    "pct, breaches",
+    [
+        pytest.param(-0.26, True, id="past-threshold"),
+        pytest.param(-0.25, True, id="exactly-at-threshold"),
+        pytest.param(-0.24, False, id="just-inside"),
+        pytest.param(-0.07, False, id="ordinary-day-at-full-deployment"),
+        pytest.param(-0.03, False, id="old-threshold-no-longer-breaches"),
+        pytest.param(0.10, False, id="up-day"),
+    ],
+)
+def test_circuit_breaker_threshold(pct, breaches):
+    assert (pct <= CIRCUIT_BREAKER_PCT) is breaches
 
 
 # --- vol-pair rows: take-profit and clock only (§4, 2026-08-29) --------------

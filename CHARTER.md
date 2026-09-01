@@ -57,8 +57,12 @@ sideways, bear call spreads when it is down or sideways.
 
 - Expiry 0 to 7 DTE, so theta realizes inside the trading window.
 - Short strike at 0.20 to 0.30 delta.
-- Credit floor scaled by the declared regime (section 3): at least **one third** of the spread
-  width in a high-IV regime, at least **one fifth** in mid. Below the floor, skip the trade
+- Credit floor scaled by the declared regime (section 3): at least **one quarter** of the
+  spread width in a high-IV regime, at least **one fifth** in mid. (Amended 2026-08-31: the
+  floor was one third, which sits at the arithmetic ceiling. A vertical's credit cannot
+  exceed the short strike's probability of finishing in the money, about 0.31 to 0.33 at the
+  top of the 0.20-0.30 delta band, so the high-regime full-size play was unreachable for
+  every underlying and had never been exercised.) Below the floor, skip the trade
   rather than widen the strikes to manufacture one. The floor is about expectancy, not tail
   risk; the value stop already bounds the realized loss near the credit collected.
 - Spread width $1 to $5.
@@ -73,19 +77,20 @@ max loss.
 > capability requires. Two conditions attach to any single-name income trade, and both
 > bind in addition to every rule above:
 >
-> 1. The regime is read against that name's own band row in section 3, never against
->    the index rows.
-> 2. **Both short strikes must sit outside the market's own expected move for the
->    holding period**, computed as `spot x ATM IV x sqrt(DTE/365)` from the same chain
->    the run already reads. This is stricter than the 0.20-0.30 delta rule and does not
->    replace it; a strike must satisfy both. Rationale: at the volatility a single name
->    carries into a dated event, the delta band alone places the shorts inside the move
->    the market is pricing, which is a coin flip wearing a strategy's clothes.
+> The regime is read the same way as for any other name, by the section 3 ratio rule.
+> The 0.20-0.30 delta band and the regime's credit floor both apply unchanged.
 >
-> A single-name proposal that cannot satisfy both conditions and the regime's credit
-> floor is abstained, not adjusted. On the day this was ratified, that is exactly what
-> AVGO measured: rich enough to look attractive and unable to clear the floor at safe
-> strikes.
+> (Revised the same evening. The ratified version additionally required both short strikes
+> to sit outside the market's expected move. A live measurement showed that rule and the
+> credit floor are jointly unsatisfiable: the expected-move condition pushes the shorts to
+> 0.08-0.10 delta, where the widest compliant AVGO bear call collected $0.65 against a
+> $1.67 floor, and reaching the floor requires coming back inside the move. Severity scales
+> with expected move over spread width, which is 1.9 for SPY, 2.5 for QQQ and 7.6 for AVGO,
+> so the rule was harmless on the indices and fatal on the single name it was written for.
+> Dropped: maximum loss is already bounded by the spread width and capped in dollars, so it
+> was belt-and-braces that cost the entire capability. Selling premium before a dated event
+> means accepting either gap risk or thin credit, and with defined risk and a $5,000 ceiling
+> the deliberate choice is the gap risk.)
 
 ### Tactical directional
 
@@ -129,23 +134,34 @@ are deterministic, computable from the feed every run makes anyway, and falsifia
 fact. (Amended 2026-08-26; the previous rule demanded a percentile, which made every honest
 reading "unclear" and every run an abstention.)
 
-| Underlying | Low | Mid | High |
-|---|---|---|---|
-| SPY | below 13% | 13% to 18% | above 18% |
-| QQQ | below 19% | 19% to 26% | above 26% |
-| AVGO | below 52% | 52% to 70% | above 70% |
+| IV / RV | Regime |
+|---|---|
+| below 1.00 | **Low** |
+| 1.00 to 1.30 | **Mid** |
+| above 1.30 | **High** |
 
-The AVGO row is derived, not chosen. Its anchor is the market's own estimate of the
-name's post-event baseline: ATM IV on the first expiry after the next earnings date,
-measured at 47% on 2026-08-31 against 98% on the 4-DTE chain. The band edges sit at the
-same multiples of baseline the index rows use, roughly 1.1x for Mid and 1.5x for High.
-Re-derive the row the same way if the baseline moves materially; do not adjust it to
-make a trade possible, which is the error this section already names.
+(Amended 2026-08-31, superseding the per-underlying absolute bands including the AVGO row
+added earlier the same day.) The regime is the **variance risk premium**: measured ATM
+implied volatility on the 2-7 DTE chain, straddle-averaged, divided by 20-day realized
+volatility from daily bars through the prior close. One ratio rule covers every admitted
+name, so there is no row per ticker to fit.
+
+Three measurement rules bind, each from an observed failure. Use the straddle average: the
+vendor's per-strike IV carries a call-over-put divergence at the same strike (2.31 vol
+points on QQQ, reproduced twice on 2026-08-31) that is a forward-assumption artifact, not
+skew. Compute realized volatility through the prior close, because `get_stock_bars` refuses
+the current day's bar on this subscription. A ratio from a stale or thin chain still
+resolves to abstain.
+
+Why: the absolute bands read the level of implied volatility, and a premium seller earns
+implied minus realized. On 2026-08-31 the bands called SPY Low and said "buy premium" while
+SPY implied 11.65% against 9.35% realized, a ratio of 1.25. The two rules gave opposite
+instructions and the absolute one could not see realized volatility at all.
 
 The strategy follows from the regime:
 
 - **High: sell premium** at full size. Credit spreads and iron condors, credit floor one
-  third of width.
+  quarter of width.
 - **Mid: sell premium at half size.** Credit spreads and iron condors at no more than half
   the per-position risk cap, credit floor one fifth of width.
 - **Low: buy premium.** Debit verticals on a directional thesis, or the long-volatility
@@ -214,16 +230,37 @@ charter violation, not a discretionary hold.
 
 - Max defined risk per position: **$5,000** (5% of the account). In a mid-IV regime the
   income book enters at no more than half this, $2,500 (section 3).
-- Total open defined risk across all positions: **$30,000** (30%). This is the structural
-  ceiling on what the book can lose if every position maxes out; the daily circuit breaker
-  below trips long before it, so the breaker guards the day and this cap guards the account.
-- Of that, the tactical directional book may hold at most **$10,000**; the income book always
-  keeps at least $20,000 of headroom.
-- Maximum open positions: **6**, counted concurrently — a closed position frees its slot.
-- Maximum new positions opened per decision run: **2**. The slot count and per-run limit are
-  deliberately unchanged by the 2026-08-26 amendment: capital scales up, pacing does not.
-- Daily circuit breaker: if realized plus open P&L for the day is worse than **-3%**, the
+- Total open defined risk across all positions: **$85,000** (about 88%). This is the
+  structural ceiling on what the book can lose if every position maxes out; the daily
+  circuit breaker below still trips first, so the breaker guards the day and this cap guards
+  the account. (Amended 2026-08-31 from $30,000: a book deployed at 4% of equity cannot
+  produce a competitive return, and the aggregate cap was never what bound it. Position
+  count was, by a factor of about eight.)
+- Of that, the tactical directional book may hold at most **$60,000**; the income book always
+  keeps at least $25,000 of headroom. The old split reserved two thirds of the budget for an
+  income book section 3 forbade from trading, which stranded it.
+- **Reserve floor: $10,000.** Equity below this may not be deployed, so a total loss of the
+  book still leaves enough to restart.
+- **Idle capital is an inaction.** Undeployed equity above the reserve floor at the end of a
+  decision run carries the same burden of proof as a run that opens nothing, and is ruled by
+  the operator in `state/inaction_rulings.jsonl`. This is the 2026-08-27 action mandate
+  applied to capital rather than actions: money not at work is a decision, not a default.
+- Maximum open positions: **20**, counted concurrently — a closed position frees its slot.
+- Maximum new positions opened per decision run: **2**. Pacing stays deliberately unchanged
+  while capital scales, but note the consequence measured 2026-08-31: two opens per run at
+  the $5,000 position cap admits at most $10,000 of new risk per run, so reaching the
+  aggregate ceiling depends on run frequency rather than on any dollar limit. Section 6's
+  cadence is therefore now a sizing control as much as a pacing one.
+- Daily circuit breaker: if realized plus open P&L for the day is worse than **-25%**, the
   owner demotes the agent's grant. Re-promotion requires the full authorization ceremony.
+  (Amended 2026-08-31 from -3%, and it had to move with the caps or it would have demoted
+  the agent on the first ordinary day. At 4% deployed the book lost 7.6% of its risk on an
+  unremarkable session; the same move at $85,000 is 6.7% of the account, so an ordinary day
+  is now roughly plus or minus 7% and -25% fires at about three and a half times that. Two
+  things keep it honest: every position carries its own value stop at half its debit, so the
+  supervisor closes losers long before the breaker is reached, and the breaker reads intraday
+  marks on short-dated options, which are noisy enough that a tight setting fires on moves
+  that reverse by the close.)
 
 These same constants are enforced structurally, outside the model, by the broker gateway: the
 envelope caps the per-day count of order and close operations, and the defined-risk gate
@@ -248,10 +285,23 @@ because they are also a signature.
 
 ## 6. Cadence
 
-Three decision runs per market day, at approximately 9:15, 12:00 and 14:15 CT, plus a
+**Decision runs every 30 minutes from 8:45 to 14:15 CT** (twelve a market day), plus the
 position-check run at 14:45 CT that closes what the rules require and opens nothing. The
-market closes at 15:00 CT; every run sits inside the session. Each decision run may open at
-most two new positions.
+14:45 slot is the check run's alone: two acting runs spawning gateways in the same minute
+would contend. The market closes
+at 15:00 CT; every run sits inside the session. Each decision run may open at most two new
+positions.
+
+> Amended 2026-08-31 (Wes-ratified). The cadence was three runs a day at 9:15, 12:00 and
+> 14:15 CT. It changes because cadence became a sizing control: at two opens per run and a
+> $5,000 position cap, a run admits at most $10,000 of new risk, so with the aggregate
+> ceiling at $85,000 the deployable amount is set by how many runs there are, not by any
+> dollar limit. Three runs a day could not reach the ceiling before the 2026-09-04 deadline
+> even with no abstention at all. Thirteen runs a day can, and the shorter interval also
+> gives the operator more chances to see a rule being wrong while there is still time to
+> amend it. Every other limit is unchanged: two opens per run, twenty slots, the same caps,
+> floor and breaker, and every run passes the full preflight. Runs serialize on one
+> schedule, so a firing is skipped while the prior run is still working.
 
 > Amended 2026-08-27 (calibration cadence): through 2026-08-28 market close (window
 > originally 2026-08-28 09:00 CT, extended to the full day that evening, both Wes-ratified),

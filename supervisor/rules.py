@@ -32,7 +32,15 @@ from defined_risk import OCC_RE, parse_clock_timestamp  # noqa: F401
 SAME_DAY_CLOSE_HHMM = (15, 20)
 VALUE_STOP_MULTIPLE = 2.0
 TAKE_PROFIT_MULTIPLE = 0.5
-CIRCUIT_BREAKER_PCT = -0.03
+# Charter §5, amended 2026-08-31 from -0.03 alongside the aggregate cap going
+# from $30,000 to $85,000. The two must move together: at the new cap an
+# ordinary day is roughly plus or minus 7% of the account, so a -3% breaker
+# would demote the agent on the first normal session and re-promotion is a
+# human ceremony. This value is NOT under the charter lock, so it can drift
+# from the charter silently — it was found doing exactly that minutes after
+# the amendment, when the supervisor still logged "-3% breaker" against a
+# charter that said -25%.
+CIRCUIT_BREAKER_PCT = -0.25
 CREDIT_STRUCTURES = {"credit_vertical", "iron_condor"}
 
 # Charter §4's debit-side counterparts as first ratified 2026-08-27: take
