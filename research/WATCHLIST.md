@@ -103,7 +103,7 @@ per-run limits, and the broker's gate.
 
 ## Proposed, awaiting ruling
 
-- **WL-9** (run-1145, proposed 2026-09-01 11:45 CT): **AVGO Sep 4 income trade, gated on a
+- **WL-9** (run-1145, proposed 2026-09-01 11 → **DEFERRED 2026-09-01 12:02 CT, awaiting an AVGO research thesis**:45 CT): **AVGO Sep 4 income trade, gated on a
   directional read.** If the §7 research pass produces an AVGO directional thesis in the §2
   sense (one sentence, falsified at a named level) before the Wednesday 2026-09-02 close, then
   a decision run may open one AVGO Sep 4 credit spread on the side that thesis supports, at
@@ -154,6 +154,8 @@ per-run limits, and the broker's gate.
 
 
 
+
+  > RULING (2026-09-01 12:02 CT): DEFERRED, per §6's third option, session operator standing in. The intent gates itself on a research pass supplying an AVGO thesis, and none exists; approving before the thesis would authorize a trade on arithmetic alone, which §2 forbids, and rejecting would discard measured chain work that stays useful tomorrow. It stands deferred until a memo carries an AVGO read or the Sep 4 expiry makes it moot. Not executable while deferred.
 ## Ruled: rejected, expired, executed
 
 - **WL-8** (run-1115, proposed 2026-09-01 11:15 CT → **REJECTED 2026-09-01 11:30 CT**): treat the **SPY Sep 4 volatility pair as a
