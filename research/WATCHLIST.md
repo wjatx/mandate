@@ -40,6 +40,42 @@ per-run limits, and the broker's gate.
   held. The next decision run confirms the fills and reprices any leg still resting; if a leg is
   never filled, the closing obligation below has nothing to attach to on that side.
 
+  **FILL STATUS, run-1015 (2026-09-01 10:15 CT).** The call leg filled at 14:51:54Z at its
+  $1.41 limit and is held: long 30 QQQ260908C00717000 @ 2.74, short 30 C00722000 @ 1.33. The
+  put leg never filled. It rested 26 minutes at $1.05 while QQQ fell about 1% away from it, so
+  the pair was half-on and the book was carrying $4,230 of long directional call risk that this
+  thesis explicitly does not take. Under the approval's own reprice clause, run-1015 cancelled
+  the stale order (b15bf0ac) and replaced it: **704/699 put debit vertical, 36 contracts at a
+  $1.18 limit**, gate-accepted at $4,248 max loss, stamped `vol_pair`, order ab334e72, resting
+  at run end.
+
+  Two deviations from run-0945's numbers, both recorded rather than assumed. The limit moved
+  $1.05 to $1.18 because the spread itself repriced with spot: mid is now 1.16 and natural
+  1.23, so $1.18 is mid plus a cent of chase, not a new thesis. The quantity moved 40 to 36
+  because 40 was never the point. Run-0945 sized 30/40 to open the pair delta-flat, and with
+  the call vertical now at +0.1231 delta per contract and the put at -0.1018, 40 contracts
+  would open the pair at -0.379 net delta while 36 opens it at +0.028. Holding the stated
+  quantity would have abandoned the property the quantity existed to produce. The operator
+  delegated this explicitly ("Sizing, strike selection and the credit/debit arithmetic are the
+  charter's, not named here").
+
+  Trigger re-validated on this run's own measurement, not inherited: QQQ Sep 8 straddle-averaged
+  ATM IV at the 709 strike (call 14.35%, put 14.35%) is 14.35% against RV20 of 17.306% through
+  the 2026-08-31 close, a ratio of **0.829**, Low. Neighbouring strikes read 0.828 (710) and
+  0.839 (708), so the declaration does not turn on the ATM choice, and nothing is near the 1.00
+  edge. RV20 was recomputed from daily bars rather than carried over from run-0945, and
+  reproduces its 17.31% exactly. Spot 709.23, quotes fresh to the second, chain deep.
+
+  §2's unwind guard was checked and does not bind: a put debit vertical added to a call debit
+  vertical in the same underlying and expiry offsets in delta but not in risk, since both legs
+  are long premium and the ledger records the sum of the two debits correctly. That is the
+  volatility-pair structure §2 and §4 name explicitly, not the condition the guard was written
+  against, which was short premium cancelling long premium.
+
+  Run-1015 counts this reprice as one of its two opens and opened nothing else, so the run is
+  within limits under either reading of whether completing a prior run's authorized order is a
+  new open.
+
   **MODIFICATION, and it is the condition of the approval: this pair is closed on Friday
   2026-09-04 regardless of value.** Any decision run on that day at or after 13:15 CT closes
   both legs at market; if none has by the 14:15 CT run, that run closes them. Basis: both
@@ -65,7 +101,34 @@ per-run limits, and the broker's gate.
 
 ## Proposed, awaiting ruling
 
-(none)
+- **WL-7** (run-1015, 2026-09-01 10:15 CT): completion or abandonment of the WL-6 put leg.
+  If order ab334e72 (QQQ Sep 8 704/699 put debit vertical, 36 contracts, $1.18 limit) is still
+  unfilled at the next decision run's own reading, then reprice it once more at that run's
+  measured natural price, capped at $1.30 and at the $5,000 per-position ceiling, provided QQQ
+  Sep 8 still measures Low on that run's own measurement. If it is still unfilled after that
+  second reprice, cancel it and leave the call vertical unhedged rather than chase further.
+  Expiry: 2026-09-01 close, since it is a day order and cannot survive the session anyway.
+
+  Why this wants a ruling rather than run discretion. Repricing a resting leg is cheap
+  individually and unbounded in aggregate: each run can justify one more cent, and a structure
+  authorized as delta-flat drifts into an expensive directional bet one reprice at a time. A
+  named cap and a named give-up point put the stopping rule in front of the decision instead of
+  behind it. The $1.30 ceiling is not arbitrary — the pair's max loss at 36 contracts stays
+  under $4,700 there, inside the position cap with room.
+
+  **Flagged for the operator, no action proposed.** Two of the book's volatility pairs are
+  currently half-on, by two unrelated mechanisms, and only one of them is a solved problem.
+  The QQQ Sep 4 pair opened 2026-08-28 (put 711/706 at 1.32, call 721/726 at 1.85) lost its
+  call half to a supervisor stop at 13:30Z today, leaving the put vertical alone; that is
+  exactly the failure §4 describes and fixed on 2026-08-29 with the `vol_pair` flag, showing up
+  in a position that predates the fix, so it needs nothing new. The WL-6 pair is half-on for a
+  different reason the flag does not touch: **one leg filled and the other did not.** The
+  `vol_pair` flag governs exits, not entries, so nothing in the charter or the gate currently
+  makes a pair's two legs atomic at entry, and the window between fills is a window in which
+  the book holds a directional position that no thesis authorized. Today that window was 26
+  minutes and cost the pair about $1,140 of mark on the call side before it could be hedged.
+  Whether entry atomicity is worth a rule, and whether that rule belongs in the gate or in the
+  charter, is a design question for after the contest rather than a run's to answer.
 
 ## Ruled: rejected, expired, executed
 
