@@ -21,7 +21,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from defined_risk import (
     ZERO_DTE_CUTOFF_LABEL,
+    _entry_to_position,
+    _leg_sides,
+    combined_max_loss,
+    entry_qty,
     exit_values,
+    offsetting_refusal,
+    payoff_at_expiry,
     max_loss_usd,
     open_risk_usd,
     parse_clock_timestamp,
@@ -587,3 +593,126 @@ def test_caps_hash_changes_when_a_cap_changes():
 def test_caps_refuse_rather_than_default(manifest, complaint):
     with pytest.raises(CapsError, match=complaint):
         caps_from_manifest(manifest)
+
+
+# --- cross-position netting (charter §2, 2026-08-31 evening) -----------------
+#
+# The fixtures below are the real 2026-08-31 SPY book and the offsetting condor
+# a rehearsal priced against it. That trade would have collected $1,520 and
+# recorded $2,480 of new risk while REDUCING the book's true worst case by $520.
+
+def _leg(sym, side="buy"):
+    """Ledger rows store no side, so reconstruction infers it; but legs handed to
+    max_loss_usd are a real order and must carry their true sides."""
+    return parse_leg({"symbol": sym, "side": side, "ratio_qty": "1"})
+
+
+SPY_BOOK = [
+    {"legs": ["SPY260904C00768000", "SPY260904C00773000"], "structure": "debit_vertical",
+     "limit_price": "1.86", "max_loss_usd": 1116.0},
+    {"legs": ["SPY260904P00758000", "SPY260904P00763000"], "structure": "debit_vertical",
+     "limit_price": "0.95", "max_loss_usd": 570.0},
+]
+CONDOR_LEGS = [_leg("SPY260904C00772000", "sell"), _leg("SPY260904C00777000", "buy"),
+               _leg("SPY260904P00762000", "sell"), _leg("SPY260904P00757000", "buy")]
+
+
+@pytest.mark.parametrize(
+    "structure, syms, expect",
+    [
+        pytest.param("debit_vertical", ["SPY260904C00768000", "SPY260904C00773000"],
+                     [1, -1], id="debit-call-long-lower"),
+        pytest.param("debit_vertical", ["SPY260904C00773000", "SPY260904C00768000"],
+                     [-1, 1], id="debit-call-order-independent"),
+        pytest.param("debit_vertical", ["SPY260904P00758000", "SPY260904P00763000"],
+                     [-1, 1], id="debit-put-long-higher"),
+        pytest.param("credit_vertical", ["SPY260904C00772000", "SPY260904C00777000"],
+                     [-1, 1], id="credit-call-short-lower"),
+        pytest.param("credit_vertical", ["SPY260904P00757000", "SPY260904P00762000"],
+                     [1, -1], id="credit-put-short-higher"),
+        pytest.param("long_single", ["SPY260904C00768000"], [1], id="long-single"),
+        pytest.param("debit_vertical", ["SPY260904C00768000", "SPY260904P00773000"],
+                     None, id="mixed-rights-unmodelable"),
+        pytest.param("bogus", ["SPY260904C00768000", "SPY260904C00773000"],
+                     None, id="unknown-structure-unmodelable"),
+    ],
+)
+def test_leg_sides(structure, syms, expect):
+    assert _leg_sides([_leg(s) for s in syms], structure, 1.0) == expect
+
+
+@pytest.mark.parametrize(
+    "structure, syms, limit, max_loss, expect",
+    [
+        pytest.param("debit_vertical", ["SPY260904C00768000", "SPY260904C00773000"],
+                     1.86, 1116.0, 6, id="debit-six-lots"),
+        pytest.param("debit_vertical", ["SPY260904P00758000", "SPY260904P00763000"],
+                     0.95, 570.0, 6, id="debit-put-six-lots"),
+        pytest.param("credit_vertical", ["SPY260904C00772000", "SPY260904C00777000"],
+                     -1.00, 2400.0, 6, id="credit-six-lots"),
+        pytest.param("debit_vertical", ["SPY260904C00768000", "SPY260904C00773000"],
+                     0.0, 1116.0, None, id="zero-limit-unrecoverable"),
+    ],
+)
+def test_entry_qty(structure, syms, limit, max_loss, expect):
+    assert entry_qty([_leg(s) for s in syms], structure, limit, max_loss) == expect
+
+
+@pytest.mark.parametrize(
+    "spot, expect",
+    [
+        pytest.param(700.0, -1116.0, id="far-below-loses-debit"),
+        pytest.param(768.0, -1116.0, id="at-long-strike-loses-debit"),
+        pytest.param(773.0, 1884.0, id="at-short-strike-max-gain"),
+        pytest.param(900.0, 1884.0, id="far-above-capped"),
+    ],
+)
+def test_payoff_at_expiry_debit_call_vertical(spot, expect):
+    legs = [_leg("SPY260904C00768000"), _leg("SPY260904C00773000")]
+    got = payoff_at_expiry(legs, "debit_vertical", 1.86, 6, spot)
+    assert got == pytest.approx(expect)
+
+
+def test_combined_max_loss_independent_positions_sum():
+    """A volatility pair genuinely can lose both debits, so netting changes nothing."""
+    positions = [_entry_to_position(e) for e in SPY_BOOK]
+    assert all(p is not None for p in positions)
+    assert combined_max_loss(positions) == pytest.approx(1686.0)
+
+
+def test_offsetting_condor_is_refused():
+    loss, structure = max_loss_usd(CONDOR_LEGS, 8, -1.90)
+    assert structure == "iron_condor"
+    reason = offsetting_refusal(SPY_BOOK, CONDOR_LEGS, structure, -1.90, 8, loss)
+    assert reason is not None
+    assert "offsetting refusal" in reason
+    assert "unwind rather than an open" in reason
+
+
+def test_independent_position_is_allowed():
+    legs = [_leg("SPY260904C00790000", "buy"), _leg("SPY260904C00795000", "sell")]
+    loss, structure = max_loss_usd(legs, 5, 1.20)
+    assert offsetting_refusal(SPY_BOOK, legs, structure, 1.20, 5, loss) is None
+
+
+def test_empty_book_allows_anything():
+    legs = [_leg("SPY260904C00790000", "buy"), _leg("SPY260904C00795000", "sell")]
+    loss, structure = max_loss_usd(legs, 5, 1.20)
+    assert offsetting_refusal([], legs, structure, 1.20, 5, loss) is None
+
+
+def test_other_underlying_does_not_net():
+    """QQQ positions must not net against a SPY proposal."""
+    qqq = [{"legs": ["QQQ260904C00717000", "QQQ260904C00722000"],
+            "structure": "debit_vertical", "limit_price": "2.48", "max_loss_usd": 992.0}]
+    loss, structure = max_loss_usd(CONDOR_LEGS, 8, -1.90)
+    assert offsetting_refusal(qqq, CONDOR_LEGS, structure, -1.90, 8, loss) is None
+
+
+def test_unmodelable_neighbour_skips_the_check_rather_than_guessing():
+    """Fails toward allowing: a false refusal stops legitimate trading, and the
+    charter rule still binds the agent."""
+    broken = [{"legs": ["SPY260904C00768000"], "structure": "mystery",
+               "limit_price": "1.86", "max_loss_usd": 1116.0}]
+    loss, structure = max_loss_usd(CONDOR_LEGS, 8, -1.90)
+    assert offsetting_refusal(broken, CONDOR_LEGS, structure, -1.90, 8, loss) is None

@@ -4,8 +4,8 @@ Every call the agent or the supervisor makes goes through a broker process that
 holds the API keys. The broker decides each call against a signed grant and
 writes one record here before returning. These two files are those records.
 
-- `audit.jsonl` — 146 records written for the trading agent.
-- `audit-supervisor.jsonl` — 285 records written for the exit supervisor,
+- `audit.jsonl` — 180 records written for the trading agent.
+- `audit-supervisor.jsonl` — 317 records written for the exit supervisor,
   a separate principal with its own grant and no order-placing operation.
 
 ## Verify them yourself
@@ -54,7 +54,7 @@ Refusals happen in two places, and only the first is on the chain.
 2. **The defined-risk shim** runs *inside* the admitted connector and refuses
    orders whose maximum loss it cannot compute or that exceed a signed cap. To
    the broker this is a tool returning a result, not a decision it makes, so
-   these land in `shim_refusals.jsonl` (6 records) instead.
+   these land in `shim_refusals.jsonl` (9 records) instead.
 
 `shim_refusals.jsonl` is **not hash-chained** and carries no integrity claim;
 it is an ordinary log. We publish it because the chained tape alone would show

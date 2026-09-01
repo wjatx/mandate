@@ -30,6 +30,7 @@ from defined_risk import (
     caps_from_manifest,
     exit_values,
     max_loss_usd,
+    offsetting_refusal,
     open_risk_usd,
     parse_clock_timestamp,
     parse_leg,
@@ -446,6 +447,14 @@ async def place_defined_risk_spread(
                 f"${open_risk:,.0f} of live open risk exceeds the book cap "
                 f"${CAPS.max_total_open_risk_usd:,.0f}"
             )
+        # Charter §2 (2026-08-31 evening): the aggregate cap above sums position
+        # max losses and nets nothing, so an order that OFFSETS a held position
+        # records risk it does not add and unwinds that position through the
+        # opening path, bypassing the exits stamped at its entry. This is the
+        # only check here that reasons about the book rather than the order.
+        offset = offsetting_refusal(live, parsed, structure, lp, q, loss)
+        if offset:
+            raise ValueError(offset)
     except ValueError as e:
         _log_refusal(str(e), qty=qty, limit_price=limit_price, legs=legs)
         raise

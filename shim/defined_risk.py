@@ -347,3 +347,210 @@ def open_risk_usd(entries: list[dict]) -> float:
         except (TypeError, ValueError):  # a malformed row must not read as zero risk
             raise ValueError(f"risk ledger entry has an unusable max_loss_usd: {entry!r}")
     return total
+
+
+# --- cross-position netting (charter §2, 2026-08-31 evening) -----------------
+#
+# open_risk_usd above sums each position's maximum loss and nets NOTHING across
+# positions. That is conservative for the aggregate cap, but it leaves a real
+# hole: an order that offsets a position already held records risk it does not
+# add, and unwinds that position through the opening path rather than through
+# the exits stamped at its entry. A rehearsal on 2026-08-31 priced exactly that
+# trade — a SPY condor collecting $1,520 that would have recorded $2,480 of new
+# risk while REDUCING the book's true worst case by $520.
+#
+# The test needs no model and no greeks. Every structure this gate admits has a
+# piecewise-linear expiry payoff whose only breakpoints are strikes, so the true
+# combined worst case of a same-underlying, same-expiry group is exact: evaluate
+# the summed payoff at each strike and just either side of it, and take the
+# minimum. A genuinely independent position raises that worst case by its own
+# maximum loss. A hedge or an unwind does not.
+
+# How far a proposal may fall short of adding its own max loss before it reads
+# as an offset rather than an open. A dollar of slack absorbs rounding in the
+# derived contract counts without admitting a real hedge.
+NETTING_TOLERANCE_USD = 1.0
+
+
+def _leg_sides(legs: list[Leg], structure: str, limit_price: float) -> list[int] | None:
+    """Signed multipliers (+1 long, -1 short) per leg, inferred from structure.
+
+    The risk ledger stores leg SYMBOLS only, with no side, so the side has to be
+    recovered from the structure that was recorded alongside them. Returns None
+    for anything this function cannot place confidently; callers must then skip
+    the netting check rather than guess, because a wrong sign would invert the
+    payoff and could refuse a legitimate order.
+    """
+    if structure == "long_single" and len(legs) == 1:
+        return [1]
+    if structure in ("debit_vertical", "credit_vertical") and len(legs) == 2:
+        a, b = legs
+        if a.cp != b.cp or a.strike == b.strike:
+            return None
+        lower_first = a.strike < b.strike
+        # A debit call vertical is long the lower strike; a debit put vertical is
+        # long the higher. Credit verticals are the mirror of each.
+        if structure == "debit_vertical":
+            long_is_lower = a.cp == "C"
+        else:
+            long_is_lower = a.cp == "P"
+        if long_is_lower:
+            return [1, -1] if lower_first else [-1, 1]
+        return [-1, 1] if lower_first else [1, -1]
+    if structure == "iron_condor" and len(legs) == 4:
+        sides: list[int] = []
+        for cp in ("C", "P"):
+            wing = [i for i, leg in enumerate(legs) if leg.cp == cp]
+            if len(wing) != 2:
+                return None
+        # Short the inner strike of each wing, long the outer.
+        for leg in legs:
+            same = [x for x in legs if x.cp == leg.cp]
+            inner = min(same, key=lambda x: x.strike) if leg.cp == "C" else max(
+                same, key=lambda x: x.strike)
+            sides.append(-1 if leg.strike == inner.strike else 1)
+        return sides
+    return None
+
+
+def _intrinsic(leg: Leg, spot: float) -> float:
+    return max(spot - leg.strike, 0.0) if leg.cp == "C" else max(leg.strike - spot, 0.0)
+
+
+def payoff_at_expiry(
+    legs: list[Leg], structure: str, limit_price: float, qty: int, spot: float
+) -> float | None:
+    """Dollar P&L of one position at expiry for a given underlying price.
+
+    limit_price carries the vendor's sign convention: positive is a net debit
+    paid, negative a net credit received. Returns None when the sides cannot be
+    inferred.
+    """
+    sides = _leg_sides(legs, structure, limit_price)
+    if sides is None:
+        return None
+    gross = sum(
+        s * _intrinsic(leg, spot) * leg.ratio_qty for s, leg in zip(sides, legs)
+    )
+    return (gross - limit_price) * 100.0 * qty
+
+
+def entry_qty(legs: list[Leg], structure: str, limit_price: float,
+              max_loss: float) -> int | None:
+    """Recover contract count from a ledger row, which does not store it."""
+    per_contract = None
+    if structure in ("debit_vertical", "long_single"):
+        per_contract = abs(limit_price) * 100.0
+    elif structure in ("credit_vertical", "iron_condor"):
+        width = _vertical_width(legs) if structure == "credit_vertical" else None
+        if width is None and structure == "iron_condor":
+            widths = []
+            for cp in ("C", "P"):
+                wing = [leg for leg in legs if leg.cp == cp]
+                if len(wing) == 2:
+                    widths.append(abs(wing[0].strike - wing[1].strike))
+            width = max(widths) if widths else None
+        if width is None:
+            return None
+        per_contract = (width - abs(limit_price)) * 100.0
+    if not per_contract or per_contract <= 0:
+        return None
+    q = round(max_loss / per_contract)
+    return q if q >= 1 else None
+
+
+def _entry_to_position(entry: dict) -> tuple[list[Leg], str, float, int] | None:
+    """Rebuild a priceable position from a ledger row, or None if unmodelable."""
+    try:
+        raw_legs = entry.get("legs") or []
+        legs = [parse_leg({"symbol": s, "side": "buy", "ratio_qty": "1"}) for s in raw_legs]
+        structure = str(entry.get("structure") or "")
+        limit_price = float(entry.get("limit_price"))
+        max_loss = float(entry.get("max_loss_usd"))
+    except (TypeError, ValueError, KeyError):
+        return None
+    qty = entry_qty(legs, structure, limit_price, max_loss)
+    if qty is None:
+        return None
+    if payoff_at_expiry(legs, structure, limit_price, qty, legs[0].strike) is None:
+        return None
+    return legs, structure, limit_price, qty
+
+
+def combined_max_loss(positions: list[tuple[list[Leg], str, float, int]]) -> float | None:
+    """Worst-case dollar loss of a group of same-expiry positions, as a positive
+    number. Exact: the summed payoff is piecewise linear with breakpoints only at
+    strikes, so sampling each strike and its immediate neighbourhood finds the
+    minimum. Returns None if any position could not be modelled."""
+    if not positions:
+        return 0.0
+    strikes = sorted({leg.strike for legs, *_ in positions for leg in legs})
+    if not strikes:
+        return None
+    probes = [strikes[0] - 10.0, strikes[-1] + 10.0]
+    for k in strikes:
+        probes += [k - 0.01, k, k + 0.01]
+    worst = None
+    for spot in probes:
+        total = 0.0
+        for legs, structure, limit_price, qty in positions:
+            p = payoff_at_expiry(legs, structure, limit_price, qty, spot)
+            if p is None:
+                return None
+            total += p
+        worst = total if worst is None else min(worst, total)
+    return -worst if worst is not None else None
+
+
+def offsetting_refusal(
+    live_entries: list[dict],
+    legs: list[Leg],
+    structure: str,
+    limit_price: float,
+    qty: int,
+    proposed_loss: float,
+) -> str | None:
+    """Refuse a proposal that unwinds the book instead of adding to it.
+
+    An independent position raises its group's true combined worst case by its
+    own maximum loss. A hedge or an unwind raises it by less. Charter §2
+    (2026-08-31 evening) forbids the latter through the opening path: if the held
+    position should be closed, it is closed under §4 with the exits stamped at
+    its entry, not neutralised by opening against it.
+
+    Fails toward ALLOWING when the group cannot be modelled, because a false
+    refusal stops legitimate trading, and the charter rule still binds the agent.
+    The skip is visible to the caller through the returned reason being None
+    while the group is non-empty.
+    """
+    if not legs:
+        return None
+    root, expiry = legs[0].root, legs[0].expiry
+    group = []
+    for entry in live_entries:
+        syms = entry.get("legs") or []
+        if not syms or not str(syms[0]).startswith(root):
+            continue
+        pos = _entry_to_position(entry)
+        if pos is None:
+            return None  # unmodelable neighbour: skip the check rather than guess
+        if pos[0][0].expiry != expiry:
+            continue
+        group.append(pos)
+    if not group:
+        return None
+
+    before = combined_max_loss(group)
+    after = combined_max_loss(group + [(legs, structure, limit_price, qty)])
+    if before is None or after is None:
+        return None
+    added = after - before
+    if added >= proposed_loss - NETTING_TOLERANCE_USD:
+        return None
+    return (
+        f"offsetting refusal (charter §2): this order records ${proposed_loss:,.0f} of new "
+        f"risk but raises the true combined worst case of the {root} {expiry} book by only "
+        f"${added:,.0f} (${before:,.0f} -> ${after:,.0f}). It offsets a position already "
+        f"held, which is an unwind rather than an open; close the held position under §4 "
+        f"instead of opening against it"
+    )
