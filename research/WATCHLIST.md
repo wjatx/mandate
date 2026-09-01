@@ -49,6 +49,8 @@ per-run limits, and the broker's gate.
   $1.18 limit**, gate-accepted at $4,248 max loss, stamped `vol_pair`, order ab334e72, resting
   at run end.
 
+  > OPERATOR CORRECTION (2026-09-01 10:35 CT): two figures in this fill account overstate the event. QQQ measured 710.18 at run-0945 and about 709.4 at 10:20, a move of roughly 0.1%, not 1%; the spread's own repricing (mid 1.05 to about 1.15) is consistent with that small move plus volatility, and inconsistent with a 7-point fall. And the unhedged call side's mark loss was $390 to $420 (supervisor tracked it at 1.28 and 1.27 against the 1.41 debit on both passes inside the window), not $1,140. The reprice and resize were sound on the live quotes regardless; the severity was not as recorded. Original text left intact above.
+
   Two deviations from run-0945's numbers, both recorded rather than assumed. The limit moved
   $1.05 to $1.18 because the spread itself repriced with spot: mid is now 1.16 and natural
   1.23, so $1.18 is mid plus a cent of chase, not a new thesis. The quantity moved 40 to 36
@@ -101,7 +103,11 @@ per-run limits, and the broker's gate.
 
 ## Proposed, awaiting ruling
 
-- **WL-7** (run-1015, 2026-09-01 10:15 CT): completion or abandonment of the WL-6 put leg.
+(none)
+
+## Ruled: rejected, expired, executed
+
+- **WL-7** (run-1015, proposed 2026-09-01 10:15 CT → **OVERTAKEN 2026-09-01 10:30 CT**): completion or abandonment of the WL-6 put leg.
   If order ab334e72 (QQQ Sep 8 704/699 put debit vertical, 36 contracts, $1.18 limit) is still
   unfilled at the next decision run's own reading, then reprice it once more at that run's
   measured natural price, capped at $1.30 and at the $5,000 per-position ceiling, provided QQQ
@@ -130,7 +136,7 @@ per-run limits, and the broker's gate.
   Whether entry atomicity is worth a rule, and whether that rule belongs in the gate or in the
   charter, is a design question for after the contest rather than a run's to answer.
 
-## Ruled: rejected, expired, executed
+  > RULING (2026-09-01 10:35 CT): OVERTAKEN. The intent is conditional on order ab334e72 being unfilled at the next decision run's own reading, and the order filled before 10:30, before any run could read it. The trigger is permanently false, per WL-1's precedent. The pattern it encodes, a named reprice cap and a named give-up point ruled in advance, is adopted into the post-contest design-pass list rather than lost. The $1,140 figure in the flagged section is corrected in WL-6's fill account above: the measured mark loss was $390 to $420.
 
 - **WL-5** (run-0845 → approved with modification 2026-09-01 09:00 CT → **EXECUTED 2026-09-01
   09:18 CT by run-0915**): SPY **Sep 8 770/772 bear call**, 16 contracts, filled at $0.50 credit
