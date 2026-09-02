@@ -195,6 +195,13 @@ per-run limits, and the broker's gate.
   another 0.9% to reach the trigger. The item expires at today's close unexercised unless a later
   run measures it true; see WL-21 for the re-file.
 
+  **MEASURED FALSE A THIRD TIME, run-1345 (2026-09-02 13:45 CT).** IWM quotes **293.86 x 293.87**
+  against a trigger of 296.00 or higher, about 0.72% short, so the gating clause fails and no further
+  clause was tested for authorization purposes. Recorded additionally: **WL-22's 13:26 scope
+  clarification reaches this item.** A bear call is a short-delta IWM structure, so even a true
+  trigger would now require an explicit ruling from Wes before the 14:15 run could act on it. Expires
+  at today's close; WL-21 carries the shape into tomorrow on Wes's 12:27 approval.
+
   **MEASURED FALSE AGAIN, run-1245 (2026-09-02 12:45 CT).** The gating clause still fails at the
   first test: IWM quotes **293.54 x 293.56**, against a trigger of 296.00 or higher. No further
   clause was tested for authorization purposes. Recorded because the shape is unchanged at a fourth
@@ -235,6 +242,13 @@ per-run limits, and the broker's gate.
   ago. Nothing to re-test. The item stands unexercised to its expiry at today's close, and on this
   run's reading it is very unlikely to fire in the remaining session: SPY would have to regain 765
   *and* the Sep 8 call band would have to migrate up to 775, which at 11:18 measured 0.1306 delta.
+
+  **MEASURED FALSE A FOURTH TIME, run-1345 (2026-09-02 13:45 CT), on both clauses.** SPY quotes
+  **764.67 x 764.72**, back below the 765 trigger, so the first clause fails again. The second fails
+  by a wider margin than at any earlier measurement: SPY Sep 8 **775 measures 0.1066** delta, against
+  0.1306 at 11:18 and 0.1159 at 12:45. The band has moved steadily *away* from 775 all day rather
+  than toward it. With roughly 70 minutes of session left and one decision run remaining, the item
+  cannot fire; it expires at today's close unexercised.
 
   **MEASURED FALSE A THIRD TIME, run-1245 (2026-09-02 12:45 CT).** SPY has regained the 765 level it
   gave back at 12:15 — it quotes **765.19 x 765.22** — so the first clause is true again and the item
@@ -396,6 +410,85 @@ per-run limits, and the broker's gate.
 
   > RULING (2026-09-01 12:02 CT): DEFERRED, per §6's third option, session operator standing in. The intent gates itself on a research pass supplying an AVGO thesis, and none exists; approving before the thesis would authorize a trade on arithmetic alone, which §2 forbids, and rejecting would discard measured chain work that stays useful tomorrow. It stands deferred until a memo carries an AVGO read or the Sep 4 expiry makes it moot. Not executable while deferred.
 ## Ruled: rejected, expired, executed
+
+- **WL-23** (run-1345, proposed 2026-09-02 13:45 CT → **ROUTED TO THE DESIGN PASS 2026-09-02 13:55 CT**, design item 28): **the §7 memo states its volatility theses in level terms while §3 reads volatility as a ratio, and today that mismatch closed the long-premium book on all four names.** Amendment candidate for tonight's ceremony, not an executable standing intent. It names no trade.
+
+  **The measurement, this run's own, all four admitted names and every expiry inside §3's 2-to-7 DTE
+  window.** RV20 recomputed from daily bars through the 2026-09-01 close, reproducing run-0845,
+  run-0915, run-1045 and run-1115 exactly (SPY 7.180%, QQQ 13.173%, IWM 12.023%, DIA 8.013%).
+  Straddle-averaged ATM IV, quotes fresh to the second:
+
+  | name | expiry | DTE | straddle-avg ATM IV | ratio | regime |
+  |---|---|---|---|---|---|
+  | SPY | Sep 4 | 2 | 12.680% @765 | 1.766 | High |
+  | SPY | Sep 8 | 6 | 9.375% @765 | **1.306** | High |
+  | SPY | Sep 9 | 7 | 9.910% @765 | 1.380 | High |
+  | QQQ | Sep 4 | 2 | 17.795% @708 | 1.351 | High |
+  | QQQ | Sep 8 | 6 | 13.420% @708 | 1.019 | Mid |
+  | QQQ | Sep 9 | 7 | 14.410% @708 | 1.094 | Mid |
+  | IWM | Sep 4 | 2 | 19.090% @294 | 1.588 | High |
+  | IWM | Sep 8 | 6 | 14.125% @294 | 1.175 | Mid |
+  | DIA | Sep 4 | 2 | 11.675% @530 | 1.457 | High |
+
+  **No admitted name reaches Low on any expiry in the window.** This run extended the search to
+  **Sep 9 (7 DTE)**, which no earlier run today had measured, precisely because "no strike reaches
+  Low" is a claim of absence and deserved a check rather than a restatement. It does not help: Sep 9
+  reads *higher* than Sep 8 on both names carrying it (SPY 1.380 vs 1.306, QQQ 1.094 vs 1.019), so
+  the term structure closes the gap rather than opening it. QQQ Sep 8 at the neighbouring 707 strike
+  reads 1.038, so the Mid declaration does not turn on the ATM choice. DIA returned no Sep 8
+  contracts on this run's query, so Sep 4 is its only in-window expiry.
+
+  **The finding.** Today's memo calls near-dated implied volatility "cheap" on SPY, QQQ and IWM.
+  §3 measures all three as rich: implied exceeds realized on every one of the nine readings above.
+  These are not contradictory observations but two different measurements. The memo is reading the
+  **level** — its SPY basis cites "the broad volatility gauge only around 16" — and §3 reads the
+  **variance risk premium**. The 2026-08-31 amendment already adjudicated exactly this pair and chose
+  the ratio, in terms that fit today without alteration: "the absolute bands read the level of
+  implied volatility, and a premium seller earns implied minus realized ... The two rules gave
+  opposite instructions and the absolute one could not see realized volatility at all."
+
+  **Why this closed the book rather than merely reading oddly.** §2's volatility conviction shape
+  requires that "measured IV sits in the low band" and is "falsified by ... the regime leaving the
+  low band". A volatility thesis is therefore only expressible in a Low regime, and no name is in
+  one. Two of the three cheap-vol theses are additionally falsified by their **own stated tests** on
+  this run's numbers: QQQ's falsifier is "a measured reading of near-dated QQQ pricing shows the
+  macro premium already carried" (1.019 to 1.351 across the window — carried), and IWM's is "a
+  measured near-dated reading shows the event premium already present" (1.175 to 1.588 — present).
+  SPY's stated falsifier is **not** met: it asks whether pricing "richens materially before Friday",
+  and SPY Sep 8 has *cheapened*, 1.382 at 11:18 to 1.306 now. Yet SPY is unplayable anyway, because
+  it reads High on all three of its expiries and §3's High row says sell premium. That is the
+  sharpest form of the mismatch — a live, unfalsified memo thesis that the charter can never permit
+  a run to act on — and neither document records that this is possible.
+
+  **Proposed shape, offered as a direction rather than a preference.** The no-lean package's Change B
+  fixed the memo's *directional* vocabulary by requiring one of four verdicts. The volatility side
+  got no such treatment and wants the same thing: have the §7 pass state its volatility claim as a
+  ratio against realized volatility computed with §3's own estimator, and return a verdict from a
+  fixed set. Then (a) a run can test the thesis against the same number it declares the regime with,
+  and (b) "cheap vol" and a High declaration cannot both be produced from one market. What matters
+  more than the exact wording is that the memo and the charter stop measuring volatility with two
+  different instruments and calling both of them volatility.
+
+  **Second finding, flagged, no action proposed.** SPY Sep 8 reads **1.3057** against the Mid/High
+  edge of 1.30 — inside 0.5% of the boundary, the closest any reading has come today. It changes
+  nothing on this board: both regimes instruct sell premium, §5's Mid half-size rule was removed on
+  2026-09-01 so the position cap is $5,000 either way, and SPY is blocked on the read regardless. It
+  is recorded because it is a third distinct route to the boundary that design items 22 and 23
+  concern, and this one turns on the **level of the ratio itself** rather than on which expiry
+  supplies the numerator, so neither pending item would catch it.
+
+  Not executable; it names no trade.
+
+  > RULING (2026-09-02 13:55 CT): ROUTED TO THE DESIGN PASS as item 28 (the run wrote 27; 27 was
+  > taken at 13:26 by the ATM-strike gap), session operator standing in. The finding is accepted:
+  > the memo states volatility as a level and §3 reads it as a ratio, so a memo long-vol thesis
+  > can be live and unfalsified while §3 forbids acting on it. The operator adds the other half:
+  > that outcome is the charter's design, not only an interaction. §2's volatility shape requires
+  > measured Low because buying premium is the one trade the book makes on the measurement rather
+  > than on a read; the memo names the event, §3 says whether the premium is cheap. Change A of
+  > tonight's package already makes the memo's vol opinion advisory on the income side; the
+  > design pass decides whether the prompt should stop asking for a vol verdict it cannot act
+  > on, or ask for one stated in §3's own terms. Never named a trade; not executable.
 
 - **WL-20** (run-1145, proposed 2026-09-02 11:45 CT → **ROUTED TO THE DESIGN PASS 2026-09-02 11:58 CT**, design item 26; the ceremony question referred to Wes): **the band/falsifier gap survives tonight's
   ceremony.** Amendment candidate, not an executable standing intent. It names no trade.
