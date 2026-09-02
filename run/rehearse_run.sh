@@ -44,6 +44,7 @@ log "=== REHEARSAL run starting (no open or exit tools) — ${WHY} ==="
 
 charter_prompt "$CODA" | MCP_TIMEOUT=240000 claude -p --model "$AGENT_MODEL" \
   --mcp-config .mcp.json --strict-mcp-config \
+  --disallowedTools "Edit,Write,NotebookEdit,Bash,Read,Glob,Grep,WebFetch,WebSearch,Agent,Task,mcp__broker__alpaca__place_defined_risk_spread,mcp__broker__alpaca__close_position,mcp__broker__alpaca__cancel_order_by_id" \
   --allowedTools \
   "${BROKER_READ_TOOLS[@]}" &
 AGENT_PID=$!

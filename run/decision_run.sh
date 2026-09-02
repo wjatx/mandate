@@ -18,6 +18,7 @@ log "=== decision run ${RUN_N} starting ==="
 
 charter_prompt "$CODA" | MCP_TIMEOUT=240000 claude -p --model "$AGENT_MODEL" \
   --mcp-config .mcp.json --strict-mcp-config \
+  --disallowedTools "Edit,Write,NotebookEdit,Bash,Read,Glob,Grep,WebFetch,WebSearch,Agent,Task" \
   --allowedTools \
   "${BROKER_READ_TOOLS[@]}" \
   "${BROKER_EXIT_TOOLS[@]}" \
