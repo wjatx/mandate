@@ -173,6 +173,111 @@ per-run limits, and the broker's gate.
   > RULING (2026-09-01 12:02 CT): DEFERRED, per §6's third option, session operator standing in. The intent gates itself on a research pass supplying an AVGO thesis, and none exists; approving before the thesis would authorize a trade on arithmetic alone, which §2 forbids, and rejecting would discard measured chain work that stays useful tomorrow. It stands deferred until a memo carries an AVGO read or the Sep 4 expiry makes it moot. Not executable while deferred.
 ## Ruled: rejected, expired, executed
 
+- **WL-16** (run-0845, proposed 2026-09-02 08:45 CT → **REJECTED 2026-09-02 08:57 CT**): **DIA Sep 4 iron condor, gated on whether
+  today's memo supplies a "genuinely range-bound" read in §2's sense.** The arithmetic is
+  measured and clears; the read is the operator's call, and this run declined to make it alone.
+
+  Why it is being asked. DIA is the only admitted name where the book holds nothing, and it
+  measures a variance risk premium of **1.762** (Sep 4 straddle-averaged ATM IV 14.115% at the
+  530 strike against RV20 of 8.013%; neighbouring strikes read 1.800 at 529 and 1.710 at 531, so
+  the declaration does not turn on the ATM choice). §3 says High means sell premium. A condor
+  needs no direction, which is the one structure an absent directional thesis does not by itself
+  forbid.
+
+  What blocks it, and it is a reading question rather than a pricing one. §2 admits condors "when
+  the read is genuinely range-bound". Today's memo carries no DIA directional thesis and says in
+  terms that its composition argument "does not translate into a view on where DIA closes next
+  week". It does supply the adjacent facts: no earnings due from any top price weight inside the
+  window, the least mechanical exposure to the hike question of the four, and a volatility side
+  that "reads fair while it reads cheap elsewhere". Whether that adds up to range-bound, or is
+  merely an absence of view wearing its clothes, is exactly the judgment §1 says to resolve
+  toward abstention when a run makes it unilaterally. Note the memo's fair-vol read and §3's
+  1.762 point opposite ways; the charter governs, but the operator should see the conflict.
+
+  The arithmetic, recorded so the next run need not re-derive it. Spot 529.62. Both shorts in the
+  0.20-0.30 band: call 533 at 0.2774, put 526 at -0.2530. Wings 533/534 and 526/525, both $1.
+  Total credit **0.41 at mid**, **0.25 at natural**, against a High floor of 0.25 tested on total
+  credit over the widest wing per the 2026-08-31 amendment. It clears with room at mid and ties
+  exactly at natural. At mid that is 84 contracts for $4,956 of max loss and $3,444 collected; at
+  natural, 66 contracts for $4,950 and $1,650. The honest caveat: DIA's quotes are wide (0.11 on
+  the 533 call, 0.08 on the 526 put) against IWM's 0.04, so mid is optimistic on four legs, and
+  the gap between the two rows above is mostly execution rather than edge.
+
+  Both binders the operator should weigh against it. Friday's payrolls print sits inside the
+  window and governs DIA like the other three, so this is a condor across the event, not around
+  it. And a $1-wide condor at 84 contracts is 336 legs at the venue; §4's exits and the
+  supervisor handle it, but the book has not traded a structure that size before.
+
+  If approved, the run that executes re-measures the regime and the strikes on its own reading
+  and takes the trade only if both still hold. Expiry: 2026-09-03 close, since a Sep 4 condor
+  entered later than Thursday is a different trade.
+
+  > RULING (2026-09-02 08:57 CT): REJECTED, session operator standing in, on the reading the
+  > run declined to make alone. The memo's DIA section opens "Directional thesis: No thesis"
+  > and says in terms that its composition argument "does not translate into a view on where
+  > DIA closes next week". That is an absence of view, and §2's condor clause asks for a read
+  > that is "genuinely range-bound"; the absence of a directional call is not a call that the
+  > name stays in a range. The memo's own volatility line reads DIA as fairly priced, which is
+  > the one thing a premium sale needs the memo not to say, and Friday's payrolls sits inside
+  > the window, so this is a condor across the print on a name the book has never traded, at a
+  > size (336 legs) the venue has never seen from us, on quotes the run itself calls wide. The
+  > arithmetic clearing the floor at mid is noted and is not the question. Two things are
+  > recorded for Wes rather than decided here: whether "no thesis plus a High regime" should
+  > ever admit a condor is a §2 question for the ceremony, not an operator reading; and the
+  > run's refusal to make this call unilaterally was the §1 move the charter asks for. Not
+  > executable; expires with this ruling.
+
+- **WL-15** (run-0845, proposed 2026-09-02 08:45 CT → **ROUTED TO THE DESIGN PASS 2026-09-02 08:57 CT**, design item 22): **§3 does not name which expiry inside the
+  2-to-7 DTE band supplies the ATM implied volatility, and today that omission changes IWM's
+  declared regime.** Amendment candidate, not an executable standing intent. It names no trade;
+  the operator should route it to the ceremony or the post-contest design list.
+
+  Measured this run, both readings taken by §3's stated method (straddle-averaged ATM IV over
+  RV20 of 20 daily log returns, n-1, sqrt(252), through the 2026-09-01 close), both expiries
+  inside the charter's own window, quotes fresh to the second:
+
+  | underlying | Sep 4 (2 DTE) | ratio | Sep 8 (6 DTE) | ratio |
+  |---|---|---|---|---|
+  | IWM (spot 292.44, RV20 12.023%) | 21.070% @292.5 | **1.752 High** | 15.095% @293 | **1.256 Mid** |
+  | SPY (spot 762.37, RV20 7.180%) | 14.705% @762 | 2.048 High | 10.660% @762 | 1.485 High |
+
+  IWM straddles the 1.30 boundary: the same rule, the same minute, the same admitted feed, and
+  the regime is High or Mid depending only on which expiry the run happens to pick. This is not
+  a rounding question. It sets the credit floor, and the floor is what decides whether today's
+  one authorized trade is legal: an IWM Sep 8 296/297 bear call (short delta 0.2542, in band)
+  prices at 0.25 mid / 0.21 natural against a High floor of 0.25 and a Mid floor of 0.20. Under
+  Sep 8's own Mid reading it clears at both prices; under Sep 4's High reading it ties at mid and
+  fails at natural. Same trade, same instant, legal or not according to an unstated choice.
+
+  The mechanism is ordinary and will recur on every event week rather than being a quirk of
+  today: a dated binary inside the window (Friday's payrolls print) contributes a fixed variance
+  to every expiry that carries it, so it lifts annualized IV far more on a 2 DTE chain than on a
+  6 DTE one. IWM's near-dated IV is 21.07% against 15.10% six days out for exactly this reason.
+  The ratio's numerator therefore moves with the expiry choice while its denominator does not.
+
+  This is the same defect §3 already fixed once. The 2026-08-31 amendment pinned the realized-vol
+  estimator because "a rule that does not name its estimator is not deterministic", after a
+  rehearsal found conventions straddling the Mid/High edge on SPY at 1.29 against an edge of
+  1.30. That amendment fixed the denominator and left the numerator's expiry open; today's IWM
+  reading is the numerator's version of the same finding, at the same boundary.
+
+  Proposed shape, offered as options rather than a preference, since the choice is the operator's
+  and each is defensible: name the **nearest** expiry at or beyond 2 DTE (deterministic, and
+  loads event premium, which is the conservative direction for a seller); or name the expiry the
+  **trade itself** will use (regime and position measured on one surface, which is arguably what
+  the ratio is trying to say); or require **every** expiry in the band to agree and abstain when
+  they straddle a boundary (strictest, and what this run did today by default). What matters more
+  than which is that it be written down, because all three are currently permissible readings.
+
+  > RULING (2026-09-02 08:57 CT): ROUTED TO THE DESIGN PASS as item 22, session operator
+  > standing in. The finding is accepted as filed: §3 names its denominator and not its
+  > numerator's expiry, and the run measured the consequence on IWM at the 1.30 edge. Which of
+  > the three readings governs is a §3 amendment, and amendments are Wes's ceremony, so no
+  > interim expiry rule is written here. Until one is, a run that finds in-window expiries
+  > straddling a boundary does what this run did: records both readings and treats the regime
+  > as ambiguous, which §1 already resolves toward abstention. That is the charter's existing
+  > rule restated, not new authority. Not executable; it never named a trade.
+
 - **WL-14** (run-1415, proposed 2026-09-01 14:15 CT → **ROUTED TO THE DESIGN PASS 2026-09-01 14:25 CT**, written into this file by the run rather
   than left for transcription): **aggregate identical legs against the per-position cap at the
   gate.** Amendment candidate, not an executable standing intent. It names no trade, and like
@@ -209,7 +314,7 @@ per-run limits, and the broker's gate.
   upward with every unfilled day order the book leaves behind. A reconciliation pass at the
   supervisor's cadence would settle it.
 
-  AWAITING OPERATOR RULING; not executable.
+  Not executable; routed, see the ruling below (status line corrected 2026-09-02).
 
   > RULING (2026-09-01 14:25 CT): ROUTED as it asks, session operator standing in. Third self-routing amendment candidate today and the sharpest: identical-leg aggregation is the narrow, mechanically checkable core of items 15 and 17, and the cancel that accompanied it is the pattern's first in-process enforcement. Design item 21, marked as the likely first fix of the post-contest pass because it is small, testable, and already has a live incident behind it.
 
