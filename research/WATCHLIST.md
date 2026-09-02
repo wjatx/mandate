@@ -7,6 +7,63 @@ per-run limits, and the broker's gate.
 
 ## Approved standing intents
 
+- **WL-22** (run-1245, proposed 2026-09-02 12:45 CT → **GRANTED 2026-09-02 12:53 CT**, binding through the 14:15 run): **an interim stop on IWM bear-put tranches
+  for the remainder of today.** This asks the operator to bind this agent tighter than the charter
+  does. It authorizes nothing and it names no new trade.
+
+  Proposed rule, for the three remaining decision runs today (13:15, 13:45, 14:15 CT): **no further
+  IWM Sep 8 bear put debit vertical is opened without an explicit operator ruling.** Nothing else
+  changes; every other name and structure is governed as usual.
+
+  Why this run is asking, having just taken the trade it wants stopped. The book held no IWM at
+  09:30 and now holds three bear-put tranches — 293/290 (23c), 292/289 (31c) and this run's 294/291
+  (21c) — **$7,300 of ledger max loss, 7.8% of equity, all on one 3-day directional read that
+  resolves on Friday's payrolls print.** Each was individually legal and each will keep being legal:
+  the memo's IWM thesis is the only directional read on the board, §3 declares Mid on IWM Sep 8, and
+  §3's Mid tactical clause admits a half-size debit vertical. So the argument this run accepted at
+  12:45 is available unchanged at 13:15, 13:45 and 14:15, and on today's pace the stack reaches five
+  tranches and roughly $12,000 by the close without a single rule being bent. That is the design
+  item 20 concentration gap producing an outcome, not a hypothetical.
+
+  Why it is not a re-file of WL-10, which was routed to the design pass on 2026-09-01. WL-10 asked
+  for a **standing** per-underlying-and-direction sub-cap and correctly stalled on the denominator
+  question (max loss overstates a stopped book; credit collected is the honest measure for credit
+  spreads). This asks for none of that. It names one underlying, one direction, one expiry, and
+  three runs, and it needs no denominator because it is a count, not a dollar limit. The design
+  question stays where it was routed.
+
+  **The case against granting it, which the operator should weigh, because it is the case this run
+  acted on.** The entry improved rather than deteriorated: IWM rose 1.03% today (290.57 close to
+  293.55), so the same thesis is available at a cheaper debit and with more room before its own ~298
+  falsifier than at 11:18, when this book bought the first tranche at a worse price. Declining now
+  while having bought twice higher is inconsistent unless the reason is portfolio concentration
+  rather than thesis quality — which is precisely why the ask is framed as a concentration stop and
+  not as a doubt about the read. And the book is deployed at $30,012 of an $85,000 cap on the
+  second-to-last trading day before the deadline, so §5's idle-capital clause pushes the other way.
+
+  **Recorded caveat, the one that would make this run wrong.** The memo names its own strongest
+  counter-evidence, this morning's 38,000 ADP print, and says that if Friday confirms the cooling
+  "this is the index that recovers hardest". A three-tranche IWM bear-put stack is short exactly
+  that tail, and it sits on top of a SPY short-call book that is also short delta. The loss is
+  bounded — each tranche carries a §4 value stop at half its debit and the three together cannot
+  lose more than $7,300 — but the correlation is real and the ledger nets none of it.
+
+  Not executable; it names no trade. If the operator declines, this run's own restraint stands as
+  the only limit: it took one open rather than two, and it will not be the run that adds a fourth.
+
+  > RULING (2026-09-02 12:53 CT): GRANTED, session operator standing in. For the 13:15, 13:45 and
+  > 14:15 runs today, **no further IWM Sep 8 bear put debit vertical is opened without an explicit
+  > ruling from Wes.** Nothing else changes: every other name and structure is governed as usual,
+  > the three held tranches stand under their stamped §4 exits, and WL-21 (tomorrow, the credit
+  > side) is untouched. Grounds: a count-based stop on one name, one direction, one expiry, for
+  > three runs is a tighter bind than the charter, which is the conservative direction the
+  > standing-in delegation covers; $7,300 of one three-day read into Friday's print, on top of a
+  > short-delta SPY book the ledger nets nothing against, is the design item 20 gap producing an
+  > outcome, as the run says. The case against, which the run stated fairly (the entry improved,
+  > and §5 pushes toward deployment), is real and is why this is a today-only stop and not a rule:
+  > Wes can lift it with a word, and the design pass owns the standing answer. This ruling stays
+  > under approved intents while it binds and moves to ruled at the close.
+
 - **WL-21** (run-1215, proposed 2026-09-02 12:15 CT → **APPROVED by Wes 2026-09-02 12:27 CT, with the down-verdict condition**): **re-file of WL-19 for tomorrow, on the same
   trigger, written to survive tonight's ceremony either way.** WL-19 was approved by Wes at 12:03
   today and expires at today's close having never come within 0.9% of its trigger. This asks to
@@ -123,6 +180,16 @@ per-run limits, and the broker's gate.
   another 0.9% to reach the trigger. The item expires at today's close unexercised unless a later
   run measures it true; see WL-21 for the re-file.
 
+  **MEASURED FALSE AGAIN, run-1245 (2026-09-02 12:45 CT).** The gating clause still fails at the
+  first test: IWM quotes **293.54 x 293.56**, against a trigger of 296.00 or higher. No further
+  clause was tested for authorization purposes. Recorded because the shape is unchanged at a fourth
+  measurement: at spot 293.55, IWM Sep 8 call deltas are 296 **0.3239**, 297 **0.2492**, 298
+  **0.1784**, 299 0.1369. The band sits at 297 alone and the falsifier at 298, so the two still do
+  not overlap. 296 has drifted further above the band (0.2834 at 11:45, 0.3115 at 12:15, 0.3239
+  now), which is the rally mechanism WL-19 anticipated continuing to run, but IWM is still about
+  0.8% short of the trigger with roughly two hours of session left. Expires at today's close unless
+  a later run measures it true.
+
 - **WL-13** (run-1345, proposed 2026-09-01 13:45 CT as "WL-12"; renumbered by the operator in
   transcription because run-1315 had already claimed the number — both proposals exist only in
   the run logs): if SPY trades back to 765 or higher and a Sep 8 call at 775 or above measures
@@ -153,6 +220,16 @@ per-run limits, and the broker's gate.
   ago. Nothing to re-test. The item stands unexercised to its expiry at today's close, and on this
   run's reading it is very unlikely to fire in the remaining session: SPY would have to regain 765
   *and* the Sep 8 call band would have to migrate up to 775, which at 11:18 measured 0.1306 delta.
+
+  **MEASURED FALSE A THIRD TIME, run-1245 (2026-09-02 12:45 CT).** SPY has regained the 765 level it
+  gave back at 12:15 — it quotes **765.19 x 765.22** — so the first clause is true again and the item
+  turns entirely on the second, which fails by a wide margin. Measured this run, **no SPY Sep 8 call
+  at 775 or above is inside the 0.20-0.30 delta band**, and the readings have moved further away
+  since 11:18: 775 **0.1159** (was 0.1306), 776 **0.0932**, 777 **0.0672**, 778 **0.0586**, 779
+  **0.0386**, 780 **0.0242**. The band has not migrated up toward 775; SPY's rally has been met by
+  enough decay and vol compression on the Sep 8 call wing to leave 775 further out of band than it
+  was ninety minutes ago. The item stands unexercised to its expiry at today's close, and on this
+  run's reading it cannot fire in the remaining session.
 
 - **WL-6** (run-0915 → approved with modification 2026-09-01 09:25 CT → **OPENED 2026-09-01
   09:48 CT by run-0945**): open a QQQ Sep 8
