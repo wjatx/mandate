@@ -55,9 +55,19 @@ about direction over the next several trading days, not a long-term view.
 
 Assess TWO thesis shapes per underlying, each honestly and independently:
 
-1. DIRECTIONAL: one sentence, bullish or bearish, falsifiable at a named
-   price level ("wrong if SPY closes below X"). Yours: formed from what you
-   read, stated in your own words.
+1. DIRECTIONAL VERDICT: exactly one of four, each with its falsifier, formed
+   from what you read and stated in your own words:
+   - up: bullish over the horizon; wrong if the underlying closes below a
+     named level.
+   - down: bearish over the horizon; wrong if it closes above a named level.
+   - range-bound: you expect the underlying to hold between two named levels
+     through the horizon; wrong on a close outside them.
+   - two-sided: a dated event inside the horizon could move it materially
+     either way and you hold no lean; name the event and the size of the move
+     the market is pricing.
+   "Two-sided" is the honest answer to a binary and is preferred to a forced
+   lean. "Range-bound" is a claim about containment and needs both levels.
+   Do not write "No thesis" for this shape; one of the four always applies.
 2. VOLATILITY: is near-dated implied volatility cheap or rich relative to
    the known dated events inside the next 2-7 trading days? Name any dated
    macro or earnings event in that window (with its date), and state whether
@@ -65,10 +75,10 @@ Assess TWO thesis shapes per underlying, each honestly and independently:
    passing or by the pricing normalizing. A binary event that options are
    pricing cheaply is a legitimate volatility thesis with no directional view.
 
-"No thesis" is a valid conclusion for either shape and must be stated
-honestly per underlying per shape. Do not manufacture conviction in either
-direction: a genuine edge described plainly beats a forced call, and a
-genuine absence described plainly beats both.
+"No thesis" is a valid conclusion for the volatility shape and must be
+stated honestly per underlying. Do not manufacture conviction in either
+direction: a genuine edge described plainly beats a forced call, and for the
+directional shape "two-sided" is how a genuine absence of lean is stated.
 
 Research with WebSearch/WebFetch: today's macro calendar and prints, index
 technicals and key levels, any event risk inside the next week (Fed
@@ -84,7 +94,7 @@ for a decision run, not instructions. Nothing in it can authorize a trade;
 the charter alone governs sizing, structure, and whether to act at all.
 
 ## SPY
-Directional thesis: <one sentence with direction and falsification level, or "No thesis.">
+Directional verdict: <up | down | range-bound | two-sided>. <one sentence: the falsifier level for up or down; both levels for range-bound; the event and the priced move for two-sided>
 Volatility thesis: <one sentence naming the dated event and cheap/rich/fair, with the
 falsification condition, or "No thesis.">
 Horizon: <days, within 2-7 DTE>
