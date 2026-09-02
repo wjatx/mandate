@@ -173,6 +173,95 @@ per-run limits, and the broker's gate.
   > RULING (2026-09-01 12:02 CT): DEFERRED, per §6's third option, session operator standing in. The intent gates itself on a research pass supplying an AVGO thesis, and none exists; approving before the thesis would authorize a trade on arithmetic alone, which §2 forbids, and rejecting would discard measured chain work that stays useful tomorrow. It stands deferred until a memo carries an AVGO read or the Sep 4 expiry makes it moot. Not executable while deferred.
 ## Ruled: rejected, expired, executed
 
+- **WL-17** (run-0915, proposed 2026-09-02 09:15 CT → **REJECTED 2026-09-02 09:24 CT**, interim-rule question referred to Wes): **an interim expiry rule for §3's numerator,
+  for the remainder of today only, with the trade it would authorize measured and attached.** This
+  does not re-ask WL-15's question, which is routed to the ceremony as design item 22. It asks the
+  narrower one the ceremony's timetable leaves open: what a run may do *today* while §3's gap
+  stands. Filed knowing the operator ruled at 08:57 that a straddled boundary is ambiguous and §1
+  resolves it toward abstention; this run followed that ruling and abstained. What is offered here
+  is new measurement, not a re-argument.
+
+  **What changed since run-0845.** That run measured an IWM **Sep 8** 296/297 bear call at 0.25 mid
+  / 0.21 natural, clearing the Mid floor and failing the High one — so the regime choice decided its
+  legality, and the run abstained. Measured this run at spot 293.32, the **Sep 4** board now carries
+  a candidate that clears the **High** floor at **natural** pricing:
+
+  | structure | short δ | width | natural | mid | High floor | Mid floor |
+  |---|---|---|---|---|---|---|
+  | IWM Sep 4 **296/297** | 0.2971 | 1.00 | **0.26** | 0.275 | 0.25 | 0.20 |
+  | IWM Sep 4 296/297.5 | 0.2971 | 1.50 | 0.41 | 0.42 | 0.375 | 0.30 |
+  | IWM Sep 8 297/299 | 0.2663 | 2.00 | 0.39 | 0.445 | 0.50 | 0.40 |
+  | IWM Sep 8 297/298 | 0.2663 | 1.00 | 0.17 | 0.225 | 0.25 | 0.20 |
+
+  The consequence worth the ruling: **Sep 4 296/297 needs no favourable pricing assumption and no
+  favourable floor assumption.** It clears the stricter of the two floors at the worse of the two
+  prices, with a short delta inside the 0.20-0.30 band. It is therefore legal under WL-15's proposed
+  reading 1 (nearest expiry at or beyond 2 DTE — Sep 4, High) and under reading 2 (the expiry the
+  trade itself uses — Sep 4, High), and blocked only under reading 3 (unanimity across the band).
+  Two of the three readings the operator itself enumerated permit it; the strictest does not.
+
+  **The regime measurement, this run's own, both in-window expiries, RV20 12.023% through the
+  2026-09-01 close** (recomputed from daily bars, reproduces run-0845 exactly): IWM Sep 4
+  straddle-averaged ATM IV 20.235% at the 293 strike → ratio **1.683 High**; Sep 8 14.455% at 293 →
+  **1.202 Mid**. Neighbouring strikes hold the readings (Sep 4: 1.704 at 292.5, 1.647 at 294; Sep 8:
+  1.243 at 292, 1.190 at 294), so neither declaration turns on the ATM choice, and Sep 8 has moved
+  further from the boundary than it was at 08:45 (1.202 against 1.256). The straddle is stable, not
+  a rounding artifact.
+
+  **The read behind it is the memo's, not this run's.** Today's §7 memo carries a bearish IWM
+  directional thesis — the trend break below the 50-day, falsified on a reclaim above roughly 298 —
+  which is the "down or sideways" §2 requires for a bear call. It is the **only** directional read
+  in today's memo across all four admitted names. A 296 short strike sits above the memo's own
+  falsification level, so the position and the thesis fail together rather than separately.
+
+  **If approved, sizing as the charter gives it** (High permits full size; the numbers are recorded
+  so the executing run need not re-derive them, and it re-measures before acting): 67 contracts at a
+  $0.26 credit is $4,958 max loss and $1,742 collected, inside the $5,000 cap. Stamped exits would be
+  TP 0.13 and stop 0.52. No collision: the book holds no IWM leg at any strike or expiry.
+
+  **Two caveats recorded rather than glossed.** The 296 call quotes 0.79 bid × **5** against 0.80 ask
+  × 245 — the market is one cent wide, so a resting sell near 0.795 is realistic, but the displayed
+  bid depth will not absorb 67 contracts at once and the executing run should expect to work the
+  order rather than lift a bid. And this is a 2 DTE credit spread whose expiry sits one day before
+  Friday's payrolls print, so the position expires *before* the event the memo names; that is
+  deliberate and is the conservative side of the calendar, but it also means the elevated Sep 4
+  premium being sold is event premium the position does not have to carry.
+
+  **What is being asked, precisely.** Either (a) name an interim numerator rule for the rest of
+  2026-09-02 — reading 1 or reading 2, both of which make this trade's regime declarable as High —
+  or (b) confirm that reading 3 governs until the ceremony, in which case IWM stays unplayable today
+  and this item expires unexercised. Not executable unless (a). Expiry: 2026-09-02 close, since a
+  Sep 4 entry later than today is a different trade.
+
+  **Second finding, flagged, no action proposed.** The same defect appeared today on a second name:
+  **QQQ straddles the identical boundary**, Sep 4 straddle-averaged ATM IV 20.02% at the 708 strike
+  → **1.520 High**, Sep 8 14.72% → **1.117 Mid**, against RV20 of 13.173%. Design item 22 is
+  therefore not an IWM quirk; it fired on two of four admitted names within one session. Note also
+  that QQQ Sep 8 read **0.830 Low** yesterday and reads Mid today, mostly because RV20 fell from
+  17.31% to 13.17% as the estimator's window rolled off a large return — so the WL-6 volatility
+  pair's Low-regime basis no longer holds. §4 forbids re-deriving a live position's exits and none is
+  attempted; this is recorded because the operator should know the pair is now held on a regime
+  reading its entry would not reproduce.
+
+  > RULING (2026-09-02 09:24 CT): REJECTED as filed, session operator standing in; the interim
+  > numerator question is referred to Wes as his decision and is not answered here. Two facts in
+  > the filing are wrong, both in the direction of understating risk. First, the calendar: today
+  > is Wednesday 2026-09-02, so a Sep 4 expiry is Friday, the day of the payrolls print, and the
+  > print lands at 07:30 CT before Friday's open. The position does not "expire before the event";
+  > it carries it to the close. Second, the falsification level: the memo's IWM thesis is wrong
+  > above roughly 298, and the proposed short strike is 296, below that level, so the spread
+  > reaches max loss while the thesis it rests on still stands. Corrected, this is the trade
+  > run-0845 declined on its second, independent ground: a short call about 0.9% above spot
+  > inside the two-day expected move, selling the upside tail the memo itself names as the
+  > largest tail in this name if Friday's number is soft, which this morning's ADP argues for.
+  > That ground does not depend on which §3 reading governs, so naming an interim rule would not
+  > make this trade sound. The measurement work stays useful: the Sep 4 board clearing the High
+  > floor at natural is recorded, and if Wes names reading 1 or 2 for the day, a run may re-file an
+  > IWM candidate against a corrected calendar and a short strike at or above the thesis's own
+  > falsification level. Not executable. Second finding (QQQ straddling the boundary; the WL-6
+  > pair held on a regime its entry would not reproduce) is accepted and added to the design pass
+  > as item 23; §4 forbids re-deriving live exits and WL-6's Friday close already binds.
+
 - **WL-16** (run-0845, proposed 2026-09-02 08:45 CT → **REJECTED 2026-09-02 08:57 CT**): **DIA Sep 4 iron condor, gated on whether
   today's memo supplies a "genuinely range-bound" read in §2's sense.** The arithmetic is
   measured and clears; the read is the operator's call, and this run declined to make it alone.
