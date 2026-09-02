@@ -7,6 +7,58 @@ per-run limits, and the broker's gate.
 
 ## Approved standing intents
 
+- **WL-19** (run-1145, proposed 2026-09-02 11:45 CT → **APPROVED by Wes 2026-09-02 12:03 CT**): **IWM Sep 8 bear call, gated on the 298
+  strike entering the delta band.** This is the re-file path the 09:24 ruling explicitly left
+  open, with the one condition that currently fails written as the trigger.
+
+  Trigger: if IWM trades to **296.00 or higher**, and the IWM Sep 8 **298** call measures inside
+  §2's 0.20-0.30 delta band on the acting run's own reading, and a spread with short strike at
+  **298 or above** clears the credit floor of the regime that run measures **at natural pricing**,
+  then one IWM bear call, sized to the measured regime under §5. Expires 2026-09-03 close.
+
+  Why it is a watch item and not a trade. The direction is authorized: today's §7 memo carries a
+  bearish IWM read, the only directional thesis across the four admitted names, and §2 admits a
+  bear call on "down or sideways". The arithmetic is available: measured this run at spot 293.12,
+  IWM Sep 8 **296/297 prices 0.24 natural / 0.27 mid against a Mid floor of 0.20**, clearing at
+  both prices with the short at 0.2834 delta, in band. What blocks it is the 09:24 ruling, which
+  requires the short strike at or above the thesis's own falsification level (~298) so that the
+  position and the thesis fail together. 296 is below that level, which is the precise defect the
+  ruling named when it rejected WL-17.
+
+  **The band and the falsifier do not currently overlap, on either in-window expiry, measured this
+  run.** Sep 8 call deltas: 296 **0.2834**, 297 **0.2143**, 298 **0.1592**, 299 **0.1123**. Sep 4:
+  296 **0.2354**, 297 **0.1602**, 297.5 **0.1305**, 298 **0.1113**. The band sits at 296-297 and
+  the falsifier at 298, so every compliant strike is below the falsifier and every strike at or
+  above the falsifier is outside the band. No choice of §3 reading changes this, and it confirms
+  run-1115's finding at a second measurement three hours later.
+
+  Why the trigger is a **rally** rather than a decline, which reads backwards and is not. Delta at
+  a fixed strike rises as spot rises. IWM must move **toward** 298 for the 298 call to enter the
+  band. That is coherent rather than perverse: it is exactly the setup where selling the 298 call
+  is both compliant and the right expression of the thesis, since the short strike then sits at
+  the level the memo says the read dies at, and the credit improves as the trade gets closer to
+  its own falsifier. A decline moves the item further out of reach and it simply expires.
+
+  Recorded caveat: a rally to 296 is 1.0% against a two-to-three session bearish thesis that has
+  already gone the wrong way today (IWM 290.57 at Tuesday's close, 293.12 now). A run measuring
+  the trigger true should confirm the memo's thesis still stands (no close above ~298) before
+  acting, which the trigger's own strike floor largely enforces.
+
+  > OPERATOR NOTE (2026-09-02 11:58 CT): REFERRED TO WES, not ruled; not executable until he
+  > rules. Approving a standing intent creates trading authority, which the session operator
+  > standing in does not hold. Checked and holds: the trigger (IWM 296+, 298 in band, credit at
+  > natural clearing the floor) is the 09:24 re-file path as written, the book holds only the
+  > Sep 8 293/290 bear put in IWM so there is no leg collision, and the thesis and position fail
+  > together at 298. Recommendation to Wes: approve as filed, expiring at today's close, since
+  > tomorrow's memo replaces the verdict it rests on. Wes is travelling; if no ruling arrives
+  > the item expires unexercised.
+
+  > RULING (2026-09-02 12:03 CT, Wes): APPROVED as filed ("approve WL-19", in chat). Executable
+  > within every ordinary limit on the executing run's own re-measurement: IWM at 296 or higher,
+  > the 298 call inside the 0.20-0.30 band, credit clearing the regime's floor at natural, one
+  > bear call with the short at 298 or above, regime read on the structure's own expiry under
+  > reading 2. Expires 2026-09-02 close. (Transcribed by the session operator.)
+
 - **WL-13** (run-1345, proposed 2026-09-01 13:45 CT as "WL-12"; renumbered by the operator in
   transcription because run-1315 had already claimed the number — both proposals exist only in
   the run logs): if SPY trades back to 765 or higher and a Sep 8 call at 775 or above measures
@@ -126,52 +178,6 @@ per-run limits, and the broker's gate.
 (none — WL-5 executed by run-0915; see below)
 
 ## Proposed, awaiting ruling
-
-- **WL-19** (run-1145, proposed 2026-09-02 11:45 CT): **IWM Sep 8 bear call, gated on the 298
-  strike entering the delta band.** This is the re-file path the 09:24 ruling explicitly left
-  open, with the one condition that currently fails written as the trigger.
-
-  Trigger: if IWM trades to **296.00 or higher**, and the IWM Sep 8 **298** call measures inside
-  §2's 0.20-0.30 delta band on the acting run's own reading, and a spread with short strike at
-  **298 or above** clears the credit floor of the regime that run measures **at natural pricing**,
-  then one IWM bear call, sized to the measured regime under §5. Expires 2026-09-03 close.
-
-  Why it is a watch item and not a trade. The direction is authorized: today's §7 memo carries a
-  bearish IWM read, the only directional thesis across the four admitted names, and §2 admits a
-  bear call on "down or sideways". The arithmetic is available: measured this run at spot 293.12,
-  IWM Sep 8 **296/297 prices 0.24 natural / 0.27 mid against a Mid floor of 0.20**, clearing at
-  both prices with the short at 0.2834 delta, in band. What blocks it is the 09:24 ruling, which
-  requires the short strike at or above the thesis's own falsification level (~298) so that the
-  position and the thesis fail together. 296 is below that level, which is the precise defect the
-  ruling named when it rejected WL-17.
-
-  **The band and the falsifier do not currently overlap, on either in-window expiry, measured this
-  run.** Sep 8 call deltas: 296 **0.2834**, 297 **0.2143**, 298 **0.1592**, 299 **0.1123**. Sep 4:
-  296 **0.2354**, 297 **0.1602**, 297.5 **0.1305**, 298 **0.1113**. The band sits at 296-297 and
-  the falsifier at 298, so every compliant strike is below the falsifier and every strike at or
-  above the falsifier is outside the band. No choice of §3 reading changes this, and it confirms
-  run-1115's finding at a second measurement three hours later.
-
-  Why the trigger is a **rally** rather than a decline, which reads backwards and is not. Delta at
-  a fixed strike rises as spot rises. IWM must move **toward** 298 for the 298 call to enter the
-  band. That is coherent rather than perverse: it is exactly the setup where selling the 298 call
-  is both compliant and the right expression of the thesis, since the short strike then sits at
-  the level the memo says the read dies at, and the credit improves as the trade gets closer to
-  its own falsifier. A decline moves the item further out of reach and it simply expires.
-
-  Recorded caveat: a rally to 296 is 1.0% against a two-to-three session bearish thesis that has
-  already gone the wrong way today (IWM 290.57 at Tuesday's close, 293.12 now). A run measuring
-  the trigger true should confirm the memo's thesis still stands (no close above ~298) before
-  acting, which the trigger's own strike floor largely enforces.
-
-  > OPERATOR NOTE (2026-09-02 11:58 CT): REFERRED TO WES, not ruled; not executable until he
-  > rules. Approving a standing intent creates trading authority, which the session operator
-  > standing in does not hold. Checked and holds: the trigger (IWM 296+, 298 in band, credit at
-  > natural clearing the floor) is the 09:24 re-file path as written, the book holds only the
-  > Sep 8 293/290 bear put in IWM so there is no leg collision, and the thesis and position fail
-  > together at 298. Recommendation to Wes: approve as filed, expiring at today's close, since
-  > tomorrow's memo replaces the verdict it rests on. Wes is travelling; if no ruling arrives
-  > the item expires unexercised.
 
 - **WL-9** (run-1145, proposed 2026-09-01 11:45 CT → **DEFERRED 2026-09-01 12:02 CT, awaiting an AVGO research thesis**): **AVGO Sep 4 income trade, gated on a
   directional read.** If the §7 research pass produces an AVGO directional thesis in the §2
