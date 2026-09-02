@@ -50,6 +50,17 @@ record as an inaction request and it is judged under the action mandate (section
 
 ## 2. The two books
 
+> Amended 2026-09-02 (no-lean package, Wes-ratified). On 2026-09-02 the section 7 memo
+> returned "No thesis" on three of four names because it read Friday's payrolls as a
+> two-sided binary, while section 3 read High on every name all morning. Five runs
+> abstained. The read requirement was doing what it was written to do, refusing to
+> manufacture a direction, and the rules together produced a book that could not sell
+> rich premium precisely because it did not know which way the market would go. A condor
+> is the structure that takes no side. Selling into a dated binary is the deliberate
+> choice the 2026-08-31 single-name amendment already made for AVGO: with defined risk
+> and a $5,000 ceiling, gap risk over thin credit. The same choice is made here for the
+> indices, at full size only where the ratio says the premium is rich.
+
 > Amended 2026-09-01 (IWM and DIA admitted to both books, Wes-ratified, full-deployment
 > package). Broad index ETFs only, on the unchanged section 3 ratio rule; the estimator is
 > honest for them exactly where the same day's AVGO finding shows it is dishonest for
@@ -61,8 +72,10 @@ record as an inaction request and it is judged under the action mandate (section
 
 ### Core income
 
-Short vertical credit spreads on SPY, QQQ, IWM and DIA: bull put spreads when the read is up or
-sideways, bear call spreads when it is down or sideways.
+Short vertical credit spreads on SPY, QQQ, IWM and DIA: bull put spreads when the section 7
+verdict is **up** or **range-bound**, bear call spreads when it is **down** or **range-bound**.
+(Amended 2026-09-02: the memo now returns one of four directional verdicts, up, down,
+range-bound or two-sided; "sideways" in earlier text is "range-bound" here.)
 
 - Expiry 0 to 7 DTE, so theta realizes inside the trading window.
 - Short strike at 0.20 to 0.30 delta.
@@ -76,7 +89,15 @@ sideways, bear call spreads when it is down or sideways.
   risk; the value stop already bounds the realized loss near the credit collected.
 - Spread width $1 to $5.
 
-Iron condors on the same underlyings when the read is genuinely range-bound. A condor is two
+Iron condors on the same underlyings when the verdict is **range-bound** or **two-sided**. A
+two-sided verdict is the memo's honest statement that a dated event inside the window could
+resolve either way; it is not an absence of research, and under a High or Mid regime it is the
+case a condor is built for. Sizing follows section 3: a range-bound condor at the per-position
+cap in High or Mid; a two-sided condor at the per-position cap in High and at half size
+(single-side max loss at most $2,500) in Mid. The memo's own volatility opinion (cheap, rich,
+fair) is a tactical-book thesis and never vetoes an income trade the measured regime admits:
+section 3's ratio is the instrument that reads the variance premium, and a memo sentence is
+not. (Amended 2026-09-02.) A condor is two
 credit spreads, so it inherits every rule above on each side and is sized on its single-side
 max loss. **The credit floor is the one exception: it is tested on the condor's TOTAL credit
 against its widest wing, not on each side separately.**
@@ -194,6 +215,22 @@ daily bar the feed will serve.** A rehearsal on 2026-08-31 found the available
 conventions straddling the Mid/High boundary on SPY at a ratio of 1.29 against an edge of
 1.30, which means two runs could read the same market and declare different regimes. A
 rule that does not name its estimator is not deterministic.
+
+The implied-volatility numerator is likewise fixed: **it is measured on the expiry the
+proposed structure itself uses**, straddle-averaged at the strike nearest spot, so the regime
+and the position are read on one surface. A run that has chosen no structure yet records the
+reading for the nearest expiry at or beyond 2 DTE. A structure whose expiry is under 2 DTE
+(income trades at 0 or 1 DTE) takes its regime from the nearest expiry at or beyond 2 DTE,
+since the chain this section names begins there. Two expiries inside the band disagreeing
+about the regime is therefore not ambiguity; each structure has exactly one reading.
+"Straddling a band edge" in the abstention rule below means the reading at neighbouring
+strikes on that one surface crossing the edge, not a disagreement between expiries. (Amended
+2026-09-02: on the rule's second live day IWM read High on the 2 DTE chain and Mid on the
+6 DTE chain by the same method at the same minute, four times without converging, and QQQ
+did the same; a dated event inside the window lifts annualized implied volatility far more
+on a short chain than a long one, so this recurs on every event week. The 2026-08-31
+amendment pinned the denominator for the same reason and left the numerator open. Wes named
+this reading by ruling at 11:09 CT on 2026-09-02; this makes it text.)
 
 Three measurement rules bind, each from an observed failure. Use the straddle average: the
 vendor's per-strike IV carries a call-over-put divergence at the same strike (2.31 vol
