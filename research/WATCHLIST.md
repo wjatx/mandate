@@ -7,140 +7,6 @@ per-run limits, and the broker's gate.
 
 ## Approved standing intents
 
-- **WL-18** (run-1045, proposed 2026-09-02 10:45 CT → **APPROVED by Wes 2026-09-02 11:09 CT**, §3 reading 2 named for the day → **EXECUTED 2026-09-02 11:18 CT by run-1115**; the opening authorization is spent, see the execution account at the end of this entry): **IWM Sep 8 bear put debit vertical, gated
-  solely on Wes naming §3 reading 2.** This does not re-ask design item 22, and unlike WL-17 it
-  proposes no interim rule of its own. It records that the pending numerator question is not only
-  a credit-floor question, and names the one trade in the book's universe whose legality turns on
-  nothing else.
-
-  **What is new.** Item 22 was filed and routed as a *floor* problem: the two in-window readings
-  set the credit floor at one quarter or one fifth, and WL-17 showed a candidate that cleared the
-  stricter floor and so was legal either way. On the **debit** side the same ambiguity behaves
-  differently, and worse. §3's High row instructs *sell premium*; §3's Mid row (as amended
-  2026-09-01) permits the tactical book to *buy* a half-size debit vertical on a named-falsifier
-  memo thesis. So for a debit vertical the two readings do not disagree about a floor, they
-  disagree about whether the structure may be placed at all, and §3's closing sentence makes a
-  strategy that contradicts its declared regime invalid. There is no "clears the stricter test"
-  escape available here, because the stricter reading forbids the structure outright.
-
-  **This run's own measurement**, RV20 12.023% through the 2026-09-01 close (recomputed from daily
-  bars; reproduces run-0845 and run-0915 exactly), spot 292.80, quotes fresh to the second:
-
-  | expiry | straddle-avg ATM IV @293 | ratio | regime |
-  |---|---|---|---|
-  | IWM Sep 4 (2 DTE) | 19.795% (C 20.24 / P 19.35) | **1.647** | High |
-  | IWM Sep 8 (6 DTE) | 14.320% (C 14.07 / P 14.57) | **1.191** | Mid |
-
-  Neighbouring strikes hold both readings (Sep 4: 1.659 @292.5, 1.683 @292; Sep 8: 1.208 @292), so
-  neither declaration turns on the ATM choice. The straddle has now persisted across four
-  measurements today and both sides have drifted *down* without converging (Sep 4 1.752 → 1.683 →
-  1.647; Sep 8 1.256 → 1.202 → 1.191).
-
-  **Why the credit side cannot substitute, measured rather than assumed.** The 09:24 ruling left a
-  re-file path open for an IWM bear call at a short strike at or above the memo's ~298
-  falsification level. That path is closed at this spot on both in-window expiries: IWM 298 measures
-  **0.1038** delta on Sep 4 and **0.1540** on Sep 8, both outside §2's 0.20-0.30 band. So no choice
-  of §3 reading makes a compliant IWM bear call exist today. The debit vertical is the only IWM
-  structure the pending ruling actually unlocks.
-
-  **The thesis is the memo's, unchanged and unfalsified.** Today's §7 memo carries a bearish IWM
-  directional read — the trend break below the 50-day, wrong on a reclaim and close above roughly
-  298 — and it is the only directional thesis in the memo across all four admitted names. IWM at
-  292.80 sits well below 298, so the thesis stands. A bear put debit vertical is the §2 tactical
-  structure for exactly this shape, and the position and the thesis fail together: if IWM rallies
-  through 298 the vertical is worth zero and the thesis is falsified in the same move.
-
-  **If approved under reading 2, the board as measured this run** (recorded so the executing run
-  need not re-derive it; it re-measures before acting). Natural debit is ask(long) − bid(short):
-
-  | structure | width | natural | mid | max profit at natural | qty at $2,500 | max loss |
-  |---|---|---|---|---|---|---|
-  | IWM Sep 8 **293/290** | 3.00 | **1.09** | 1.01 | 1.91 | 22 | $2,398 |
-  | IWM Sep 8 292/289 | 3.00 | 0.88 | 0.85 | 2.12 | 28 | $2,464 |
-  | IWM Sep 8 291/288 | 3.00 | 0.70 | 0.66 | 2.30 | 35 | $2,450 |
-  | IWM Sep 8 293/288 | 5.00 | 1.44 | 1.38 | 3.56 | 17 | $2,448 |
-
-  293/290 is the primary: it is long the ATM put, so it pays on the modest two-to-three session
-  drift the memo actually describes, rather than needing a 0.6% decline just to reach its long
-  strike. §3's Mid tactical clause caps max loss at **$2,500** by its own words; §5's 2026-09-01
-  amendment removed the *income* half-size rule and does not reach this cap. §4 exits would be
-  stamped TP 2.045 (debit plus half of width minus debit) and stop 0.545 (half the debit); this is
-  a single directional vertical, not a pair, so it carries a value stop normally. No collision: the
-  book holds no IWM leg at any strike or expiry, and 10 of 20 slots are free.
-
-  **Three caveats recorded rather than glossed, since WL-17 was rejected for understating risk.**
-  *Calendar:* today is Wednesday 2026-09-02; Sep 8 is Tuesday (Monday Sep 7 is a market holiday),
-  and Friday's payrolls print lands 07:30 CT on Sep 4, **inside** the position's life. This
-  position carries the event, deliberately — that is what long premium on a directional thesis into
-  a dated binary means, and the loss is bounded at the debit, which is the reason this is the debit
-  side rather than the credit side that the 09:24 ruling refused. *Adverse tail:* the memo names
-  its own strongest counter-evidence, this morning's 38,000 ADP print, and says that if Friday
-  confirms the cooling "this is the index that recovers hardest". The bet therefore has a large
-  adverse tail at the event it carries; bounded at roughly $2,400, not unbounded, and that
-  boundedness is the argument, not a claim that the tail is small. *Concentration:* the book already
-  carries $12,000 of SPY short-call risk, which is short delta. This adds short delta. It deepens
-  the book's directional tilt rather than diversifying it, which is the WL-10 concern (routed,
-  design item 20) showing up in a second name.
-
-  **What is being asked.** Either (a) Wes names reading 2 (the expiry the trade itself uses) as the
-  §3 numerator rule, in which case a decision run may open one IWM Sep 8 bear put debit vertical at
-  the §3 Mid half-size cap on its own re-measurement; or (b) he names reading 1 or 3, in which case
-  IWM stays unplayable and this item expires unexercised. Not executable unless (a). Expiry:
-  2026-09-03 close, since a Sep 8 entry later than Thursday is a materially different trade against
-  a three-session thesis.
-
-  **Second finding, flagged, no action proposed — item 22 is now firing on half the admitted
-  universe.** QQQ straddles the same boundary on this run's measurement: Sep 4 straddle-averaged ATM
-  IV 18.42% @709 → **1.398 High**, Sep 8 13.91% @709 → **1.056 Mid**, against RV20 of 13.173%. That
-  is two of four admitted names straddling 1.30 in one session, after run-0915 recorded the same
-  pair. One point of arithmetic the operator may find useful: from tomorrow, Sep 4 is 1 DTE and
-  therefore falls out of §3's own 2-to-7 DTE window, leaving only post-payrolls expiries in the
-  band, so today's straddles should resolve themselves without a ruling. That is why the ask above
-  is scoped to today and tomorrow rather than to the ceremony's timetable — but the mechanism WL-15
-  identified will recur on every event week, so item 22 still needs its answer.
-
-  > RULING (2026-09-02 11:09 CT, Wes): APPROVED. Wes names **§3 reading 2**: the regime that
-  > governs a structure is measured on the expiry the structure itself uses. This is an operator
-  > ruling under the charter, recorded here and on the rulings tape, not a charter text change;
-  > the numerator question still goes to the ceremony as design item 22, and this reading holds
-  > for 2026-09-02 and 2026-09-03 (this item's expiry), after which the ceremony decides. It
-  > applies to every admitted name, not only to this trade: a run declaring a regime for a Sep 8
-  > structure reads the Sep 8 surface, and for a Sep 4 structure the Sep 4 surface. Under it, one
-  > IWM Sep 8 bear put debit vertical may be opened by a decision run at the §3 Mid tactical cap
-  > ($2,500 max loss), on the run's own re-measurement of regime, strikes and the memo's thesis
-  > (IWM below ~298), subject to every ordinary limit and the collision check. The 09:24 credit-
-  > side conditions are unchanged and still block an IWM bear call at this spot. Executable.
-  > Expires 2026-09-03 close as filed. (Transcribed by the session operator from Wes's ruling
-  > "reading 2", given in chat at 11:09 CT.)
-
-  **EXECUTION (run-1115, 2026-09-02 11:18 CT).** Filled, at better than the limit. **IWM Sep 8
-  293/290 bear put debit vertical, 23 contracts, order 7bf08eb9**, filled 16:18:14Z at a **1.03**
-  average (long 293P @ 2.04, short 290P @ 1.01) against a 1.05 limit, so $2,369 was actually paid.
-  The gate parsed it `debit_vertical` and stamped $2,415 of max loss at the limit price, with
-  §4 exits **TP 2.025 / stop 0.525**; not a vol pair, so it carries a value stop normally. This
-  is 1 of the run's 2 opens and takes the book to 11 of 20 slots.
-
-  Every gate measured on this run's own reading, not inherited. **Regime, §3 reading 2 as ruled:**
-  IWM Sep 8 straddle-averaged ATM IV at the 293 strike (call 14.58%, put 14.43%) is **14.505%**
-  against RV20 of **12.023%** through the 2026-09-01 close, a ratio of **1.206 — Mid**. RV20 was
-  recomputed from daily bars and reproduces run-0845, run-0915 and run-1045 exactly. Neighbouring
-  strikes read 1.234 (292) and 1.162 (294), so the declaration does not turn on the ATM choice, and
-  nothing sits near either edge. Spot 293.18, quotes fresh to the second, both legs deep (293P ask
-  ×75, 290P bid ×284, against 23 contracts). **Sizing:** §3's Mid tactical clause caps max loss at
-  $2,500; $2,415 is inside it. **Thesis:** the §7 memo's bearish IWM read, falsified on a reclaim
-  and close above roughly 298; IWM at 293.18 is 1.6% below that, so it stands. **Collision and
-  anti-offset:** the book held no IWM leg at any strike or expiry. **Book caps:** aggregate open
-  risk $22,712 → $25,127 against $85,000; tactical book $10,712 → $13,127 against $60,000.
-
-  Two things recorded rather than glossed, both moving against the trade since it was filed.
-  IWM has risen intraday, 290.57 at yesterday's close and 292.80 when run-1045 measured it, to
-  293.18 now, so the two-to-three session drift the memo describes has reversed today; the thesis
-  is not falsified, which requires a close above ~298, but the run is buying it a day into a bounce
-  and the priced debit is correspondingly lower (natural 1.049 now against 1.09 at 10:45). And the
-  concentration caveat in the filing is now larger than it was: SPY has rallied to 765.5, the four
-  SPY Sep 8 bear calls sit at 1.14x to 1.51x their credits, and this adds short delta to a book
-  already leaning that way. That is design item 20, unchanged and still unruled.
-
 - **WL-13** (run-1345, proposed 2026-09-01 13:45 CT as "WL-12"; renumbered by the operator in
   transcription because run-1315 had already claimed the number — both proposals exist only in
   the run logs): if SPY trades back to 765 or higher and a Sep 8 call at 775 or above measures
@@ -164,23 +30,6 @@ per-run limits, and the broker's gate.
   **1.382**), so had the delta clause fired, the applicable credit floor would have been the High
   one quarter of width rather than the Mid one fifth the item names — the charter's floor governs
   over the item's wording, and a run executing it should test against the regime it measures.
-
-- **WL-12** (run-1315, proposed 2026-09-01 13:15 CT; transcribed from the run record by the
-  operator 2026-09-01 13:55 CT — the run did not write it into this file): if the next §7
-  research pass carries a SPY read that is up-or-sideways in the §2 sense, a decision run may
-  open one SPY bull put spread at half size, subject to every ordinary limit and the collision
-  check. Rationale as filed: the only admitted structure that would diversify the book's
-  single-question concentration rather than deepen it. Expires 2026-09-04 close. APPROVED by Wes
-  2026-09-01 14:50 CT, with the full-deployment package (commit 40b94ca); executable within every ordinary limit. Text corrected 2026-09-02 08:05 CT: the approval commit re-ordered this entry but left its status line unchanged.
-
-  **MEASURED FALSE, run-1115 (2026-09-02 11:18 CT), with a reading question for the operator.**
-  Today's §7 memo opens its SPY section "Directional thesis: No thesis" and takes no view over the
-  window, so there is no up-or-sideways read and the item does not fire. The question the run
-  declines to answer alone: the trigger names "the **next** §7 research pass", and today's pass was
-  that one, which would make the item already spent rather than live to its stated 2026-09-04
-  expiry. The run treats it as live and simply unfired, which is the conservative reading, and
-  flags the ambiguity rather than resolving it. It cannot fire again before tomorrow's pass in
-  either reading.
 
 - **WL-6** (run-0915 → approved with modification 2026-09-01 09:25 CT → **OPENED 2026-09-01
   09:48 CT by run-0945**): open a QQQ Sep 8
@@ -332,6 +181,166 @@ per-run limits, and the broker's gate.
 
   > RULING (2026-09-01 12:02 CT): DEFERRED, per §6's third option, session operator standing in. The intent gates itself on a research pass supplying an AVGO thesis, and none exists; approving before the thesis would authorize a trade on arithmetic alone, which §2 forbids, and rejecting would discard measured chain work that stays useful tomorrow. It stands deferred until a memo carries an AVGO read or the Sep 4 expiry makes it moot. Not executable while deferred.
 ## Ruled: rejected, expired, executed
+
+- **WL-12** (run-1315, proposed 2026-09-01 13:15 CT → **SPENT 2026-09-02 11:25 CT**, trigger measured absent on the pass it named; transcribed from the run record by the
+  operator 2026-09-01 13:55 CT — the run did not write it into this file): if the next §7
+  research pass carries a SPY read that is up-or-sideways in the §2 sense, a decision run may
+  open one SPY bull put spread at half size, subject to every ordinary limit and the collision
+  check. Rationale as filed: the only admitted structure that would diversify the book's
+  single-question concentration rather than deepen it. Expires 2026-09-04 close. APPROVED by Wes
+  2026-09-01 14:50 CT, with the full-deployment package (commit 40b94ca); executable within every ordinary limit. Text corrected 2026-09-02 08:05 CT: the approval commit re-ordered this entry but left its status line unchanged.
+
+  **MEASURED FALSE, run-1115 (2026-09-02 11:18 CT), with a reading question for the operator.**
+  Today's §7 memo opens its SPY section "Directional thesis: No thesis" and takes no view over the
+  window, so there is no up-or-sideways read and the item does not fire. The question the run
+  declines to answer alone: the trigger names "the **next** §7 research pass", and today's pass was
+  that one, which would make the item already spent rather than live to its stated 2026-09-04
+  expiry. The run treats it as live and simply unfired, which is the conservative reading, and
+  flags the ambiguity rather than resolving it. It cannot fire again before tomorrow's pass in
+  either reading.
+
+  > RULING (2026-09-02 11:25 CT): SPENT, session operator standing in, on run-1115's reading.
+  > The intent is gated on "the next §7 research pass" carrying an up-or-sideways SPY read.
+  > That pass was today's 08:15 memo and it carried "No thesis" for SPY, so the trigger has
+  > resolved false and the item has nothing left to wait for; its 2026-09-04 expiry was the
+  > outer bound, not a promise to re-test on each later memo. Conservative direction: this
+  > removes standing authority rather than extending it. Reversible by Wes: if he wants a SPY
+  > bull put standing through Friday under the amended §2 verdict vocabulary, that is a fresh
+  > approval on tomorrow's memo, not this item.
+
+- **WL-18** (run-1045, proposed 2026-09-02 10:45 CT → **APPROVED by Wes 2026-09-02 11:09 CT**, §3 reading 2 named for the day → **EXECUTED 2026-09-02 11:18 CT by run-1115**; the opening authorization is spent, see the execution account at the end of this entry): **IWM Sep 8 bear put debit vertical, gated
+  solely on Wes naming §3 reading 2.** This does not re-ask design item 22, and unlike WL-17 it
+  proposes no interim rule of its own. It records that the pending numerator question is not only
+  a credit-floor question, and names the one trade in the book's universe whose legality turns on
+  nothing else.
+
+  **What is new.** Item 22 was filed and routed as a *floor* problem: the two in-window readings
+  set the credit floor at one quarter or one fifth, and WL-17 showed a candidate that cleared the
+  stricter floor and so was legal either way. On the **debit** side the same ambiguity behaves
+  differently, and worse. §3's High row instructs *sell premium*; §3's Mid row (as amended
+  2026-09-01) permits the tactical book to *buy* a half-size debit vertical on a named-falsifier
+  memo thesis. So for a debit vertical the two readings do not disagree about a floor, they
+  disagree about whether the structure may be placed at all, and §3's closing sentence makes a
+  strategy that contradicts its declared regime invalid. There is no "clears the stricter test"
+  escape available here, because the stricter reading forbids the structure outright.
+
+  **This run's own measurement**, RV20 12.023% through the 2026-09-01 close (recomputed from daily
+  bars; reproduces run-0845 and run-0915 exactly), spot 292.80, quotes fresh to the second:
+
+  | expiry | straddle-avg ATM IV @293 | ratio | regime |
+  |---|---|---|---|
+  | IWM Sep 4 (2 DTE) | 19.795% (C 20.24 / P 19.35) | **1.647** | High |
+  | IWM Sep 8 (6 DTE) | 14.320% (C 14.07 / P 14.57) | **1.191** | Mid |
+
+  Neighbouring strikes hold both readings (Sep 4: 1.659 @292.5, 1.683 @292; Sep 8: 1.208 @292), so
+  neither declaration turns on the ATM choice. The straddle has now persisted across four
+  measurements today and both sides have drifted *down* without converging (Sep 4 1.752 → 1.683 →
+  1.647; Sep 8 1.256 → 1.202 → 1.191).
+
+  **Why the credit side cannot substitute, measured rather than assumed.** The 09:24 ruling left a
+  re-file path open for an IWM bear call at a short strike at or above the memo's ~298
+  falsification level. That path is closed at this spot on both in-window expiries: IWM 298 measures
+  **0.1038** delta on Sep 4 and **0.1540** on Sep 8, both outside §2's 0.20-0.30 band. So no choice
+  of §3 reading makes a compliant IWM bear call exist today. The debit vertical is the only IWM
+  structure the pending ruling actually unlocks.
+
+  **The thesis is the memo's, unchanged and unfalsified.** Today's §7 memo carries a bearish IWM
+  directional read — the trend break below the 50-day, wrong on a reclaim and close above roughly
+  298 — and it is the only directional thesis in the memo across all four admitted names. IWM at
+  292.80 sits well below 298, so the thesis stands. A bear put debit vertical is the §2 tactical
+  structure for exactly this shape, and the position and the thesis fail together: if IWM rallies
+  through 298 the vertical is worth zero and the thesis is falsified in the same move.
+
+  **If approved under reading 2, the board as measured this run** (recorded so the executing run
+  need not re-derive it; it re-measures before acting). Natural debit is ask(long) − bid(short):
+
+  | structure | width | natural | mid | max profit at natural | qty at $2,500 | max loss |
+  |---|---|---|---|---|---|---|
+  | IWM Sep 8 **293/290** | 3.00 | **1.09** | 1.01 | 1.91 | 22 | $2,398 |
+  | IWM Sep 8 292/289 | 3.00 | 0.88 | 0.85 | 2.12 | 28 | $2,464 |
+  | IWM Sep 8 291/288 | 3.00 | 0.70 | 0.66 | 2.30 | 35 | $2,450 |
+  | IWM Sep 8 293/288 | 5.00 | 1.44 | 1.38 | 3.56 | 17 | $2,448 |
+
+  293/290 is the primary: it is long the ATM put, so it pays on the modest two-to-three session
+  drift the memo actually describes, rather than needing a 0.6% decline just to reach its long
+  strike. §3's Mid tactical clause caps max loss at **$2,500** by its own words; §5's 2026-09-01
+  amendment removed the *income* half-size rule and does not reach this cap. §4 exits would be
+  stamped TP 2.045 (debit plus half of width minus debit) and stop 0.545 (half the debit); this is
+  a single directional vertical, not a pair, so it carries a value stop normally. No collision: the
+  book holds no IWM leg at any strike or expiry, and 10 of 20 slots are free.
+
+  **Three caveats recorded rather than glossed, since WL-17 was rejected for understating risk.**
+  *Calendar:* today is Wednesday 2026-09-02; Sep 8 is Tuesday (Monday Sep 7 is a market holiday),
+  and Friday's payrolls print lands 07:30 CT on Sep 4, **inside** the position's life. This
+  position carries the event, deliberately — that is what long premium on a directional thesis into
+  a dated binary means, and the loss is bounded at the debit, which is the reason this is the debit
+  side rather than the credit side that the 09:24 ruling refused. *Adverse tail:* the memo names
+  its own strongest counter-evidence, this morning's 38,000 ADP print, and says that if Friday
+  confirms the cooling "this is the index that recovers hardest". The bet therefore has a large
+  adverse tail at the event it carries; bounded at roughly $2,400, not unbounded, and that
+  boundedness is the argument, not a claim that the tail is small. *Concentration:* the book already
+  carries $12,000 of SPY short-call risk, which is short delta. This adds short delta. It deepens
+  the book's directional tilt rather than diversifying it, which is the WL-10 concern (routed,
+  design item 20) showing up in a second name.
+
+  **What is being asked.** Either (a) Wes names reading 2 (the expiry the trade itself uses) as the
+  §3 numerator rule, in which case a decision run may open one IWM Sep 8 bear put debit vertical at
+  the §3 Mid half-size cap on its own re-measurement; or (b) he names reading 1 or 3, in which case
+  IWM stays unplayable and this item expires unexercised. Not executable unless (a). Expiry:
+  2026-09-03 close, since a Sep 8 entry later than Thursday is a materially different trade against
+  a three-session thesis.
+
+  **Second finding, flagged, no action proposed — item 22 is now firing on half the admitted
+  universe.** QQQ straddles the same boundary on this run's measurement: Sep 4 straddle-averaged ATM
+  IV 18.42% @709 → **1.398 High**, Sep 8 13.91% @709 → **1.056 Mid**, against RV20 of 13.173%. That
+  is two of four admitted names straddling 1.30 in one session, after run-0915 recorded the same
+  pair. One point of arithmetic the operator may find useful: from tomorrow, Sep 4 is 1 DTE and
+  therefore falls out of §3's own 2-to-7 DTE window, leaving only post-payrolls expiries in the
+  band, so today's straddles should resolve themselves without a ruling. That is why the ask above
+  is scoped to today and tomorrow rather than to the ceremony's timetable — but the mechanism WL-15
+  identified will recur on every event week, so item 22 still needs its answer.
+
+  > RULING (2026-09-02 11:09 CT, Wes): APPROVED. Wes names **§3 reading 2**: the regime that
+  > governs a structure is measured on the expiry the structure itself uses. This is an operator
+  > ruling under the charter, recorded here and on the rulings tape, not a charter text change;
+  > the numerator question still goes to the ceremony as design item 22, and this reading holds
+  > for 2026-09-02 and 2026-09-03 (this item's expiry), after which the ceremony decides. It
+  > applies to every admitted name, not only to this trade: a run declaring a regime for a Sep 8
+  > structure reads the Sep 8 surface, and for a Sep 4 structure the Sep 4 surface. Under it, one
+  > IWM Sep 8 bear put debit vertical may be opened by a decision run at the §3 Mid tactical cap
+  > ($2,500 max loss), on the run's own re-measurement of regime, strikes and the memo's thesis
+  > (IWM below ~298), subject to every ordinary limit and the collision check. The 09:24 credit-
+  > side conditions are unchanged and still block an IWM bear call at this spot. Executable.
+  > Expires 2026-09-03 close as filed. (Transcribed by the session operator from Wes's ruling
+  > "reading 2", given in chat at 11:09 CT.)
+
+  **EXECUTION (run-1115, 2026-09-02 11:18 CT).** Filled, at better than the limit. **IWM Sep 8
+  293/290 bear put debit vertical, 23 contracts, order 7bf08eb9**, filled 16:18:14Z at a **1.03**
+  average (long 293P @ 2.04, short 290P @ 1.01) against a 1.05 limit, so $2,369 was actually paid.
+  The gate parsed it `debit_vertical` and stamped $2,415 of max loss at the limit price, with
+  §4 exits **TP 2.025 / stop 0.525**; not a vol pair, so it carries a value stop normally. This
+  is 1 of the run's 2 opens and takes the book to 11 of 20 slots.
+
+  Every gate measured on this run's own reading, not inherited. **Regime, §3 reading 2 as ruled:**
+  IWM Sep 8 straddle-averaged ATM IV at the 293 strike (call 14.58%, put 14.43%) is **14.505%**
+  against RV20 of **12.023%** through the 2026-09-01 close, a ratio of **1.206 — Mid**. RV20 was
+  recomputed from daily bars and reproduces run-0845, run-0915 and run-1045 exactly. Neighbouring
+  strikes read 1.234 (292) and 1.162 (294), so the declaration does not turn on the ATM choice, and
+  nothing sits near either edge. Spot 293.18, quotes fresh to the second, both legs deep (293P ask
+  ×75, 290P bid ×284, against 23 contracts). **Sizing:** §3's Mid tactical clause caps max loss at
+  $2,500; $2,415 is inside it. **Thesis:** the §7 memo's bearish IWM read, falsified on a reclaim
+  and close above roughly 298; IWM at 293.18 is 1.6% below that, so it stands. **Collision and
+  anti-offset:** the book held no IWM leg at any strike or expiry. **Book caps:** aggregate open
+  risk $22,712 → $25,127 against $85,000; tactical book $10,712 → $13,127 against $60,000.
+
+  Two things recorded rather than glossed, both moving against the trade since it was filed.
+  IWM has risen intraday, 290.57 at yesterday's close and 292.80 when run-1045 measured it, to
+  293.18 now, so the two-to-three session drift the memo describes has reversed today; the thesis
+  is not falsified, which requires a close above ~298, but the run is buying it a day into a bounce
+  and the priced debit is correspondingly lower (natural 1.049 now against 1.09 at 10:45). And the
+  concentration caveat in the filing is now larger than it was: SPY has rallied to 765.5, the four
+  SPY Sep 8 bear calls sit at 1.14x to 1.51x their credits, and this adds short delta to a book
+  already leaning that way. That is design item 20, unchanged and still unruled.
 
 - **WL-17** (run-0915, proposed 2026-09-02 09:15 CT → **REJECTED 2026-09-02 09:24 CT**, interim-rule question referred to Wes): **an interim expiry rule for §3's numerator,
   for the remainder of today only, with the trade it would authorize measured and attached.** This
