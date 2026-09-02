@@ -7,7 +7,7 @@ per-run limits, and the broker's gate.
 
 ## Approved standing intents
 
-- **WL-18** (run-1045, proposed 2026-09-02 10:45 CT → **APPROVED by Wes 2026-09-02 11:09 CT**, §3 reading 2 named for the day): **IWM Sep 8 bear put debit vertical, gated
+- **WL-18** (run-1045, proposed 2026-09-02 10:45 CT → **APPROVED by Wes 2026-09-02 11:09 CT**, §3 reading 2 named for the day → **EXECUTED 2026-09-02 11:18 CT by run-1115**; the opening authorization is spent, see the execution account at the end of this entry): **IWM Sep 8 bear put debit vertical, gated
   solely on Wes naming §3 reading 2.** This does not re-ask design item 22, and unlike WL-17 it
   proposes no interim rule of its own. It records that the pending numerator question is not only
   a credit-floor question, and names the one trade in the book's universe whose legality turns on
@@ -113,6 +113,34 @@ per-run limits, and the broker's gate.
   > Expires 2026-09-03 close as filed. (Transcribed by the session operator from Wes's ruling
   > "reading 2", given in chat at 11:09 CT.)
 
+  **EXECUTION (run-1115, 2026-09-02 11:18 CT).** Filled, at better than the limit. **IWM Sep 8
+  293/290 bear put debit vertical, 23 contracts, order 7bf08eb9**, filled 16:18:14Z at a **1.03**
+  average (long 293P @ 2.04, short 290P @ 1.01) against a 1.05 limit, so $2,369 was actually paid.
+  The gate parsed it `debit_vertical` and stamped $2,415 of max loss at the limit price, with
+  §4 exits **TP 2.025 / stop 0.525**; not a vol pair, so it carries a value stop normally. This
+  is 1 of the run's 2 opens and takes the book to 11 of 20 slots.
+
+  Every gate measured on this run's own reading, not inherited. **Regime, §3 reading 2 as ruled:**
+  IWM Sep 8 straddle-averaged ATM IV at the 293 strike (call 14.58%, put 14.43%) is **14.505%**
+  against RV20 of **12.023%** through the 2026-09-01 close, a ratio of **1.206 — Mid**. RV20 was
+  recomputed from daily bars and reproduces run-0845, run-0915 and run-1045 exactly. Neighbouring
+  strikes read 1.234 (292) and 1.162 (294), so the declaration does not turn on the ATM choice, and
+  nothing sits near either edge. Spot 293.18, quotes fresh to the second, both legs deep (293P ask
+  ×75, 290P bid ×284, against 23 contracts). **Sizing:** §3's Mid tactical clause caps max loss at
+  $2,500; $2,415 is inside it. **Thesis:** the §7 memo's bearish IWM read, falsified on a reclaim
+  and close above roughly 298; IWM at 293.18 is 1.6% below that, so it stands. **Collision and
+  anti-offset:** the book held no IWM leg at any strike or expiry. **Book caps:** aggregate open
+  risk $22,712 → $25,127 against $85,000; tactical book $10,712 → $13,127 against $60,000.
+
+  Two things recorded rather than glossed, both moving against the trade since it was filed.
+  IWM has risen intraday, 290.57 at yesterday's close and 292.80 when run-1045 measured it, to
+  293.18 now, so the two-to-three session drift the memo describes has reversed today; the thesis
+  is not falsified, which requires a close above ~298, but the run is buying it a day into a bounce
+  and the priced debit is correspondingly lower (natural 1.049 now against 1.09 at 10:45). And the
+  concentration caveat in the filing is now larger than it was: SPY has rallied to 765.5, the four
+  SPY Sep 8 bear calls sit at 1.14x to 1.51x their credits, and this adds short delta to a book
+  already leaning that way. That is design item 20, unchanged and still unruled.
+
 - **WL-13** (run-1345, proposed 2026-09-01 13:45 CT as "WL-12"; renumbered by the operator in
   transcription because run-1315 had already claimed the number — both proposals exist only in
   the run logs): if SPY trades back to 765 or higher and a Sep 8 call at 775 or above measures
@@ -124,6 +152,19 @@ per-run limits, and the broker's gate.
   > that the trigger becomes satisfiable on a squeeze; Wes ruled "leave it". Runs measure it as
   > written and execute only if both clauses are true.
 
+  **MEASURED FALSE, run-1115 (2026-09-02 11:18 CT).** The first clause is now true and the second
+  is not, so the item does not fire. SPY quotes 765.47 × 765.50, above the 765 trigger for the
+  first time since the item was written. But **no SPY Sep 8 call at 775 or above is inside the
+  0.20-0.30 delta band**: 775 measures **0.1306**, and delta only falls from there (776 0.1103,
+  777 0.0838, 778 0.0612, 780 0.0392). The band on the Sep 8 call side currently sits in the
+  low 770s, which is where the book already holds shorts, and the 775 floor exists precisely to
+  keep this item collision-free. Both clauses are required; the item stands unexercised to its
+  expiry at today's close. Recorded for the operator: SPY Sep 8 declares **High** on the §3 ratio
+  under reading 2 (straddle-averaged ATM IV 9.920% at the 765 strike against RV20 7.180%, ratio
+  **1.382**), so had the delta clause fired, the applicable credit floor would have been the High
+  one quarter of width rather than the Mid one fifth the item names — the charter's floor governs
+  over the item's wording, and a run executing it should test against the regime it measures.
+
 - **WL-12** (run-1315, proposed 2026-09-01 13:15 CT; transcribed from the run record by the
   operator 2026-09-01 13:55 CT — the run did not write it into this file): if the next §7
   research pass carries a SPY read that is up-or-sideways in the §2 sense, a decision run may
@@ -131,6 +172,15 @@ per-run limits, and the broker's gate.
   check. Rationale as filed: the only admitted structure that would diversify the book's
   single-question concentration rather than deepen it. Expires 2026-09-04 close. APPROVED by Wes
   2026-09-01 14:50 CT, with the full-deployment package (commit 40b94ca); executable within every ordinary limit. Text corrected 2026-09-02 08:05 CT: the approval commit re-ordered this entry but left its status line unchanged.
+
+  **MEASURED FALSE, run-1115 (2026-09-02 11:18 CT), with a reading question for the operator.**
+  Today's §7 memo opens its SPY section "Directional thesis: No thesis" and takes no view over the
+  window, so there is no up-or-sideways read and the item does not fire. The question the run
+  declines to answer alone: the trigger names "the **next** §7 research pass", and today's pass was
+  that one, which would make the item already spent rather than live to its stated 2026-09-04
+  expiry. The run treats it as live and simply unfired, which is the conservative reading, and
+  flags the ambiguity rather than resolving it. It cannot fire again before tomorrow's pass in
+  either reading.
 
 - **WL-6** (run-0915 → approved with modification 2026-09-01 09:25 CT → **OPENED 2026-09-01
   09:48 CT by run-0945**): open a QQQ Sep 8
