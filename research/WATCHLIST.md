@@ -19,8 +19,8 @@ per-run limits, and the broker's gate.
   research pass carries a SPY read that is up-or-sideways in the §2 sense, a decision run may
   open one SPY bull put spread at half size, subject to every ordinary limit and the collision
   check. Rationale as filed: the only admitted structure that would diversify the book's
-  single-question concentration rather than deepen it. Expires 2026-09-04 close. AWAITING
-  OPERATOR RULING; not executable.
+  single-question concentration rather than deepen it. Expires 2026-09-04 close. APPROVED by Wes
+  2026-09-01 14:50 CT, with the full-deployment package (commit 40b94ca); executable within every ordinary limit. Text corrected 2026-09-02 08:05 CT: the approval commit re-ordered this entry but left its status line unchanged.
 
 - **WL-6** (run-0915 → approved with modification 2026-09-01 09:25 CT → **OPENED 2026-09-01
   09:48 CT by run-0945**): open a QQQ Sep 8
