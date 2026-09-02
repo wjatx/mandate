@@ -7,6 +7,58 @@ per-run limits, and the broker's gate.
 
 ## Approved standing intents
 
+- **WL-21** (run-1215, proposed 2026-09-02 12:15 CT → **APPROVED by Wes 2026-09-02 12:27 CT, with the down-verdict condition**): **re-file of WL-19 for tomorrow, on the same
+  trigger, written to survive tonight's ceremony either way.** WL-19 was approved by Wes at 12:03
+  today and expires at today's close having never come within 0.9% of its trigger. This asks to
+  carry the same conditional intent into 2026-09-03 rather than let a live, Wes-approved setup
+  lapse for calendar reasons alone.
+
+  Trigger, unchanged in substance from WL-19: if IWM trades to **296.00 or higher**, and the IWM
+  Sep 8 **298** call measures inside §2's 0.20-0.30 delta band on the acting run's own reading, and
+  a spread with short strike at **298 or above** clears the credit floor of the regime that run
+  measures **at natural pricing**, then one IWM bear call, sized to the measured regime under §5,
+  regime read on the structure's own expiry. Expires 2026-09-03 close.
+
+  **Why it should carry, and why the shape is the right one.** The 298 short-strike floor is what
+  makes this trade sound rather than merely legal, and that is worth stating plainly because
+  WL-20's ruling put the floor's *status* to Wes tonight. A short call at 298 sits **outside** the
+  measured expected move (IWM Sep 8 straddle-avg ATM IV 14.04%, six calendar days, so about
+  ±1.80% or ±$5.28 from 293.34, reaching 298.6), whereas the 296/297 candidates the band actually
+  admits sit **inside** it at roughly 0.5σ to 0.7σ. Selling a strike inside the expected move on
+  the name whose own memo calls the upside its largest tail is the substantive ground the 09:24
+  ruling used to reject WL-17, and that ground is independent of the falsifier question and of
+  every §3 reading. So this item should carry **whichever way Wes rules on WL-20**: if the falsifier
+  floor is withdrawn as a placement rule, the 298 floor still earns its place here on expected-move
+  grounds alone, and this item should simply be read as adopting it voluntarily.
+
+  Recorded caveat, unchanged from WL-19 and now stronger: the memo's bearish IWM thesis has gone the
+  wrong way for a second session (290.57 Tuesday close → 293.34 now, +0.95%). It is not falsified,
+  which needs a close above ~298, but a run measuring the trigger true is by construction acting
+  after a further 0.9% rally against the thesis, and should confirm the thesis still stands before
+  acting. The trigger's own strike floor largely enforces this.
+
+  Not executable until ruled. Names one trade, inside every ordinary limit; no new authority is
+  requested beyond extending an already-approved item by one day.
+
+  > OPERATOR NOTE (2026-09-02 12:26 CT): REFERRED TO WES, not ruled; not executable until he
+  > rules. A standing intent for tomorrow creates trading authority the session operator does
+  > not hold. Checked and holds: same trigger and strike floor as WL-19, which Wes approved at
+  > 12:03; no collision with the held IWM 293/290 and 292/289 bear puts (a bear call above
+  > 298 shares no leg); the 298 floor sits outside the measured expected move, so the item
+  > stands whichever way the WL-20 question is ruled. Recommendation: approve, with one added
+  > condition the run itself half-states, that tomorrow's memo still carries a down verdict on
+  > IWM at the time a run measures the trigger; a bear call against an up or two-sided verdict
+  > is a different trade. Expires 2026-09-03 close as filed.
+
+  > RULING (2026-09-02 12:27 CT, Wes): APPROVED with one condition ("approve WL-21 with the
+  > down-verdict condition", in chat). Executable on 2026-09-03 within every ordinary limit on
+  > the executing run's own re-measurement: IWM at 296 or higher; the Sep 8 298 call inside the
+  > 0.20-0.30 band; a spread with its short at 298 or above clearing the measured regime's
+  > credit floor at natural; regime read on the structure's own expiry; **and the 2026-09-03
+  > memo's directional verdict on IWM is "down" at the time the run measures the trigger.** A
+  > bear call against an up, range-bound or two-sided IWM verdict is not this item. Expires
+  > 2026-09-03 close. (Transcribed by the session operator.)
+
 - **WL-19** (run-1145, proposed 2026-09-02 11:45 CT → **APPROVED by Wes 2026-09-02 12:03 CT**): **IWM Sep 8 bear call, gated on the 298
   strike entering the delta band.** This is the re-file path the 09:24 ruling explicitly left
   open, with the one condition that currently fails written as the trigger.
@@ -197,49 +249,6 @@ per-run limits, and the broker's gate.
 (none — WL-5 executed by run-0915; see below)
 
 ## Proposed, awaiting ruling
-
-- **WL-21** (run-1215, proposed 2026-09-02 12:15 CT): **re-file of WL-19 for tomorrow, on the same
-  trigger, written to survive tonight's ceremony either way.** WL-19 was approved by Wes at 12:03
-  today and expires at today's close having never come within 0.9% of its trigger. This asks to
-  carry the same conditional intent into 2026-09-03 rather than let a live, Wes-approved setup
-  lapse for calendar reasons alone.
-
-  Trigger, unchanged in substance from WL-19: if IWM trades to **296.00 or higher**, and the IWM
-  Sep 8 **298** call measures inside §2's 0.20-0.30 delta band on the acting run's own reading, and
-  a spread with short strike at **298 or above** clears the credit floor of the regime that run
-  measures **at natural pricing**, then one IWM bear call, sized to the measured regime under §5,
-  regime read on the structure's own expiry. Expires 2026-09-03 close.
-
-  **Why it should carry, and why the shape is the right one.** The 298 short-strike floor is what
-  makes this trade sound rather than merely legal, and that is worth stating plainly because
-  WL-20's ruling put the floor's *status* to Wes tonight. A short call at 298 sits **outside** the
-  measured expected move (IWM Sep 8 straddle-avg ATM IV 14.04%, six calendar days, so about
-  ±1.80% or ±$5.28 from 293.34, reaching 298.6), whereas the 296/297 candidates the band actually
-  admits sit **inside** it at roughly 0.5σ to 0.7σ. Selling a strike inside the expected move on
-  the name whose own memo calls the upside its largest tail is the substantive ground the 09:24
-  ruling used to reject WL-17, and that ground is independent of the falsifier question and of
-  every §3 reading. So this item should carry **whichever way Wes rules on WL-20**: if the falsifier
-  floor is withdrawn as a placement rule, the 298 floor still earns its place here on expected-move
-  grounds alone, and this item should simply be read as adopting it voluntarily.
-
-  Recorded caveat, unchanged from WL-19 and now stronger: the memo's bearish IWM thesis has gone the
-  wrong way for a second session (290.57 Tuesday close → 293.34 now, +0.95%). It is not falsified,
-  which needs a close above ~298, but a run measuring the trigger true is by construction acting
-  after a further 0.9% rally against the thesis, and should confirm the thesis still stands before
-  acting. The trigger's own strike floor largely enforces this.
-
-  Not executable until ruled. Names one trade, inside every ordinary limit; no new authority is
-  requested beyond extending an already-approved item by one day.
-
-  > OPERATOR NOTE (2026-09-02 12:26 CT): REFERRED TO WES, not ruled; not executable until he
-  > rules. A standing intent for tomorrow creates trading authority the session operator does
-  > not hold. Checked and holds: same trigger and strike floor as WL-19, which Wes approved at
-  > 12:03; no collision with the held IWM 293/290 and 292/289 bear puts (a bear call above
-  > 298 shares no leg); the 298 floor sits outside the measured expected move, so the item
-  > stands whichever way the WL-20 question is ruled. Recommendation: approve, with one added
-  > condition the run itself half-states, that tomorrow's memo still carries a down verdict on
-  > IWM at the time a run measures the trigger; a bear call against an up or two-sided verdict
-  > is a different trade. Expires 2026-09-03 close as filed.
 
 - **WL-9** (run-1145, proposed 2026-09-01 11:45 CT → **DEFERRED 2026-09-01 12:02 CT, awaiting an AVGO research thesis**): **AVGO Sep 4 income trade, gated on a
   directional read.** If the §7 research pass produces an AVGO directional thesis in the §2
