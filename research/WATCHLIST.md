@@ -64,6 +64,13 @@ per-run limits, and the broker's gate.
   > Wes can lift it with a word, and the design pass owns the standing answer. This ruling stays
   > under approved intents while it binds and moves to ruled at the close.
 
+  > SCOPE CLARIFIED (2026-09-02 13:26 CT), on run-1315's question, session operator standing in:
+  > the stop is read by its substance. For the 13:45 and 14:15 runs today, **no new IWM position
+  > of any expiry or structure that adds to the memo's bearish IWM read** (bear put debit
+  > vertical, bear call credit spread, or any short-delta structure on IWM) is opened without an
+  > explicit ruling from Wes. This narrows the agent further, which is the delegation's direction.
+  > WL-21 is tomorrow's and unaffected; the three held tranches stand under §4.
+
 - **WL-21** (run-1215, proposed 2026-09-02 12:15 CT → **APPROVED by Wes 2026-09-02 12:27 CT, with the down-verdict condition**): **re-file of WL-19 for tomorrow, on the same
   trigger, written to survive tonight's ceremony either way.** WL-19 was approved by Wes at 12:03
   today and expires at today's close having never come within 0.9% of its trigger. This asks to
@@ -115,6 +122,14 @@ per-run limits, and the broker's gate.
   > memo's directional verdict on IWM is "down" at the time the run measures the trigger.** A
   > bear call against an up, range-bound or two-sided IWM verdict is not this item. Expires
   > 2026-09-03 close. (Transcribed by the session operator.)
+
+  > RECORD CORRECTION (2026-09-02 13:26 CT, from run-1315): the filing's ground that "a short
+  > call at 298 sits outside the measured expected move ... reaching 298.6" does not hold on its
+  > own numbers; 298 is below 298.6, so inside the move (about 0.88 sigma on run-1315's reading),
+  > and at the 296 trigger the strike is only 0.68% away. The relative claim (298 is further out
+  > than 296 or 297) and the falsifier-alignment ground stand, and the down-verdict condition Wes
+  > attached is untouched. Wes approved at 12:27 on the filing as written; the approval stands
+  > unless he says otherwise, and the correction is flagged to him. Original text left intact.
 
 - **WL-19** (run-1145, proposed 2026-09-02 11:45 CT → **APPROVED by Wes 2026-09-02 12:03 CT**): **IWM Sep 8 bear call, gated on the 298
   strike entering the delta band.** This is the re-file path the 09:24 ruling explicitly left
