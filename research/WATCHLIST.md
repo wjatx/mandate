@@ -164,55 +164,14 @@ per-run limits, and the broker's gate.
   the trigger true should confirm the memo's thesis still stands (no close above ~298) before
   acting, which the trigger's own strike floor largely enforces.
 
-- **WL-20** (run-1145, proposed 2026-09-02 11:45 CT): **the band/falsifier gap survives tonight's
-  ceremony.** Amendment candidate, not an executable standing intent. It names no trade.
-
-  **First, a correction to this run's own initial framing, recorded rather than quietly dropped.**
-  This item was drafted as a finding that §2's read requirement can veto every row of §3's table
-  and did so today. That finding is **not new and is already ratified**: it is the evidence base
-  of the no-lean package [read: ~/Code/alpaca-hackathon/drafts/AMENDMENT-s2-s3-s7-no-lean.md:18-27],
-  whose Changes A and B Wes ratified at 11:24 CT today and which cites the identical combination
-  ("Three names closed for five runs on that one combination"). The run opened the draft before
-  filing rather than after, so the duplicate never reached the operator as a fresh finding. What
-  follows is only the residue the package does not reach.
-
-  **The residue.** The package fixes the *no-verdict* case: after Change A a two-sided or
-  range-bound verdict admits a condor, and after Change B the memo must return one of four
-  verdicts. Today's IWM is the other case, and it is untouched. IWM **has** a verdict — the memo's
-  only directional read, bearish, falsified above roughly 298 — and Change A leaves a "down"
-  verdict admitting exactly what it admits now, a bear call. That bear call is blocked by a
-  mechanism neither Change A nor Change C addresses:
-
-  **§2's 0.20-0.30 delta band and the 09:24 ruling's falsifier floor do not currently intersect on
-  IWM, on either in-window expiry.** Measured this run at spot 293.12, Sep 8 call deltas 296
-  **0.2834**, 297 **0.2143**, 298 **0.1592**, 299 **0.1123**; Sep 4 296 **0.2354**, 297 **0.1602**,
-  298 **0.1113**. Every strike inside the band is below the falsifier; every strike at or above the
-  falsifier is outside the band. The 09:24 ruling requires the short at or above the falsification
-  level so that position and thesis fail together, which is sound and is why WL-17 was rejected —
-  but combined with the band it means a **correct, live, unfalsified directional read produces no
-  legal trade**, and it will keep doing so whenever a memo's falsifier sits more than roughly 1.5%
-  out of the money. That is a rule interaction, not a market condition, and it is the same *shape*
-  as the interaction the no-lean package was written to fix, one layer down.
-
-  This run is not proposing a resolution and is explicitly not asking for the band to move; the
-  package's own decision item leaves the band alone on the recommendation, and a run should not
-  reopen that from underneath. What it asks is that the falsifier floor be recorded as a **rule**
-  somewhere durable rather than living only in a rejection ruling, and that whoever writes it down
-  price this interaction — because as an unwritten operator ruling it is currently invisible to
-  §3, to the gate, and to the next run that measures a compliant-looking 296/297.
-
-  **Second finding, flagged, no action proposed.** The package's item 3 (design item 24, SPY's
-  delta band exhausted by held legs) still holds at 11:48, three hours after the 09:45 observation
-  it was filed on, and it is sharper than recorded. SPY Sep 8 in-band shorts are 770 (0.2946), 771
-  (0.2548) and 772 (0.2123). The book already holds 770 and 771 as shorts and **772 as a long**
-  (27 contracts), so selling 772 is WL-11's leg collision. Of the spreads that clear the measured
-  High floor of one quarter at natural pricing — 770/772 at 0.57 against 0.50, and 770/773 at 0.76
-  against 0.75 — **both are identical-leg duplicates of ledger rows already open**
-  (run-0915-spy-bearcall-770-772 and run-1215-spy-0908-770-773). So on today's board WL-14's
-  identical-leg aggregation (design item 21) and WL-11's collision check (item 20's sibling) are
-  not hypothetical: they are the only two things standing between the book and a further $4,800 of
-  economically-identical SPY short-call risk, and today they bind through judgment rather than
-  through the gate, exactly as WL-14 warned.
+  > OPERATOR NOTE (2026-09-02 11:58 CT): REFERRED TO WES, not ruled; not executable until he
+  > rules. Approving a standing intent creates trading authority, which the session operator
+  > standing in does not hold. Checked and holds: the trigger (IWM 296+, 298 in band, credit at
+  > natural clearing the floor) is the 09:24 re-file path as written, the book holds only the
+  > Sep 8 293/290 bear put in IWM so there is no leg collision, and the thesis and position fail
+  > together at 298. Recommendation to Wes: approve as filed, expiring at today's close, since
+  > tomorrow's memo replaces the verdict it rests on. Wes is travelling; if no ruling arrives
+  > the item expires unexercised.
 
 - **WL-9** (run-1145, proposed 2026-09-01 11:45 CT → **DEFERRED 2026-09-01 12:02 CT, awaiting an AVGO research thesis**): **AVGO Sep 4 income trade, gated on a
   directional read.** If the §7 research pass produces an AVGO directional thesis in the §2
@@ -268,6 +227,67 @@ per-run limits, and the broker's gate.
 
   > RULING (2026-09-01 12:02 CT): DEFERRED, per §6's third option, session operator standing in. The intent gates itself on a research pass supplying an AVGO thesis, and none exists; approving before the thesis would authorize a trade on arithmetic alone, which §2 forbids, and rejecting would discard measured chain work that stays useful tomorrow. It stands deferred until a memo carries an AVGO read or the Sep 4 expiry makes it moot. Not executable while deferred.
 ## Ruled: rejected, expired, executed
+
+- **WL-20** (run-1145, proposed 2026-09-02 11:45 CT → **ROUTED TO THE DESIGN PASS 2026-09-02 11:58 CT**, design item 26; the ceremony question referred to Wes): **the band/falsifier gap survives tonight's
+  ceremony.** Amendment candidate, not an executable standing intent. It names no trade.
+
+  **First, a correction to this run's own initial framing, recorded rather than quietly dropped.**
+  This item was drafted as a finding that §2's read requirement can veto every row of §3's table
+  and did so today. That finding is **not new and is already ratified**: it is the evidence base
+  of the no-lean package [read: ~/Code/alpaca-hackathon/drafts/AMENDMENT-s2-s3-s7-no-lean.md:18-27],
+  whose Changes A and B Wes ratified at 11:24 CT today and which cites the identical combination
+  ("Three names closed for five runs on that one combination"). The run opened the draft before
+  filing rather than after, so the duplicate never reached the operator as a fresh finding. What
+  follows is only the residue the package does not reach.
+
+  **The residue.** The package fixes the *no-verdict* case: after Change A a two-sided or
+  range-bound verdict admits a condor, and after Change B the memo must return one of four
+  verdicts. Today's IWM is the other case, and it is untouched. IWM **has** a verdict — the memo's
+  only directional read, bearish, falsified above roughly 298 — and Change A leaves a "down"
+  verdict admitting exactly what it admits now, a bear call. That bear call is blocked by a
+  mechanism neither Change A nor Change C addresses:
+
+  **§2's 0.20-0.30 delta band and the 09:24 ruling's falsifier floor do not currently intersect on
+  IWM, on either in-window expiry.** Measured this run at spot 293.12, Sep 8 call deltas 296
+  **0.2834**, 297 **0.2143**, 298 **0.1592**, 299 **0.1123**; Sep 4 296 **0.2354**, 297 **0.1602**,
+  298 **0.1113**. Every strike inside the band is below the falsifier; every strike at or above the
+  falsifier is outside the band. The 09:24 ruling requires the short at or above the falsification
+  level so that position and thesis fail together, which is sound and is why WL-17 was rejected —
+  but combined with the band it means a **correct, live, unfalsified directional read produces no
+  legal trade**, and it will keep doing so whenever a memo's falsifier sits more than roughly 1.5%
+  out of the money. That is a rule interaction, not a market condition, and it is the same *shape*
+  as the interaction the no-lean package was written to fix, one layer down.
+
+  This run is not proposing a resolution and is explicitly not asking for the band to move; the
+  package's own decision item leaves the band alone on the recommendation, and a run should not
+  reopen that from underneath. What it asks is that the falsifier floor be recorded as a **rule**
+  somewhere durable rather than living only in a rejection ruling, and that whoever writes it down
+  price this interaction — because as an unwritten operator ruling it is currently invisible to
+  §3, to the gate, and to the next run that measures a compliant-looking 296/297.
+
+  **Second finding, flagged, no action proposed.** The package's item 3 (design item 24, SPY's
+  delta band exhausted by held legs) still holds at 11:48, three hours after the 09:45 observation
+  it was filed on, and it is sharper than recorded. SPY Sep 8 in-band shorts are 770 (0.2946), 771
+  (0.2548) and 772 (0.2123). The book already holds 770 and 771 as shorts and **772 as a long**
+  (27 contracts), so selling 772 is WL-11's leg collision. Of the spreads that clear the measured
+  High floor of one quarter at natural pricing — 770/772 at 0.57 against 0.50, and 770/773 at 0.76
+  against 0.75 — **both are identical-leg duplicates of ledger rows already open**
+  (run-0915-spy-bearcall-770-772 and run-1215-spy-0908-770-773). So on today's board WL-14's
+  identical-leg aggregation (design item 21) and WL-11's collision check (item 20's sibling) are
+  not hypothetical: they are the only two things standing between the book and a further $4,800 of
+  economically-identical SPY short-call risk, and today they bind through judgment rather than
+  through the gate, exactly as WL-14 warned.
+
+  > RULING (2026-09-02 11:58 CT): ROUTED TO THE DESIGN PASS as item 26, session operator
+  > standing in, and the residue is owned here: the "short strike at or above the falsifier"
+  > condition exists only because the 09:24 ruling attached it to WL-17's re-file path. It is
+  > not a charter rule. Section 2's band and floor are the charter's placement rules, and a
+  > bear call at 296/297 on a down verdict is legal under them as written; the falsifier
+  > governs the thesis, the value stop governs the position. The operator standing in should
+  > not have invented a placement rule the charter does not carry, for the same reason section
+  > 1 tells a run not to. Whether to withdraw that condition tonight, so a down verdict on IWM
+  > has a legal expression tomorrow, or to write the position-and-thesis-fail-together rule
+  > into section 2 text, is put to Wes with the package. Never named a trade; not executable.
 
 - **WL-12** (run-1315, proposed 2026-09-01 13:15 CT → **SPENT 2026-09-02 11:25 CT**, trigger measured absent on the pass it named; transcribed from the run record by the
   operator 2026-09-01 13:55 CT — the run did not write it into this file): if the next §7
