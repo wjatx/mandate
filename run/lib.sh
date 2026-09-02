@@ -41,6 +41,13 @@ BROKER_READ_TOOLS=(
   "mcp__broker__alpaca__get_option_contracts"
   "mcp__broker__alpaca__get_option_snapshot"
   "mcp__broker__alpaca__get_option_latest_quote"
+  # The two bars tools feed §3's RV20 denominator. They were admitted at the
+  # broker from the start but absent here; the operator's auto permission mode
+  # approved them silently until 2026-09-02's pin exposed the gap (rehearsal
+  # 20:16Z: "get_stock_bars is refused", regime uncomputable). Allow-listed
+  # explicitly; the broker still gates them like every other read.
+  "mcp__broker__alpaca__get_stock_bars"
+  "mcp__broker__alpaca__get_option_bars"
   "mcp__broker__alpaca__get_orders"
   "mcp__broker__alpaca__get_all_positions"
   "mcp__broker__alpaca__get_open_position"
