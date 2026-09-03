@@ -141,6 +141,10 @@ per-run limits, and the broker's gate.
   short of 296.00, the closest approach of the day; verdict two-sided. (Transcribed by the session
   operator.)
 
+  **MEASURED FALSE AN EIGHTH TIME, run-1345 (2026-09-03 13:45 CT):** IWM 294.91 x 294.93, 0.36%
+  short of 296.00; verdict two-sided. The 14:15 run is the last that can measure it. (Transcribed by
+  the session operator.)
+
   > RECORD CORRECTION (2026-09-02 13:26 CT, from run-1315): the filing's ground that "a short
   > call at 298 sits outside the measured expected move ... reaching 298.6" does not hold on its
   > own numbers; 298 is below 298.6, so inside the move (about 0.88 sigma on run-1315's reading),
@@ -245,6 +249,15 @@ per-run limits, and the broker's gate.
 
 ## Proposed, awaiting ruling
 
+- **WL-34** (run-1345, proposed 2026-09-03 13:45 CT → **ROUTED TO THE DESIGN PASS 2026-09-03 13:55
+  CT**, design item 36): **a resting debit leg that misses is invisible for thirty minutes.** The IWM
+  Sep 9 put leg was priced at 0.92 (12:45), 0.94 (13:15) and 1.09 (13:45); the first two rested 27
+  and 30 minutes unfilled on a moving tape and the third filled in 0.14 s. Entry atomicity (item 3)
+  covers one leg filling and the other not; it does not cover a leg that simply misses, because
+  nothing observes the miss until the next run. Measured cost: the put ran 0.92 to 1.05 filled
+  across the hour while the call half sat unhedged. Names no trade. (Transcribed by the session
+  operator.)
+
 - **WL-33** (run-1245, proposed 2026-09-03 12:45 CT → **APPROVED 2026-09-03 12:55 CT, session
   operator ruling under Wes's 12:03 CT delegation, on WL-6's and WL-28's precedent**):
   **pre-registered Friday close of the IWM Sep 9 volatility pair opened by run-1245** (297/300 call
@@ -271,6 +284,14 @@ per-run limits, and the broker's gate.
   now fired twice, both times call-first (2026-09-01 WL-6/WL-7 and today); entry atomicity is still
   unbuilt. The Friday close ruled above binds on whichever legs are held. (Transcribed by the
   session operator.)
+
+  **COMPLETED, run-1345 (2026-09-03 13:45 CT).** `5a6a8c4b` rested 27 minutes unfilled; cancelled
+  (18:48:25Z, zero filled) and re-placed **295/292 put debit vertical x19 at 1.09, order `60eec834`,
+  filled in 0.14 s at 1.05**, $2,071 max loss, `vol_pair`. Quantity 19 rather than 22 so the
+  completed pair opens at +0.06 net delta on the deltas as they stood (WL-6 precedent, arithmetic
+  delegated by the ruling). Regime Low at all three strikes (0.9608; 0.9588 / 0.9514). Both legs
+  are now held and the Friday close binds on both. Operator read-back of the ledger row confirms the
+  `vol_pair` stamp (see the ruling tape). (Transcribed by the session operator.)
 
 - **WL-32** (run-1145, proposed 2026-09-03 11:45 CT → **APPROVED by Wes 2026-09-03 11:57 CT** → **SPENT by run-1215 12:18 CT**): **does the SPY concentration
   lift cover one SPY condor at Sep 8 or Sep 9, now that Sep 10 has gone regime-ambiguous?** Wes
@@ -366,7 +387,8 @@ per-run limits, and the broker's gate.
   run called that defensible and not a ruling. No trade is asked; the operator agrees it is the
   design pass's question and rules nothing here. (Transcribed by the session operator.)
 
-- **WL-26** (run-0845, proposed 2026-09-03 08:49 CT): **a QQQ iron condor once WL-6's mandated
+- **WL-26** (run-0845, proposed 2026-09-03 08:49 CT → **APPROVED WITH CONDITIONS 2026-09-03 13:25 CT,
+  session operator under Wes's 12:03 CT delegation**): **a QQQ iron condor once WL-6's mandated
   Friday close removes the offsetting objection.** The run declined QQQ premium today on substance:
   Sep 8 is entangled with the WL-6 long-vol pair, and selling QQQ premium at Sep 9 or 10 is
   offsetting-in-substance even though §2's guard binds only on same expiry (WL-22 established the
@@ -374,12 +396,37 @@ per-run limits, and the broker's gate.
   lands on 2026-09-04 at or after 13:15 CT. Every ordinary limit applies on the executing run's own
   re-measurement. (Transcribed by the session operator from the run record.)
 
-- **WL-27** (run-0845, proposed 2026-09-03 08:49 CT): **a DIA iron condor on 2026-09-04, when Sep 11
+  > RULING (2026-09-03 13:25 CT, session operator, delegated): APPROVED WITH CONDITIONS. One QQQ
+  > iron condor on 2026-09-04, executable only by a decision run that starts after the WL-6 close
+  > has been confirmed filled on the orders read (both QQQ Sep 8 legs gone from the book), on
+  > that run's own re-measurement within every ordinary limit: a two-sided or range-bound QQQ
+  > verdict on Friday's memo (written after the 08:30 ET print), regime read on the structure's
+  > own expiry with no band edge crossed, both shorts inside the 0.20-0.30 band, total credit
+  > clearing the measured regime's floor at natural, sizing by regime under §2, no leg collision
+  > and no same-expiry offset with anything still held. One condor, not rolling. Expires
+  > 2026-09-04 close. Grounds under safe > profit > loss: the offsetting objection is the only
+  > thing that closed QQQ today, and it lapses with the WL-6 close; the structure takes no side;
+  > the caps and stamped exits bound it. Wes may withdraw or amend before it binds. (Transcribed
+  > by the session operator.)
+
+- **WL-27** (run-0845, proposed 2026-09-03 08:49 CT → **APPROVED WITH CONDITIONS 2026-09-03 13:25 CT,
+  session operator under Wes's 12:03 CT delegation**): **a DIA iron condor on 2026-09-04, when Sep 11
   becomes 7 DTE and DIA enters the 2-7 DTE band for the first time.** Today DIA's only expiries in
   range are Sep 4 (1 DTE) and Sep 11 (8 DTE), so the run called it unplayable on a calendar artifact.
   Not executable until ruled; every ordinary limit applies on the executing run's own re-measurement,
   including a two-sided or range-bound DIA verdict on tomorrow's memo and a High reading on Sep 11.
   (Transcribed by the session operator from the run record.)
+
+  > RULING (2026-09-03 13:25 CT, session operator, delegated): APPROVED WITH CONDITIONS. One DIA
+  > Sep 11 iron condor on 2026-09-04, executable by any decision run from 08:45 CT on its own
+  > re-measurement within every ordinary limit: Sep 11 measured at 7 DTE and inside §3's band, a
+  > two-sided or range-bound DIA verdict on Friday's memo, regime High or Mid on Sep 11 with no
+  > band edge crossed (sizing by regime under §2; Low forbids it), both shorts inside the 0.20-0.30
+  > band, total credit clearing the measured floor at natural, no collision (the book holds no DIA
+  > leg). One condor, not rolling. Expires 2026-09-04 close. Grounds: DIA has been closed all week
+  > on a calendar artifact rather than a read, it is the one admitted name the book carries no
+  > exposure in, so this diversifies rather than stacks, and the caps and stamped exits bound it.
+  > Wes may withdraw or amend before it binds. (Transcribed by the session operator.)
 
 ## Ruled: rejected, expired, executed
 
