@@ -7,6 +7,33 @@ per-run limits, and the broker's gate.
 
 ## Approved standing intents
 
+- **WL-25** (run-0845, flagged 2026-09-03 08:49 CT under §5 → **APPROVED by Wes 2026-09-03 09:05 CT**):
+  **a second SPY iron condor, at an expiry other than Sep 10.** run-0845 measured SPY Sep 10 at
+  1.354 High on today's two-sided verdict, opened one condor (777/780 C, 761/758 P, 26 contracts at
+  -1.08, order 58307908, resting `new` at run end) and declined a second at Sep 9 on its own judgment
+  about correlated short-delta losses on consecutive days, flagging that restraint as the operator's
+  to rule under §5 and noting WL-10 cuts against a run inventing a concentration rule. Deployment
+  stood at $17,424 of $85,000.
+
+  > RULING (2026-09-03 09:05 CT, Wes): APPROVED ("Free to take the second SPY condor - yes", in
+  > chat). One additional SPY iron condor, at an expiry other than Sep 10, executable within every
+  > ordinary limit on the executing run's own re-measurement: two-sided SPY verdict on today's memo,
+  > High regime read on the structure's own expiry, both shorts inside the 0.20-0.30 band, total
+  > credit clearing the High floor against the widest wing at natural, max loss under the
+  > per-position cap, no leg collision and no offset with the Sep 10 condor or the Sep 4 pair. This
+  > is one condor, not a rolling authorization. The Sep 10 order's fill or repricing is the run's
+  > ordinary business and is not gated by this item. Expires 2026-09-03 close. (Transcribed by the
+  > session operator.)
+
+  > RECORD CORRECTION (2026-09-03 09:10 CT, operator): run-0845 also sold the 18 orphaned SPY Sep 8
+  > 773 calls (order 28315bee, 1.60, +$1,608 realized) on the ground that "the supervisor enforces
+  > stored exits so nothing would ever have closed them." That ground does not hold. The supervisor's
+  > long-only fragment rule (written after the 2026-08-28 fill race) would have sold them on its
+  > 09:00 CT pass; an operator dry run at 08:47 CT showed FRAGMENT_EXIT and WOULD_CLOSE for both
+  > rows. The run marked the mechanism [inferred] and had no supervisor-log tool, so the error is
+  > one of inference, not of reading. Outcome identical; the close at 08:58 CT beat the supervisor by
+  > about a minute. Recorded because two closers acting on one fragment is design item 31.
+
 - **WL-21** (run-1215, proposed 2026-09-02 12:15 CT → **APPROVED by Wes 2026-09-02 12:27 CT, with the down-verdict condition**): **re-file of WL-19 for tomorrow, on the same
   trigger, written to survive tonight's ceremony either way.** WL-19 was approved by Wes at 12:03
   today and expires at today's close having never come within 0.9% of its trigger. This asks to
@@ -58,6 +85,13 @@ per-run limits, and the broker's gate.
   > memo's directional verdict on IWM is "down" at the time the run measures the trigger.** A
   > bear call against an up, range-bound or two-sided IWM verdict is not this item. Expires
   > 2026-09-03 close. (Transcribed by the session operator.)
+
+  **MEASURED FALSE, run-0845 (2026-09-03 08:49 CT, the slot's hand re-run after the 08:45 firing
+  died on an upstream API 529 before any tool call).** Three independent clauses fail: IWM quotes
+  **294.93 x 294.96** against the 296.00 trigger; today's memo returns **two-sided** on IWM, not the
+  "down" verdict the 12:27 condition requires, and the research pass runs once a day so that cannot
+  change before the close; and IWM Sep 8 declares **Low** (0.966), where §3 forbids selling premium.
+  Expires at today's close. (Transcribed by the session operator.)
 
   > RECORD CORRECTION (2026-09-02 13:26 CT, from run-1315): the filing's ground that "a short
   > call at 298 sits outside the measured expected move ... reaching 298.6" does not hold on its
@@ -162,6 +196,21 @@ per-run limits, and the broker's gate.
 (none — WL-5 executed by run-0915; see below)
 
 ## Proposed, awaiting ruling
+
+- **WL-26** (run-0845, proposed 2026-09-03 08:49 CT): **a QQQ iron condor once WL-6's mandated
+  Friday close removes the offsetting objection.** The run declined QQQ premium today on substance:
+  Sep 8 is entangled with the WL-6 long-vol pair, and selling QQQ premium at Sep 9 or 10 is
+  offsetting-in-substance even though §2's guard binds only on same expiry (WL-22 established the
+  operator reads these by substance). Not executable until ruled, and not before the WL-6 close
+  lands on 2026-09-04 at or after 13:15 CT. Every ordinary limit applies on the executing run's own
+  re-measurement. (Transcribed by the session operator from the run record.)
+
+- **WL-27** (run-0845, proposed 2026-09-03 08:49 CT): **a DIA iron condor on 2026-09-04, when Sep 11
+  becomes 7 DTE and DIA enters the 2-7 DTE band for the first time.** Today DIA's only expiries in
+  range are Sep 4 (1 DTE) and Sep 11 (8 DTE), so the run called it unplayable on a calendar artifact.
+  Not executable until ruled; every ordinary limit applies on the executing run's own re-measurement,
+  including a two-sided or range-bound DIA verdict on tomorrow's memo and a High reading on Sep 11.
+  (Transcribed by the session operator from the run record.)
 
 ## Ruled: rejected, expired, executed
 
