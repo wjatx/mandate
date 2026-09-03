@@ -145,6 +145,10 @@ per-run limits, and the broker's gate.
   short of 296.00; verdict two-sided. The 14:15 run is the last that can measure it. (Transcribed by
   the session operator.)
 
+  **MEASURED FALSE A NINTH AND FINAL TIME, run-1415 (2026-09-03 14:15 CT):** IWM 294.91 x 294.92,
+  0.37% short of 296.00; verdict two-sided. No later decision run exists today. **EXPIRES
+  UNEXERCISED at today's close.** (Transcribed by the session operator.)
+
   > RECORD CORRECTION (2026-09-02 13:26 CT, from run-1315): the filing's ground that "a short
   > call at 298 sits outside the measured expected move ... reaching 298.6" does not hold on its
   > own numbers; 298 is below 298.6, so inside the move (about 0.88 sigma on run-1315's reading),
@@ -248,6 +252,32 @@ per-run limits, and the broker's gate.
 (none — WL-5 executed by run-0915; see below)
 
 ## Proposed, awaiting ruling
+
+- **WL-35** (run-1415, proposed 2026-09-03 14:15 CT → **RULED 2026-09-03 14:28 CT, session operator
+  under Wes's 12:03 CT delegation: the gap risk is ACCEPTED DELIBERATELY and the SPY condors are
+  held; revocable by Wes before the 14:45 CT check run starts**): **the gap the stops cannot
+  cover.** SPY 773.39 sits 0.21% under the nearest of four SPY short-call blocks (775 Sep 9, 777
+  Sep 10, 778 Sep 8, 779 Sep 10), all inside the ~1% move the memo prices for Friday's 08:30 ET
+  payrolls print. The four SPY condors collected $6,916 and carry $11,996 of ledger max loss; the
+  2x value stops bound the loss near the credit in a continuous tape, and a gap on the open moves
+  it toward the max-loss figure. The run asked for a decision with time attached, and noted that
+  silence should not be read as oversight. The only executor able to act before the print is
+  today's 14:45 check run; Friday's first decision run fires after the open.
+
+  > RULING (2026-09-03 14:28 CT, session operator, delegated): HELD, as a deliberate acceptance
+  > rather than an omission. Grounds under safe > profit > loss. Safe: every SPY condor is defined
+  > risk inside the $5,000 per-position cap and the $85,000 book cap, and the gap case is the one
+  > the 2026-09-02 §2 amendment chose on purpose ("gap risk over thin credit ... bounded per
+  > position and per book by caps this package does not touch"), ratified by Wes at 11:24 CT that
+  > day; the worst case on the four condors together is $11,996, about 14% of equity, with three
+  > long-vol pairs ($21,809 of debit) on the other side of a large move in either direction.
+  > Profit: closing all four now realizes about $1,300 against current marks and forfeits the
+  > base case, in which a move inside the priced 1% leaves most of the $6,916 collected. Loss:
+  > the tail beyond the stops is accepted, sized and recorded here. The operator declines to
+  > substitute a lower risk tolerance for the one Wes ratified. Wes may reverse this by saying
+  > "close WL-35" (all four) or naming the condors to close, before 14:45 CT; the ruling would
+  > then direct the check run to close them at market, noting that the check run acting on a
+  > watchlist ruling is untested. (Transcribed by the session operator.)
 
 - **WL-34** (run-1345, proposed 2026-09-03 13:45 CT → **ROUTED TO THE DESIGN PASS 2026-09-03 13:55
   CT**, design item 36): **a resting debit leg that misses is invisible for thirty minutes.** The IWM
