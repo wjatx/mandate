@@ -238,8 +238,20 @@ per-run limits, and the broker's gate.
 
 ## Proposed, awaiting ruling
 
-- **WL-30** (run-1115, proposed 2026-09-03 11:15 CT → **AWAITING WES; the session operator declines
-  to lift it standing in, 11:25 CT**): **lift the concentration restraint for one SPY Sep 10 iron
+- **WL-32** (run-1145, proposed 2026-09-03 11:45 CT, awaiting Wes): **does the SPY concentration
+  lift cover one SPY condor at Sep 8 or Sep 9, now that Sep 10 has gone regime-ambiguous?** Wes
+  lifted WL-30 at 11:50 CT for one SPY Sep 10 condor, but run-1145 (in flight when the lift was
+  written) measured SPY Sep 10 straddling the 1.30 edge (772 High 1.3070 / 773 Mid 1.2791), which
+  §3's straddling rule turns into abstention, while Sep 8 (1.1212) and Sep 9 (1.2168) both read
+  clean Mid. On Sep 9 the 778 call is a held long (WL-11 collision), so the in-band call shorts are
+  779 (0.2503) and 780 (0.2125); the run priced the Sep 9 call side at 0.58 natural alone against a
+  0.60 total-credit floor and did not price the put sides. One condor, half size under Mid, every
+  ordinary limit on the executing run's own re-measurement. Expires 2026-09-03 close.
+  (Transcribed by the session operator from the run record; the operator reads WL-30 as lifted for
+  Sep 10 only and asks Wes whether the lift follows the clean surface.)
+
+- **WL-30** (run-1115, proposed 2026-09-03 11:15 CT → held for Wes by the operator 11:25 CT → **LIFTED
+  by Wes 2026-09-03 11:50 CT**): **lift the concentration restraint for one SPY Sep 10 iron
   condor, 779/782 C + 765/762 P** (Mid 1.2883 on Sep 10, no edge crossed; shorts 0.2729 / -0.2311;
   total credit about 1.15 at natural against a 0.60 floor; about 13 contracts, roughly $2,405 max
   loss at the Mid two-sided half-size cap; no collision with the held Sep 10 777/780/761/758). The
@@ -254,6 +266,17 @@ per-run limits, and the broker's gate.
   > declining are also the operator's. Wes lifted the equivalent restraint as WL-25 at 09:05 CT and
   > may lift this one by ruling before the close; a later run then executes it on its own
   > re-measurement within every ordinary limit. Notified by push at 11:25 CT.
+
+  > RULING (2026-09-03 11:50 CT, Wes): LIFTED ("lift WL-30", in chat). One SPY Sep 10 iron condor,
+  > executable by any decision run from 12:15 CT on its own re-measurement within every ordinary
+  > limit: two-sided SPY verdict on today's memo, regime read on Sep 10 with no edge crossed, both
+  > shorts inside the 0.20-0.30 band, total credit clearing the measured regime's floor against the
+  > widest wing at natural, single-side max loss under the Mid two-sided half-size cap ($2,500) or
+  > the per-position cap if Sep 10 measures High, no leg collision with the held Sep 10
+  > 777/780/761/758 and no same-expiry offset. Strikes are the executing run's, not fixed at
+  > 779/782 + 765/762. One condor, not a rolling authorization. Expires 2026-09-03 close. The 11:45
+  > run was in flight when this was written and does not carry it. (Transcribed by the session
+  > operator.)
 
 - **WL-31** (run-1115, proposed 2026-09-03 11:15 CT → **ROUTED TO THE DESIGN PASS 2026-09-03 11:25
   CT**, evidence appended to design item 27): **the 1.00 Low/Mid edge is now the one that bites.**
