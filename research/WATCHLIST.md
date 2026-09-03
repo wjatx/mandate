@@ -126,6 +126,14 @@ per-run limits, and the broker's gate.
   1.00, $2,400), a §2 two-sided structure and not this item. Spent at today's close. (Transcribed by
   the session operator.)
 
+  **MEASURED FALSE A FOURTH TIME, run-1045 (2026-09-03 10:45 CT):** IWM 295.13 x 295.15 against
+  296.00; verdict two-sided. Expires unexercised at today's close; the operator moves it to the
+  ruled section at the close. (Transcribed by the session operator.)
+
+  **MEASURED FALSE A FIFTH TIME, run-1115 (2026-09-03 11:15 CT):** IWM 295.03 x 295.05, 0.32% short
+  of 296.00, the closest of the five readings; verdict two-sided. (Transcribed by the session
+  operator.)
+
   > RECORD CORRECTION (2026-09-02 13:26 CT, from run-1315): the filing's ground that "a short
   > call at 298 sits outside the measured expected move ... reaching 298.6" does not hold on its
   > own numbers; 298 is below 298.6, so inside the move (about 0.88 sigma on run-1315's reading),
@@ -229,6 +237,30 @@ per-run limits, and the broker's gate.
 (none — WL-5 executed by run-0915; see below)
 
 ## Proposed, awaiting ruling
+
+- **WL-30** (run-1115, proposed 2026-09-03 11:15 CT → **AWAITING WES; the session operator declines
+  to lift it standing in, 11:25 CT**): **lift the concentration restraint for one SPY Sep 10 iron
+  condor, 779/782 C + 765/762 P** (Mid 1.2883 on Sep 10, no edge crossed; shorts 0.2729 / -0.2311;
+  total credit about 1.15 at natural against a 0.60 floor; about 13 contracts, roughly $2,405 max
+  loss at the Mid two-sided half-size cap; no collision with the held Sep 10 777/780/761/758). The
+  run states plainly that the trade is charter-compliant and that it declined on judgment the rules
+  do not supply: it would be the fourth SPY short-call block (775, 777, 778 held, 779 proposed,
+  0.82% above spot) on a day the book has lost 7.95% on that correlation, the morning before a
+  payrolls print the memo prices at about 1%. Expires 2026-09-03 close.
+
+  > OPERATOR NOTE (2026-09-03 11:25 CT, session operator standing in): NOT LIFTED. Wes's 09:59 CT
+  > delegation covers arming and where to stay; lifting a restraint that adds a fourth correlated
+  > short-call block is trading authority, which stays with Wes. The run's own grounds for
+  > declining are also the operator's. Wes lifted the equivalent restraint as WL-25 at 09:05 CT and
+  > may lift this one by ruling before the close; a later run then executes it on its own
+  > re-measurement within every ordinary limit. Notified by push at 11:25 CT.
+
+- **WL-31** (run-1115, proposed 2026-09-03 11:15 CT → **ROUTED TO THE DESIGN PASS 2026-09-03 11:25
+  CT**, evidence appended to design item 27): **the 1.00 Low/Mid edge is now the one that bites.**
+  IWM Sep 9 at 11:15 read 1.0005 Mid at 295 and 0.9814 Low at 296 on one surface at one instant,
+  so §3's straddling rule mandated abstention; run-1045 saw the same crossing at 10:45. Every prior
+  instance sat at 1.30, where both labels say sell and only the floor moves; at 1.00 the labels
+  instruct opposite trades. Names no trade. (Transcribed by the session operator.)
 
 - **WL-28** (run-1015, proposed 2026-09-03 10:15 CT → **APPROVED 2026-09-03 10:30 CT, session
   operator standing in, on WL-6's precedent; Wes may reverse before it binds**): **pre-registered
