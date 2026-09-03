@@ -137,6 +137,10 @@ per-run limits, and the broker's gate.
   of 296.00, the closest of the five readings; verdict two-sided. (Transcribed by the session
   operator.)
 
+  **MEASURED FALSE A SEVENTH TIME, run-1315 (2026-09-03 13:15 CT):** IWM 295.26 x 295.29, 0.24%
+  short of 296.00, the closest approach of the day; verdict two-sided. (Transcribed by the session
+  operator.)
+
   > RECORD CORRECTION (2026-09-02 13:26 CT, from run-1315): the filing's ground that "a short
   > call at 298 sits outside the measured expected move ... reaching 298.6" does not hold on its
   > own numbers; 298 is below 298.6, so inside the move (about 0.88 sigma on run-1315's reading),
@@ -256,6 +260,17 @@ per-run limits, and the broker's gate.
   > the 13:15 run today, that run cancels or reprices it on its ordinary discretion; a half-filled
   > pair is the WL-6 case and the run treats it the same way. Wes may amend before 13:15 CT Friday.
   > (Transcribed by the session operator.)
+
+  **HALF-ON, then completed by run-1315 (2026-09-03 13:15 CT).** The call leg (`29267f49`, 297/300
+  x22) filled at 18:08:15Z at 0.78; the put leg (`49ee68da`) rested 24 minutes at mid unfilled.
+  run-1315 cancelled it (confirmed 18:17:56Z, zero filled) and re-placed **295/292 put debit
+  vertical x22 at 0.94 natural, order `5a6a8c4b`**, $2,068, stamped `vol_pair`, resting at run end;
+  regime re-measured Low on Sep 9 at all three neighbouring strikes (0.9725; 0.9807 / 0.9666), so
+  the WL-31 edge had resolved. Quantity held at 22 to open the completed pair at +0.09 net delta.
+  Counted as one of the run's two opens on run-1015's WL-6 precedent. The vol-pair entry race has
+  now fired twice, both times call-first (2026-09-01 WL-6/WL-7 and today); entry atomicity is still
+  unbuilt. The Friday close ruled above binds on whichever legs are held. (Transcribed by the
+  session operator.)
 
 - **WL-32** (run-1145, proposed 2026-09-03 11:45 CT → **APPROVED by Wes 2026-09-03 11:57 CT** → **SPENT by run-1215 12:18 CT**): **does the SPY concentration
   lift cover one SPY condor at Sep 8 or Sep 9, now that Sep 10 has gone regime-ambiguous?** Wes
