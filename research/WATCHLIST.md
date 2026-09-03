@@ -53,6 +53,11 @@ per-run limits, and the broker's gate.
   through all three, netted by nothing in the ledger. Design item 20, now the book's shape.
   (Transcribed by the session operator from the run record.)
 
+  **FILLED.** run-0945 read the orders: the Sep 9 condor filled at **1.08**, a cent better than its
+  1.07 limit, and the Sep 10 condor filled at **1.00** for 24 contracts. The 09:30 supervisor pass
+  counted 18 legs and manages both rows against stamped exits (Sep 9 tp 0.54 / stop 2.14; Sep 10 tp
+  0.50 / stop 2.00). WL-25 is closed as executed. (Transcribed by the session operator.)
+
 - **WL-21** (run-1215, proposed 2026-09-02 12:15 CT → **APPROVED by Wes 2026-09-02 12:27 CT, with the down-verdict condition**): **re-file of WL-19 for tomorrow, on the same
   trigger, written to survive tonight's ceremony either way.** WL-19 was approved by Wes at 12:03
   today and expires at today's close having never come within 0.9% of its trigger. This asks to
@@ -115,6 +120,11 @@ per-run limits, and the broker's gate.
   **MEASURED FALSE AGAIN, run-0915 (2026-09-03 09:25 CT), and permanently so:** IWM 294.33 x
   294.35 against 296.00; verdict two-sided; the item expires at today's close and no clause can
   turn true before then. (Transcribed by the session operator.)
+
+  **MEASURED FALSE A THIRD TIME, run-0945 (2026-09-03 09:48 CT):** IWM 294.07 x 294.09 against
+  296.00; verdict two-sided. The run's only IWM action was a Sep 10 condor (order `f005a174`, 12 at
+  1.00, $2,400), a §2 two-sided structure and not this item. Spent at today's close. (Transcribed by
+  the session operator.)
 
   > RECORD CORRECTION (2026-09-02 13:26 CT, from run-1315): the filing's ground that "a short
   > call at 298 sits outside the measured expected move ... reaching 298.6" does not hold on its
