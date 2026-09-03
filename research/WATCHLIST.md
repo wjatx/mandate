@@ -58,105 +58,6 @@ per-run limits, and the broker's gate.
   counted 18 legs and manages both rows against stamped exits (Sep 9 tp 0.54 / stop 2.14; Sep 10 tp
   0.50 / stop 2.00). WL-25 is closed as executed. (Transcribed by the session operator.)
 
-- **WL-21** (run-1215, proposed 2026-09-02 12:15 CT → **APPROVED by Wes 2026-09-02 12:27 CT, with the down-verdict condition**): **re-file of WL-19 for tomorrow, on the same
-  trigger, written to survive tonight's ceremony either way.** WL-19 was approved by Wes at 12:03
-  today and expires at today's close having never come within 0.9% of its trigger. This asks to
-  carry the same conditional intent into 2026-09-03 rather than let a live, Wes-approved setup
-  lapse for calendar reasons alone.
-
-  Trigger, unchanged in substance from WL-19: if IWM trades to **296.00 or higher**, and the IWM
-  Sep 8 **298** call measures inside §2's 0.20-0.30 delta band on the acting run's own reading, and
-  a spread with short strike at **298 or above** clears the credit floor of the regime that run
-  measures **at natural pricing**, then one IWM bear call, sized to the measured regime under §5,
-  regime read on the structure's own expiry. Expires 2026-09-03 close.
-
-  **Why it should carry, and why the shape is the right one.** The 298 short-strike floor is what
-  makes this trade sound rather than merely legal, and that is worth stating plainly because
-  WL-20's ruling put the floor's *status* to Wes tonight. A short call at 298 sits **outside** the
-  measured expected move (IWM Sep 8 straddle-avg ATM IV 14.04%, six calendar days, so about
-  ±1.80% or ±$5.28 from 293.34, reaching 298.6), whereas the 296/297 candidates the band actually
-  admits sit **inside** it at roughly 0.5σ to 0.7σ. Selling a strike inside the expected move on
-  the name whose own memo calls the upside its largest tail is the substantive ground the 09:24
-  ruling used to reject WL-17, and that ground is independent of the falsifier question and of
-  every §3 reading. So this item should carry **whichever way Wes rules on WL-20**: if the falsifier
-  floor is withdrawn as a placement rule, the 298 floor still earns its place here on expected-move
-  grounds alone, and this item should simply be read as adopting it voluntarily.
-
-  Recorded caveat, unchanged from WL-19 and now stronger: the memo's bearish IWM thesis has gone the
-  wrong way for a second session (290.57 Tuesday close → 293.34 now, +0.95%). It is not falsified,
-  which needs a close above ~298, but a run measuring the trigger true is by construction acting
-  after a further 0.9% rally against the thesis, and should confirm the thesis still stands before
-  acting. The trigger's own strike floor largely enforces this.
-
-  Not executable until ruled. Names one trade, inside every ordinary limit; no new authority is
-  requested beyond extending an already-approved item by one day.
-
-  > OPERATOR NOTE (2026-09-02 12:26 CT): REFERRED TO WES, not ruled; not executable until he
-  > rules. A standing intent for tomorrow creates trading authority the session operator does
-  > not hold. Checked and holds: same trigger and strike floor as WL-19, which Wes approved at
-  > 12:03; no collision with the held IWM 293/290 and 292/289 bear puts (a bear call above
-  > 298 shares no leg); the 298 floor sits outside the measured expected move, so the item
-  > stands whichever way the WL-20 question is ruled. Recommendation: approve, with one added
-  > condition the run itself half-states, that tomorrow's memo still carries a down verdict on
-  > IWM at the time a run measures the trigger; a bear call against an up or two-sided verdict
-  > is a different trade. Expires 2026-09-03 close as filed.
-
-  > RULING (2026-09-02 12:27 CT, Wes): APPROVED with one condition ("approve WL-21 with the
-  > down-verdict condition", in chat). Executable on 2026-09-03 within every ordinary limit on
-  > the executing run's own re-measurement: IWM at 296 or higher; the Sep 8 298 call inside the
-  > 0.20-0.30 band; a spread with its short at 298 or above clearing the measured regime's
-  > credit floor at natural; regime read on the structure's own expiry; **and the 2026-09-03
-  > memo's directional verdict on IWM is "down" at the time the run measures the trigger.** A
-  > bear call against an up, range-bound or two-sided IWM verdict is not this item. Expires
-  > 2026-09-03 close. (Transcribed by the session operator.)
-
-  **MEASURED FALSE, run-0845 (2026-09-03 08:49 CT, the slot's hand re-run after the 08:45 firing
-  died on an upstream API 529 before any tool call).** Three independent clauses fail: IWM quotes
-  **294.93 x 294.96** against the 296.00 trigger; today's memo returns **two-sided** on IWM, not the
-  "down" verdict the 12:27 condition requires, and the research pass runs once a day so that cannot
-  change before the close; and IWM Sep 8 declares **Low** (0.966), where §3 forbids selling premium.
-  Expires at today's close. (Transcribed by the session operator.)
-
-  **MEASURED FALSE AGAIN, run-0915 (2026-09-03 09:25 CT), and permanently so:** IWM 294.33 x
-  294.35 against 296.00; verdict two-sided; the item expires at today's close and no clause can
-  turn true before then. (Transcribed by the session operator.)
-
-  **MEASURED FALSE A THIRD TIME, run-0945 (2026-09-03 09:48 CT):** IWM 294.07 x 294.09 against
-  296.00; verdict two-sided. The run's only IWM action was a Sep 10 condor (order `f005a174`, 12 at
-  1.00, $2,400), a §2 two-sided structure and not this item. Spent at today's close. (Transcribed by
-  the session operator.)
-
-  **MEASURED FALSE A FOURTH TIME, run-1045 (2026-09-03 10:45 CT):** IWM 295.13 x 295.15 against
-  296.00; verdict two-sided. Expires unexercised at today's close; the operator moves it to the
-  ruled section at the close. (Transcribed by the session operator.)
-
-  **MEASURED FALSE A SIXTH TIME, run-1215 (2026-09-03 12:18 CT):** IWM 294.91 x 294.92, 0.37% short
-  of 296.00; verdict two-sided. (Transcribed by the session operator.)
-
-  **MEASURED FALSE A FIFTH TIME, run-1115 (2026-09-03 11:15 CT):** IWM 295.03 x 295.05, 0.32% short
-  of 296.00, the closest of the five readings; verdict two-sided. (Transcribed by the session
-  operator.)
-
-  **MEASURED FALSE A SEVENTH TIME, run-1315 (2026-09-03 13:15 CT):** IWM 295.26 x 295.29, 0.24%
-  short of 296.00, the closest approach of the day; verdict two-sided. (Transcribed by the session
-  operator.)
-
-  **MEASURED FALSE AN EIGHTH TIME, run-1345 (2026-09-03 13:45 CT):** IWM 294.91 x 294.93, 0.36%
-  short of 296.00; verdict two-sided. The 14:15 run is the last that can measure it. (Transcribed by
-  the session operator.)
-
-  **MEASURED FALSE A NINTH AND FINAL TIME, run-1415 (2026-09-03 14:15 CT):** IWM 294.91 x 294.92,
-  0.37% short of 296.00; verdict two-sided. No later decision run exists today. **EXPIRES
-  UNEXERCISED at today's close.** (Transcribed by the session operator.)
-
-  > RECORD CORRECTION (2026-09-02 13:26 CT, from run-1315): the filing's ground that "a short
-  > call at 298 sits outside the measured expected move ... reaching 298.6" does not hold on its
-  > own numbers; 298 is below 298.6, so inside the move (about 0.88 sigma on run-1315's reading),
-  > and at the 296 trigger the strike is only 0.68% away. The relative claim (298 is further out
-  > than 296 or 297) and the falsifier-alignment ground stand, and the down-verdict condition Wes
-  > attached is untouched. Wes approved at 12:27 on the filing as written; the approval stands
-  > unless he says otherwise, and the correction is flagged to him. Original text left intact.
-
 - **WL-6** (run-0915 → approved with modification 2026-09-01 09:25 CT → **OPENED 2026-09-01
   09:48 CT by run-0945**): open a QQQ Sep 8
   volatility pair, a call debit vertical and a put debit vertical on the same underlying and
@@ -459,6 +360,105 @@ per-run limits, and the broker's gate.
   > Wes may withdraw or amend before it binds. (Transcribed by the session operator.)
 
 ## Ruled: rejected, expired, executed
+
+- **WL-21** (run-1215, proposed 2026-09-02 12:15 CT → **APPROVED by Wes 2026-09-02 12:27 CT, with the down-verdict condition** → **EXPIRED UNEXERCISED 2026-09-03 close**, measured false nine times, closest approach 0.24% short; the down-verdict condition failed all day on a two-sided IWM memo): **re-file of WL-19 for tomorrow, on the same
+  trigger, written to survive tonight's ceremony either way.** WL-19 was approved by Wes at 12:03
+  today and expires at today's close having never come within 0.9% of its trigger. This asks to
+  carry the same conditional intent into 2026-09-03 rather than let a live, Wes-approved setup
+  lapse for calendar reasons alone.
+
+  Trigger, unchanged in substance from WL-19: if IWM trades to **296.00 or higher**, and the IWM
+  Sep 8 **298** call measures inside §2's 0.20-0.30 delta band on the acting run's own reading, and
+  a spread with short strike at **298 or above** clears the credit floor of the regime that run
+  measures **at natural pricing**, then one IWM bear call, sized to the measured regime under §5,
+  regime read on the structure's own expiry. Expires 2026-09-03 close.
+
+  **Why it should carry, and why the shape is the right one.** The 298 short-strike floor is what
+  makes this trade sound rather than merely legal, and that is worth stating plainly because
+  WL-20's ruling put the floor's *status* to Wes tonight. A short call at 298 sits **outside** the
+  measured expected move (IWM Sep 8 straddle-avg ATM IV 14.04%, six calendar days, so about
+  ±1.80% or ±$5.28 from 293.34, reaching 298.6), whereas the 296/297 candidates the band actually
+  admits sit **inside** it at roughly 0.5σ to 0.7σ. Selling a strike inside the expected move on
+  the name whose own memo calls the upside its largest tail is the substantive ground the 09:24
+  ruling used to reject WL-17, and that ground is independent of the falsifier question and of
+  every §3 reading. So this item should carry **whichever way Wes rules on WL-20**: if the falsifier
+  floor is withdrawn as a placement rule, the 298 floor still earns its place here on expected-move
+  grounds alone, and this item should simply be read as adopting it voluntarily.
+
+  Recorded caveat, unchanged from WL-19 and now stronger: the memo's bearish IWM thesis has gone the
+  wrong way for a second session (290.57 Tuesday close → 293.34 now, +0.95%). It is not falsified,
+  which needs a close above ~298, but a run measuring the trigger true is by construction acting
+  after a further 0.9% rally against the thesis, and should confirm the thesis still stands before
+  acting. The trigger's own strike floor largely enforces this.
+
+  Not executable until ruled. Names one trade, inside every ordinary limit; no new authority is
+  requested beyond extending an already-approved item by one day.
+
+  > OPERATOR NOTE (2026-09-02 12:26 CT): REFERRED TO WES, not ruled; not executable until he
+  > rules. A standing intent for tomorrow creates trading authority the session operator does
+  > not hold. Checked and holds: same trigger and strike floor as WL-19, which Wes approved at
+  > 12:03; no collision with the held IWM 293/290 and 292/289 bear puts (a bear call above
+  > 298 shares no leg); the 298 floor sits outside the measured expected move, so the item
+  > stands whichever way the WL-20 question is ruled. Recommendation: approve, with one added
+  > condition the run itself half-states, that tomorrow's memo still carries a down verdict on
+  > IWM at the time a run measures the trigger; a bear call against an up or two-sided verdict
+  > is a different trade. Expires 2026-09-03 close as filed.
+
+  > RULING (2026-09-02 12:27 CT, Wes): APPROVED with one condition ("approve WL-21 with the
+  > down-verdict condition", in chat). Executable on 2026-09-03 within every ordinary limit on
+  > the executing run's own re-measurement: IWM at 296 or higher; the Sep 8 298 call inside the
+  > 0.20-0.30 band; a spread with its short at 298 or above clearing the measured regime's
+  > credit floor at natural; regime read on the structure's own expiry; **and the 2026-09-03
+  > memo's directional verdict on IWM is "down" at the time the run measures the trigger.** A
+  > bear call against an up, range-bound or two-sided IWM verdict is not this item. Expires
+  > 2026-09-03 close. (Transcribed by the session operator.)
+
+  **MEASURED FALSE, run-0845 (2026-09-03 08:49 CT, the slot's hand re-run after the 08:45 firing
+  died on an upstream API 529 before any tool call).** Three independent clauses fail: IWM quotes
+  **294.93 x 294.96** against the 296.00 trigger; today's memo returns **two-sided** on IWM, not the
+  "down" verdict the 12:27 condition requires, and the research pass runs once a day so that cannot
+  change before the close; and IWM Sep 8 declares **Low** (0.966), where §3 forbids selling premium.
+  Expires at today's close. (Transcribed by the session operator.)
+
+  **MEASURED FALSE AGAIN, run-0915 (2026-09-03 09:25 CT), and permanently so:** IWM 294.33 x
+  294.35 against 296.00; verdict two-sided; the item expires at today's close and no clause can
+  turn true before then. (Transcribed by the session operator.)
+
+  **MEASURED FALSE A THIRD TIME, run-0945 (2026-09-03 09:48 CT):** IWM 294.07 x 294.09 against
+  296.00; verdict two-sided. The run's only IWM action was a Sep 10 condor (order `f005a174`, 12 at
+  1.00, $2,400), a §2 two-sided structure and not this item. Spent at today's close. (Transcribed by
+  the session operator.)
+
+  **MEASURED FALSE A FOURTH TIME, run-1045 (2026-09-03 10:45 CT):** IWM 295.13 x 295.15 against
+  296.00; verdict two-sided. Expires unexercised at today's close; the operator moves it to the
+  ruled section at the close. (Transcribed by the session operator.)
+
+  **MEASURED FALSE A SIXTH TIME, run-1215 (2026-09-03 12:18 CT):** IWM 294.91 x 294.92, 0.37% short
+  of 296.00; verdict two-sided. (Transcribed by the session operator.)
+
+  **MEASURED FALSE A FIFTH TIME, run-1115 (2026-09-03 11:15 CT):** IWM 295.03 x 295.05, 0.32% short
+  of 296.00, the closest of the five readings; verdict two-sided. (Transcribed by the session
+  operator.)
+
+  **MEASURED FALSE A SEVENTH TIME, run-1315 (2026-09-03 13:15 CT):** IWM 295.26 x 295.29, 0.24%
+  short of 296.00, the closest approach of the day; verdict two-sided. (Transcribed by the session
+  operator.)
+
+  **MEASURED FALSE AN EIGHTH TIME, run-1345 (2026-09-03 13:45 CT):** IWM 294.91 x 294.93, 0.36%
+  short of 296.00; verdict two-sided. The 14:15 run is the last that can measure it. (Transcribed by
+  the session operator.)
+
+  **MEASURED FALSE A NINTH AND FINAL TIME, run-1415 (2026-09-03 14:15 CT):** IWM 294.91 x 294.92,
+  0.37% short of 296.00; verdict two-sided. No later decision run exists today. **EXPIRES
+  UNEXERCISED at today's close.** (Transcribed by the session operator.)
+
+  > RECORD CORRECTION (2026-09-02 13:26 CT, from run-1315): the filing's ground that "a short
+  > call at 298 sits outside the measured expected move ... reaching 298.6" does not hold on its
+  > own numbers; 298 is below 298.6, so inside the move (about 0.88 sigma on run-1315's reading),
+  > and at the 296 trigger the strike is only 0.68% away. The relative claim (298 is further out
+  > than 296 or 297) and the falsifier-alignment ground stand, and the down-verdict condition Wes
+  > attached is untouched. Wes approved at 12:27 on the filing as written; the approval stands
+  > unless he says otherwise, and the correction is flagged to him. Original text left intact.
 
 - **WL-9** (run-1145, proposed 2026-09-01 11:45 CT → **DEFERRED 2026-09-01 12:02 CT, awaiting an AVGO research thesis**): **AVGO Sep 4 income trade, gated on a
   directional read.** If the §7 research pass produces an AVGO directional thesis in the §2
