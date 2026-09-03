@@ -230,6 +230,32 @@ per-run limits, and the broker's gate.
 
 ## Proposed, awaiting ruling
 
+- **WL-28** (run-1015, proposed 2026-09-03 10:15 CT → **APPROVED 2026-09-03 10:30 CT, session
+  operator standing in, on WL-6's precedent; Wes may reverse before it binds**): **pre-registered
+  Friday close of the IWM Sep 8 volatility pair opened by run-1015** (297/300 call debit vertical
+  x67, order `9e56c85a`, filled 0.61; 293/290 put debit vertical x86, order `2cc4081b`, filled
+  0.57; both stamped `vol_pair`, TP 1.84 / 1.79, no value stop). The pair's catalyst is Friday's
+  08:30 ET payrolls print and its window is spent by Friday afternoon; Monday Sep 7 is a holiday,
+  so a Sep 8 long-premium position held past Friday pays three days of decay against no remaining
+  event.
+
+  > RULING (2026-09-03 10:30 CT, session operator standing in under the delegation Wes gave at
+  > 09:59 CT): APPROVED as filed, the conservative direction, since the close only reduces
+  > exposure and mirrors the WL-6 close Wes approved on 2026-09-01. Any decision run on
+  > 2026-09-04 at or after 13:15 CT closes both legs at market; if none has by the 14:15 CT run,
+  > that run closes them. Same two limits WL-6 recorded: the supervisor will not enforce this,
+  > and §4's ordinary take-profit takes precedence if it fires first. Wes may withdraw or amend
+  > this before 13:15 CT Friday. (Transcribed by the session operator.)
+
+- **WL-29** (run-1015, proposed 2026-09-03 10:15 CT → **ROUTED TO THE DESIGN PASS 2026-09-03
+  10:30 CT**, evidence appended to design items 20 and 26): **does §2's offset guard reach across
+  expiries?** run-0845 declined selling QQQ premium at Sep 9/10 as offsetting-in-substance against
+  the QQQ Sep 8 long pair (WL-26); run-1015 bought IWM Sep 8 premium while holding a short IWM Sep
+  10 condor, the mirror image, on the ground that §3's per-expiry numerator reads Sep 8 at 0.95
+  and Sep 10 at 1.05, so the charter's own instrument says buy one surface and sell the other. The
+  run called that defensible and not a ruling. No trade is asked; the operator agrees it is the
+  design pass's question and rules nothing here. (Transcribed by the session operator.)
+
 - **WL-26** (run-0845, proposed 2026-09-03 08:49 CT): **a QQQ iron condor once WL-6's mandated
   Friday close removes the offsetting objection.** The run declined QQQ premium today on substance:
   Sep 8 is entangled with the WL-6 long-vol pair, and selling QQQ premium at Sep 9 or 10 is
