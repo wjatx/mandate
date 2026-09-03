@@ -7,7 +7,7 @@ per-run limits, and the broker's gate.
 
 ## Approved standing intents
 
-- **WL-25** (run-0845, flagged 2026-09-03 08:49 CT under §5 → **APPROVED by Wes 2026-09-03 09:05 CT**):
+- **WL-25** (run-0845, flagged 2026-09-03 08:49 CT under §5 → **APPROVED by Wes 2026-09-03 09:05 CT** → **EXECUTED by run-0915 2026-09-03 09:25 CT**, order resting at run end):
   **a second SPY iron condor, at an expiry other than Sep 10.** run-0845 measured SPY Sep 10 at
   1.354 High on today's two-sided verdict, opened one condor (777/780 C, 761/758 P, 26 contracts at
   -1.08, order 58307908, resting `new` at run end) and declined a second at Sep 9 on its own judgment
@@ -33,6 +33,25 @@ per-run limits, and the broker's gate.
   > rows. The run marked the mechanism [inferred] and had no supervisor-log tool, so the error is
   > one of inference, not of reading. Outcome identical; the close at 08:58 CT beat the supervisor by
   > about a minute. Recorded because two closers acting on one fragment is design item 31.
+
+  **EXECUTED, run-0915 (2026-09-03 09:19-09:25 CT, the slot's hand re-run after the 09:15 firing
+  died on an upstream API 529 before any tool call).** Sep 9 chosen over Sep 8 on a collision
+  ground: at spot 768.57 a Sep 8 condor's call short would land on 774 against the held Sep 8
+  771/774 long, WL-11's leg collision. **SPY Sep 9 775/778 C + 762/759 P, 12 contracts at a 1.07
+  credit limit, order `0e9a7e0b`, gate-accepted iron_condor at $2,316 max loss.** Regime Mid
+  (1.2554 on Sep 9, neighbours 1.2933 / 1.2534, no edge crossed), so §2's two-sided condor sizes
+  at half, and $2,500 single-side max loss bound the quantity rather than the $5,000 cap. Shorts
+  at 0.2524 and -0.2393; Mid floor 0.60 against 1.04 at natural. Resting `pending_new` at run end;
+  the 09:45 run confirms the fill or reprices. WL-25 is spent by this placement; repricing the same
+  condor if unfilled is the run's ordinary business, as with the Sep 10 order below.
+
+  Same run, outside this item: the Sep 10 condor (order 58307908, 26 at 1.08) had rested 21
+  minutes while SPY rallied from about 765 to 768.57 and centred it, cutting the credit to 0.94
+  natural; cancelled and replaced as **24 contracts at 1.00, order `73531c10`, $4,800**, quantity
+  reduced so max loss stays under the cap at the lower credit. The run named the resulting shape
+  plainly: SPY short calls at 771 (Sep 8), 775 (Sep 9) and 777 (Sep 10), a rally of about 1.1%
+  through all three, netted by nothing in the ledger. Design item 20, now the book's shape.
+  (Transcribed by the session operator from the run record.)
 
 - **WL-21** (run-1215, proposed 2026-09-02 12:15 CT → **APPROVED by Wes 2026-09-02 12:27 CT, with the down-verdict condition**): **re-file of WL-19 for tomorrow, on the same
   trigger, written to survive tonight's ceremony either way.** WL-19 was approved by Wes at 12:03
@@ -92,6 +111,10 @@ per-run limits, and the broker's gate.
   "down" verdict the 12:27 condition requires, and the research pass runs once a day so that cannot
   change before the close; and IWM Sep 8 declares **Low** (0.966), where §3 forbids selling premium.
   Expires at today's close. (Transcribed by the session operator.)
+
+  **MEASURED FALSE AGAIN, run-0915 (2026-09-03 09:25 CT), and permanently so:** IWM 294.33 x
+  294.35 against 296.00; verdict two-sided; the item expires at today's close and no clause can
+  turn true before then. (Transcribed by the session operator.)
 
   > RECORD CORRECTION (2026-09-02 13:26 CT, from run-1315): the filing's ground that "a short
   > call at 298 sits outside the measured expected move ... reaching 298.6" does not hold on its
