@@ -241,6 +241,22 @@ per-run limits, and the broker's gate.
 
 ## Proposed, awaiting ruling
 
+- **WL-33** (run-1245, proposed 2026-09-03 12:45 CT → **APPROVED 2026-09-03 12:55 CT, session
+  operator ruling under Wes's 12:03 CT delegation, on WL-6's and WL-28's precedent**):
+  **pre-registered Friday close of the IWM Sep 9 volatility pair opened by run-1245** (297/300 call
+  debit vertical x22, order `29267f49`, limit 0.78; 295/292 put debit vertical x22, order
+  `49ee68da`, limit 0.92; both `vol_pair`, resting `new` at run end). The catalyst is Friday's 08:30
+  ET payrolls print; Monday Sep 7 is a holiday; the memo's next dated event (CPI, Sep 11) sits past
+  a Sep 9 expiry.
+
+  > RULING (2026-09-03 12:55 CT, session operator): APPROVED as filed. Any decision run on
+  > 2026-09-04 at or after 13:15 CT closes both legs at market; if none has by the 14:15 CT run,
+  > that run closes them. Same two limits as WL-6 and WL-28: the supervisor will not enforce this,
+  > and §4's ordinary take-profit takes precedence if it fires first. If the pair has not filled by
+  > the 13:15 run today, that run cancels or reprices it on its ordinary discretion; a half-filled
+  > pair is the WL-6 case and the run treats it the same way. Wes may amend before 13:15 CT Friday.
+  > (Transcribed by the session operator.)
+
 - **WL-32** (run-1145, proposed 2026-09-03 11:45 CT → **APPROVED by Wes 2026-09-03 11:57 CT** → **SPENT by run-1215 12:18 CT**): **does the SPY concentration
   lift cover one SPY condor at Sep 8 or Sep 9, now that Sep 10 has gone regime-ambiguous?** Wes
   lifted WL-30 at 11:50 CT for one SPY Sep 10 condor, but run-1145 (in flight when the lift was
