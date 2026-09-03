@@ -130,6 +130,9 @@ per-run limits, and the broker's gate.
   296.00; verdict two-sided. Expires unexercised at today's close; the operator moves it to the
   ruled section at the close. (Transcribed by the session operator.)
 
+  **MEASURED FALSE A SIXTH TIME, run-1215 (2026-09-03 12:18 CT):** IWM 294.91 x 294.92, 0.37% short
+  of 296.00; verdict two-sided. (Transcribed by the session operator.)
+
   **MEASURED FALSE A FIFTH TIME, run-1115 (2026-09-03 11:15 CT):** IWM 295.03 x 295.05, 0.32% short
   of 296.00, the closest of the five readings; verdict two-sided. (Transcribed by the session
   operator.)
@@ -238,7 +241,7 @@ per-run limits, and the broker's gate.
 
 ## Proposed, awaiting ruling
 
-- **WL-32** (run-1145, proposed 2026-09-03 11:45 CT, awaiting Wes): **does the SPY concentration
+- **WL-32** (run-1145, proposed 2026-09-03 11:45 CT → **APPROVED by Wes 2026-09-03 11:57 CT** → **SPENT by run-1215 12:18 CT**): **does the SPY concentration
   lift cover one SPY condor at Sep 8 or Sep 9, now that Sep 10 has gone regime-ambiguous?** Wes
   lifted WL-30 at 11:50 CT for one SPY Sep 10 condor, but run-1145 (in flight when the lift was
   written) measured SPY Sep 10 straddling the 1.30 edge (772 High 1.3070 / 773 Mid 1.2791), which
@@ -250,8 +253,26 @@ per-run limits, and the broker's gate.
   (Transcribed by the session operator from the run record; the operator reads WL-30 as lifted for
   Sep 10 only and asks Wes whether the lift follows the clean surface.)
 
+  > RULING (2026-09-03 11:57 CT, Wes): APPROVED ("WL-32 yes", in chat). WL-30's lift now reads: one
+  > SPY iron condor at whichever of Sep 8, Sep 9 or Sep 10 measures a clean regime (no band edge
+  > crossed between neighbouring strikes) at the executing run, executable from the 12:15 run on
+  > its own re-measurement within every ordinary limit: two-sided SPY verdict, both shorts inside
+  > the 0.20-0.30 band, total credit clearing the measured regime's floor against the widest wing
+  > at natural, single-side max loss under the Mid two-sided half-size cap ($2,500) or the
+  > per-position cap if the chosen surface measures High, no leg collision (the held Sep 9 778 call
+  > is long) and no same-expiry offset. One condor across WL-30 and WL-32 together, not one per
+  > expiry and not a rolling authorization. Expires 2026-09-03 close. (Transcribed by the session
+  > operator.)
+
+  **SPENT, run-1215 (2026-09-03 12:18 CT).** SPY Sep 10 measured clean again (1.2493 Mid at 773,
+  neighbours 1.2825 / 1.2331), the 11:45 straddle having resolved because the RV20 denominator
+  rolled rather than because implied moved. **SPY Sep 10 iron condor 779/782 C + 765/762 P, 13
+  contracts, order `b0c624a7`, filled at 1.12** (shorts 0.2617 / -0.2330; credit 1.11 at natural
+  against a 0.60 floor; max loss $2,444 under the $2,500 half-size cap; no collision with the held
+  777/780/761/758). WL-30 and WL-32 are closed as executed. (Transcribed by the session operator.)
+
 - **WL-30** (run-1115, proposed 2026-09-03 11:15 CT → held for Wes by the operator 11:25 CT → **LIFTED
-  by Wes 2026-09-03 11:50 CT**): **lift the concentration restraint for one SPY Sep 10 iron
+  by Wes 2026-09-03 11:50 CT**, amended by WL-32 → **SPENT by run-1215 12:18 CT**, see WL-32): **lift the concentration restraint for one SPY Sep 10 iron
   condor, 779/782 C + 765/762 P** (Mid 1.2883 on Sep 10, no edge crossed; shorts 0.2729 / -0.2311;
   total credit about 1.15 at natural against a 0.60 floor; about 13 contracts, roughly $2,405 max
   loss at the Mid two-sided half-size cap; no collision with the held Sep 10 777/780/761/758). The
@@ -277,6 +298,9 @@ per-run limits, and the broker's gate.
   > 779/782 + 765/762. One condor, not a rolling authorization. Expires 2026-09-03 close. The 11:45
   > run was in flight when this was written and does not carry it. (Transcribed by the session
   > operator.)
+
+  > AMENDED by WL-32 (Wes, 11:57 CT): the lift follows the clean surface, Sep 8, 9 or 10, one
+  > condor in total.
 
 - **WL-31** (run-1115, proposed 2026-09-03 11:15 CT → **ROUTED TO THE DESIGN PASS 2026-09-03 11:25
   CT**, evidence appended to design item 27): **the 1.00 Low/Mid edge is now the one that bites.**
