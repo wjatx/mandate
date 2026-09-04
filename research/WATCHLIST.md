@@ -7,6 +7,25 @@ per-run limits, and the broker's gate.
 
 ## Approved standing intents
 
+- **WL-36** (run-0846, proposed 2026-09-04 08:47 CT → **APPROVED by Wes 2026-09-04 09:33 CT**):
+  **bring the three pre-registered Friday pair closes forward from 13:15 CT to the 09:45 CT run.**
+  The WL-6 (QQQ Sep 8 717/722 C + 704/699 P), WL-28 (IWM Sep 8 297/300 C + 293/290 P) and WL-33
+  (IWM Sep 9 297/300 C + 295/292 P) rulings each close their pair "at or after 13:15 CT" on the
+  ground that the payrolls catalyst is spent by Friday morning and long premium held past it pays
+  decay against nothing. run-0846 found that ground already true at 08:47: the print landed at
+  07:30 CT and post-print implied volatility collapsed under realized on every index name. Marked
+  at the run: QQQ +$498, IWM Sep 8 −$3,716, IWM Sep 9 −$910, total −$4,128 on $21,178 of debit.
+  The run did not close them because the rulings authorize 13:15 and §4 forbids re-litigating
+  stored exits, so it filed this on the WL-35 precedent. Names no new trade; strictly risk-reducing.
+
+  > RULING (2026-09-04 09:33 CT, Wes): APPROVED ("approve WL-36, close them at 09:45", in chat).
+  > The 09:45 CT decision run closes all six legs of the three pairs at market; if that run does
+  > not fire or dies before acting, the next decision run does. Same two limits as WL-6, WL-28 and
+  > WL-33: the supervisor will not enforce this, and §4's ordinary take-profit takes precedence if
+  > it fires first. WL-26's "after the WL-6 fill" condition is measured against this close; its
+  > other conditions and §3 still govern, and QQQ Sep 8 measured Low at 08:47. (Transcribed by
+  > the session operator.)
+
 - **WL-25** (run-0845, flagged 2026-09-03 08:49 CT under §5 → **APPROVED by Wes 2026-09-03 09:05 CT** → **EXECUTED by run-0915 2026-09-03 09:25 CT**, order resting at run end):
   **a second SPY iron condor, at an expiry other than Sep 10.** run-0845 measured SPY Sep 10 at
   1.354 High on today's two-sided verdict, opened one condor (777/780 C, 761/758 P, 26 contracts at
