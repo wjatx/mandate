@@ -26,6 +26,15 @@ per-run limits, and the broker's gate.
   > other conditions and §3 still govern, and QQQ Sep 8 measured Low at 08:47. (Transcribed by
   > the session operator.)
 
+  **EXECUTED by run-0945 (2026-09-04 09:45 CT).** All twelve legs closed at market between
+  14:45:51Z and 14:45:59Z, the six shorts bought back first, then the six longs sold; a follow-up
+  position read confirmed all gone. Realized **−$5,213 on $21,178 of debit** (QQQ 717/722 C +$2,970,
+  704/699 P −$3,672; IWM Sep 8 297/300 C −$1,273, 293/290 P −$2,408; IWM Sep 9 297/300 C −$374,
+  295/292 P −$456). The run records that the same legs marked −$4,128 at 08:47, so the 58 minutes
+  between observation and execution cost about $1,085, and argues a pre-registered close should
+  trigger on the condition the ruling names rather than a clock time chosen days earlier. Moves
+  to the ruled section at the close. (Transcribed by the session operator.)
+
 - **WL-25** (run-0845, flagged 2026-09-03 08:49 CT under §5 → **APPROVED by Wes 2026-09-03 09:05 CT** → **EXECUTED by run-0915 2026-09-03 09:25 CT**, order resting at run end):
   **a second SPY iron condor, at an expiry other than Sep 10.** run-0845 measured SPY Sep 10 at
   1.354 High on today's two-sided verdict, opened one condor (777/780 C, 761/758 P, 26 contracts at
@@ -172,6 +181,31 @@ per-run limits, and the broker's gate.
 (none — WL-5 executed by run-0915; see below)
 
 ## Proposed, awaiting ruling
+
+- **WL-38** (run-0945, flagged 2026-09-04 09:50 CT under §5 → **RULED by Wes 2026-09-04 09:55 CT:
+  the idle capital is ACCEPTED DELIBERATELY for the day**): **idle capital on the deadline day.** Closing the three pairs released $21,178 of debit; the book stands at
+  $19,268 of $85,000 deployed with 13 free slots. The two ruled openings were WL-26 and WL-27; one
+  is spent and the other is gated to the 10:15 run, so run-0945 had no third compliant opening to
+  take. §5 makes undeployed equity an inaction the operator rules on. The cadence window ends with
+  today and the post-Friday carry decision follows the 14:15 run. (Transcribed by the session
+  operator.)
+
+  > RULING (2026-09-04 09:55 CT, Wes): ACCEPTED as a deliberate inaction, not an omission
+  > ("option 1", in chat, choosing acceptance over authorizing further deployment). The cadence
+  > window ends with today; the only ruled openings are WL-26 and WL-27, and no new opening is
+  > authorized for the rest of the cadence. Grounds under safe > profit > loss: every position
+  > opened today is one the supervisor alone watches from Monday, and the post-Friday carry
+  > decision after the 14:15 run is simpler with fewer of them. Runs may keep flagging idle
+  > capital under §5; this ruling answers the flag for 2026-09-04. (Transcribed by the session
+  > operator.)
+
+- **WL-37** (run-0945, proposed 2026-09-04 09:50 CT → **ROUTED TO THE DESIGN PASS 2026-09-04
+  09:58 CT**, design item 37): **the §7 memo now states a horizon, and no charter rule tests a
+  structure's expiry against it.** Friday's memo gives DIA a five-day horizon through Sep 9 while
+  WL-27 authorized a Sep 11 structure, with two dated events between them. run-0945 handled it by
+  sizing down, a judgment the rules do not supply. Same shape as items 22 and 27, which pin which
+  expiry supplies the regime's numerator; this asks whether the verdict reaches the expiry the
+  structure uses. Names no trade. (Transcribed by the session operator.)
 
 - **WL-35** (run-1415, proposed 2026-09-03 14:15 CT → **RULED 2026-09-03 14:28 CT, session operator
   under Wes's 12:03 CT delegation: the gap risk is ACCEPTED DELIBERATELY and the SPY condors are
@@ -377,6 +411,18 @@ per-run limits, and the broker's gate.
   > on a calendar artifact rather than a read, it is the one admitted name the book carries no
   > exposure in, so this diversifies rather than stacks, and the caps and stamped exits bound it.
   > Wes may withdraw or amend before it binds. (Transcribed by the session operator.)
+
+  **EXECUTED by run-0945 (2026-09-04 09:45 CT), order resting at run end.** DIA Sep 11
+  539/541 C + 529/527 P, 18 contracts, 0.68 credit limit, order `bb4b3f0e`, `iron_condor`,
+  $2,376 max loss, resting `new` at 09:50 CT. Regime Mid (1.126; neighbours 1.130 / 1.111);
+  shorts 0.2536 / −0.2485; natural credit 0.66 against a 0.40 floor; no DIA leg in the book.
+  Sized as two-sided rather than range-bound: the memo's DIA verdict is range-bound but its
+  stated horizon runs through Sep 9, and the memo says extending to Sep 11 brings in producer
+  and consumer prices; §1 resolved the size toward the smaller. Deployment $19,268 of $85,000,
+  7 of 20 slots. The order's fill or repricing is the 10:15 run's ordinary business. A first
+  placement call at 14:48:56Z went out with empty arguments and failed input validation before
+  the shim; it is on the tape as an executed call and produced no order (reported to
+  ptc-gal-reference #7). (Transcribed by the session operator.)
 
 ## Ruled: rejected, expired, executed
 
