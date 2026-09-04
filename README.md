@@ -49,6 +49,33 @@ Two different guarantees back the record, and neither is "tamper-proof":
   change through any normal path either re-keys deliberately, leaving a
   signed and chained record of exactly what moved, or stops the next run.
 
+## How the week ended
+
+The account ran from 2026-08-28 to the contest deadline at 10:00 CT on
+2026-09-04, then froze and closed flat at 14:15 CT. It finished at $85,529
+against $100,000 at the start, down 14.5 percent. The strategy lost money.
+The controls held.
+
+What the record shows, in order. On 08-29 a scripted probe asked for a stock
+order through a tool no human had admitted, and the broker denied it; the same
+probe through the admitted tool was refused by the shim on the per-position
+cap. On 08-31 the broker connector died for ninety minutes of market hours,
+and neither the agent nor the supervisor could act; a dead safety layer can
+miss an exit and can never admit an entry. On 09-02 five runs in a row stood
+down on a rule that could not act on a two-sided market; the agent filed the
+gap instead of reading past it, and the charter was amended and re-keyed after
+the close. On 09-03 three runs died on upstream model outages before any tool
+call while the supervisor closed eight positions in fifteen minutes on their
+stamped stops. On 09-04 the machine slept with the lid closed; the supervisor
+still ran on the short wakes macOS allows, and found nothing to close. The
+last run of that day closed the book flat on a ruling recorded in
+[research/WATCHLIST.md](research/WATCHLIST.md).
+
+Every position was defined risk inside a signed cap, every order went through
+the gate, and every refusal is on the tape. The unbounded component all week
+was the human: the rulings the agent asked for took minutes to an hour to
+arrive, and the one measured wait cost about $1,085.
+
 ## Reproducing it
 
 Everything here runs against an Alpaca paper account. The floor is a Python

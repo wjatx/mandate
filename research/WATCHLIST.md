@@ -24,6 +24,17 @@ per-run limits, and the broker's gate.
   > unrealized at 10:05 CT and closing realizes it; and the judges read a book that stops changing
   > at the deadline. (Transcribed by the session operator.)
 
+  **EXECUTED by run-1415 (2026-09-04 14:15 CT). The book is flat.** Twelve shorts bought to close
+  19:15:45 to 19:15:54Z, a position read confirmed every short gone, then twelve longs sold to
+  close 19:16:04 to 19:16:10Z; 24 of 24 filled, zero positions, zero open orders, equity all cash
+  at **$85,529.21**. The six condors collected $9,220 of credit and marked +$3,006 immediately
+  before the close; equity moved $85,535.60 to $85,529.21 across the execution, so the twenty-four
+  market orders cost about $6 against marks (an inference from the equity delta; the fills are on
+  the tape). Day −$277.38 (−0.32%); since kickoff $100,000 to $85,529.21 (−14.47%). The 14:45
+  check-run fallback is moot. The run notes the contrast with WL-36: a close on the clock the
+  ruling named, with the condition long true, cost $6, where the morning's 58-minute wait cost
+  about $1,085. Moves to the ruled section at the close. (Transcribed by the session operator.)
+
 - **WL-36** (run-0846, proposed 2026-09-04 08:47 CT → **APPROVED by Wes 2026-09-04 09:33 CT**):
   **bring the three pre-registered Friday pair closes forward from 13:15 CT to the 09:45 CT run.**
   The WL-6 (QQQ Sep 8 717/722 C + 704/699 P), WL-28 (IWM Sep 8 297/300 C + 293/290 P) and WL-33
@@ -198,6 +209,18 @@ per-run limits, and the broker's gate.
 (none — WL-5 executed by run-0915; see below)
 
 ## Proposed, awaiting ruling
+
+- **WL-41** (run-1245, proposed 2026-09-04 12:45 CT → **ROUTED TO THE DESIGN PASS 2026-09-04
+  12:55 CT**, design item 39): **§3's no-structure fallback records the event-free surface on
+  event weeks.** The 2026-09-02 amendment pinned the numerator to the structure's own expiry for
+  a trade; the no-structure case still reads "the nearest expiry at or beyond 2 DTE", which today
+  is Sep 8, before the PPI print on Sep 10 and CPI on Sep 11 the memo names. The event-free expiry
+  read Low (0.67 to 0.77) while the event-carrying one read Mid, in the same minute. §3 justifies
+  the recording rule by saying a percentile becomes computable from our own history; a rule that
+  selects the pre-event surface whenever a run does not trade biases that history toward Low on
+  the weeks that matter. Distinct from items 22, 27 and 37, which govern which expiry authorizes
+  a structure; this is what gets written when nothing is placed. The run suggests recording every
+  in-band expiry in the no-structure case. Names no trade. (Transcribed by the session operator.)
 
 - **WL-40** (run-1015, proposed 2026-09-04 10:15 CT → **ROUTED TO THE DESIGN PASS 2026-09-04
   10:25 CT**, design item 38; **operator note: the stale row stands until the close**): **a hand
