@@ -7,6 +7,23 @@ per-run limits, and the broker's gate.
 
 ## Approved standing intents
 
+- **WL-39** (operator, filed 2026-09-04 10:09 CT → **RULED by Wes 2026-09-04 10:07 CT**): **the
+  book is frozen at the submission deadline and closed flat at the 14:15 CT run.** The contest
+  deadline was 10:00 CT. From this ruling no decision run opens any position: WL-26 is revoked
+  below, the WL-27 order was cancelled at 10:08 CT unfilled, and WL-38 already bars anything else.
+  The six remaining iron condors (SPY Sep 8, Sep 9, two Sep 10; IWM Sep 10 x2) are closed at
+  market by the 14:15 CT decision run, all legs, shorts bought back before longs are sold; if that
+  run does not fire or dies before acting, the 14:45 CT check run closes them, noting as WL-35 did
+  that a check run acting on a watchlist ruling is untested. §4's ordinary exits and the supervisor
+  take precedence if they fire first. Decision runs before 14:15 hold, reprice nothing, and record.
+
+  > RULING (2026-09-04 10:07 CT, Wes): "yes, cancel and revoke, and option 1", in chat, choosing
+  > a flat, finished book over holding to expiry under the supervisor. Grounds under safe > profit
+  > > loss: nothing after today depends on the Mac staying awake across a holiday weekend, which
+  > this morning's closed lid showed is a real dependency; the condors carry about +$1,765
+  > unrealized at 10:05 CT and closing realizes it; and the judges read a book that stops changing
+  > at the deadline. (Transcribed by the session operator.)
+
 - **WL-36** (run-0846, proposed 2026-09-04 08:47 CT → **APPROVED by Wes 2026-09-04 09:33 CT**):
   **bring the three pre-registered Friday pair closes forward from 13:15 CT to the 09:45 CT run.**
   The WL-6 (QQQ Sep 8 717/722 C + 704/699 P), WL-28 (IWM Sep 8 297/300 C + 293/290 P) and WL-33
@@ -371,7 +388,8 @@ per-run limits, and the broker's gate.
   run called that defensible and not a ruling. No trade is asked; the operator agrees it is the
   design pass's question and rules nothing here. (Transcribed by the session operator.)
 
-- **WL-26** (run-0845, proposed 2026-09-03 08:49 CT → **APPROVED WITH CONDITIONS 2026-09-03 13:25 CT,
+- **WL-26** (run-0845, proposed 2026-09-03 08:49 CT → **REVOKED by Wes 2026-09-04 10:07 CT under
+  WL-39, never executed: no QQQ condor is to be placed** → previously **APPROVED WITH CONDITIONS 2026-09-03 13:25 CT,
   session operator under Wes's 12:03 CT delegation**): **a QQQ iron condor once WL-6's mandated
   Friday close removes the offsetting objection.** The run declined QQQ premium today on substance:
   Sep 8 is entangled with the WL-6 long-vol pair, and selling QQQ premium at Sep 9 or 10 is
@@ -423,6 +441,12 @@ per-run limits, and the broker's gate.
   placement call at 14:48:56Z went out with empty arguments and failed input validation before
   the shim; it is on the tape as an executed call and produced no order (reported to
   ptc-gal-reference #7). (Transcribed by the session operator.)
+
+  **CANCELLED unfilled by the operator at 10:08 CT (15:08:47Z) under WL-39**, zero contracts
+  filled, by a direct broker API call under Wes's "yes, cancel" at 10:07 CT; this is a hand action
+  outside the gateway and so is not on the agent tape, recorded here and on the rulings tape
+  instead. WL-27 is closed out: no DIA condor is to be placed or re-priced. (Transcribed by the
+  session operator.)
 
 ## Ruled: rejected, expired, executed
 
