@@ -199,6 +199,18 @@ per-run limits, and the broker's gate.
 
 ## Proposed, awaiting ruling
 
+- **WL-40** (run-1015, proposed 2026-09-04 10:15 CT → **ROUTED TO THE DESIGN PASS 2026-09-04
+  10:25 CT**, design item 38; **operator note: the stale row stands until the close**): **a hand
+  cancel outside the gateway leaves a ledger row the gate cannot reconcile.** The risk ledger still
+  carries `run-0904-0945-dia-0911-condor-539-541-529-527` at $2,376 for order `bb4b3f0e`, which the
+  operator cancelled unfilled by direct broker API at 15:08:47Z under WL-39. Positions show no DIA
+  leg and no order rests, so the gate reads deployment as $19,268 where the true figure is
+  $16,892. Prior stale rows (WL-14) came from unfilled day orders the gateway itself placed; this
+  one came from an action the gateway never saw. Under WL-39 no run opens anything today, so the
+  overstatement cannot block or admit a trade; the operator leaves the ledger untouched rather
+  than hand-edit the file the gate reads, and the row expires with the day order it names. Names
+  no trade. (Transcribed by the session operator.)
+
 - **WL-38** (run-0945, flagged 2026-09-04 09:50 CT under §5 → **RULED by Wes 2026-09-04 09:55 CT:
   the idle capital is ACCEPTED DELIBERATELY for the day**): **idle capital on the deadline day.** Closing the three pairs released $21,178 of debit; the book stands at
   $19,268 of $85,000 deployed with 13 free slots. The two ruled openings were WL-26 and WL-27; one
