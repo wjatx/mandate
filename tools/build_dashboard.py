@@ -64,6 +64,11 @@ ANCHOR_MARKS = 3
 # Reconstructed equity must land this close to the live account figure before
 # the chart will trust it, as a fraction of the opening balance.
 EQUITY_AGREEMENT = 0.02
+# The broker's 15-minute series counts a cash journal (the account's funding,
+# a transfer) on top of the opening balance until its next daily rebase; the
+# daily series never does. A mark is off by a journal when its gap to the
+# daily figure exceeds this fraction of the journal and shrinks by removing it.
+JOURNAL_MATCH = 0.5
 
 MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun",
           "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
@@ -270,7 +275,65 @@ def tape_counts(records: list[dict]) -> dict[str, int]:
 
 # ------------------------------------------------------------- equity curve
 
-def equity_series(history, live_equity):
+def strip_cash_journals(series, journals, daily):
+    """Remove whole cash journals the broker's intraday frame double-counts.
+
+    `series` is [(ts, value)], `journals` [(ts, amount)] and `daily`
+    [(ts, equity)] from the daily-resolution history. On the funding day the
+    15-minute series reported exactly opening balance plus the funding journal
+    for every mark, including the ones moving with positions, and dropped by
+    the journal at the next session's open; the daily series said the opening
+    balance throughout. So each mark is compared with the nearest daily figure,
+    and a gap that exceeds half a journal and shrinks by a whole journal is
+    corrected by that journal, in whichever direction it is off (the P&L frame
+    can be a journal low after the rebase). Ordinary intraday drift, even a bad
+    day's, is far smaller than a journal and is left alone.
+
+    Returns (corrected series, marks corrected). Without a daily series
+    nothing is checked and the series comes back unchanged.
+    """
+    if not series or not journals or not daily:
+        return list(series), 0
+    out, fixed = [], 0
+    for t, v in series:
+        ref = min(daily, key=lambda d: abs(d[0] - t))[1]
+        for jt, amount in journals:
+            size = abs(amount)
+            if jt > t or not size:
+                continue
+            gap = v - ref
+            sign = 1 if gap > 0 else -1
+            if abs(gap) > JOURNAL_MATCH * size and abs(gap - sign * size) < abs(gap):
+                v -= sign * size
+                fixed += 1
+        out.append((t, v))
+    return out, fixed
+
+
+def cash_journals(activities):
+    """[(ts, amount)] for the non-trade cash movements in an activities payload."""
+    out = []
+    for a in activities if isinstance(activities, list) else []:
+        amount = fnum(a.get("net_amount"))
+        day = a.get("date")
+        if amount is None or not day:
+            continue
+        try:
+            ts = datetime.fromisoformat(day).replace(tzinfo=timezone.utc).timestamp()
+        except ValueError:
+            continue
+        out.append((ts, amount))
+    return out
+
+
+def daily_marks(history):
+    """[(ts, equity)] from a daily-resolution portfolio history payload."""
+    h = history if isinstance(history, dict) else {}
+    ts, eq = h.get("timestamp") or [], h.get("equity") or []
+    return [(t, fnum(e)) for t, e in zip(ts, eq) if fnum(e)]
+
+
+def equity_series(history, live_equity, journals=(), daily=(), journal_note=""):
     """Return (stamps, values, trim-note, error) of TRUE account equity.
 
     Two things make the raw payload unsafe to plot as-is. The window is padded
@@ -302,6 +365,9 @@ def equity_series(history, live_equity):
         if p is not None and base is not None:
             rebuilt.append((t, base + p))
 
+    absolute, fixed_abs = strip_cash_journals(absolute, journals, daily)
+    rebuilt, fixed_reb = strip_cash_journals(rebuilt, journals, daily)
+
     def miss(series):
         if not series or live_equity is None:
             return None
@@ -312,9 +378,9 @@ def equity_series(history, live_equity):
     if rebuilt and (m_reb is None or m_reb <= tol) and (m_abs is None or m_reb <= m_abs):
         # Preferred: correct across the whole window, including the flat head,
         # where the raw array reports 0.0 instead of the opening balance.
-        chosen = rebuilt
+        chosen, fixed = rebuilt, fixed_reb
     elif absolute and (m_abs is None or m_abs <= tol):
-        chosen = absolute
+        chosen, fixed = absolute, fixed_abs
     else:
         return None, None, "", ("portfolio history did not return an equity "
                                 "series that agrees with the live account")
@@ -335,9 +401,19 @@ def equity_series(history, live_equity):
         if cut:
             said.append(f"a further {plural(cut, 'mark')} flat at {money(head)}")
         chosen = chosen[cut:]
-    note = "Not drawn: " + "; ".join(said) + "." if said else ""
+    notes = []
+    if said:
+        notes.append("Not drawn: " + "; ".join(said) + ".")
+    if fixed:
+        amounts = ", ".join(money(abs(a), 0) for _, a in journals)
+        notes.append(f"Corrected: {plural(fixed, 'mark')} the broker's 15-minute "
+                     f"series reported a whole cash journal ({amounts}) away from "
+                     "its own daily series; the journal is removed, as the daily "
+                     "series and the live figure have it.")
+    if journal_note:
+        notes.append(journal_note)
 
-    return ([utc(t) for t, _ in chosen], [v for _, v in chosen], note, None)
+    return ([utc(t) for t, _ in chosen], [v for _, v in chosen], " ".join(notes), None)
 
 
 # ------------------------------------------------------------------ render
@@ -713,6 +789,11 @@ def build() -> str:
     positions, pos_err = fetch(get, "/v2/positions")
     history, hist_err = fetch(get, "/v2/account/portfolio/history"
                                    "?period=1W&timeframe=15Min")
+    daily, daily_err = fetch(get, "/v2/account/portfolio/history"
+                                  "?period=1M&timeframe=1D")
+    activities, act_err = fetch(
+        get, "/v2/account/activities?activity_types=JNLC,CSD,CSR,JNLS"
+             "&direction=asc&page_size=100")
     orders, ord_err = fetch(get, "/v2/orders?status=all&limit=50")
 
     counts = tape_counts(records)
@@ -725,8 +806,13 @@ def build() -> str:
                                first_acting_day(records))
     verdict_cls = "ok" if chain_ok else "crit"
 
+    unchecked = daily_err or act_err
     stamps, values, trim_note, chart_err = equity_series(
-        history, fnum((account or {}).get("equity")))
+        history, fnum((account or {}).get("equity")),
+        journals=cash_journals(activities), daily=daily_marks(daily),
+        journal_note=(f"Cash journals not checked against the daily series "
+                      f"({unchecked}); a funding journal can show as a step "
+                      "the account never had." if unchecked else ""))
     if hist_err or chart_err:
         chart, chart_cap = unavailable(hist_err or chart_err), ""
     else:
@@ -787,8 +873,9 @@ def build() -> str:
 <section>
   <h2>Account equity</h2>
   <p class="shead">True account value in dollars at 15-minute marks, rebuilt from
-    the broker's portfolio history and checked against the live account figure
-    above. The two differ by the time since the last mark.</p>
+    the broker's portfolio history, checked against its daily series for cash
+    journals it double-counts, and against the live account figure above. The
+    last mark and the live figure differ by the time since the mark.</p>
   {chart}
   {chart_cap}
 </section>
