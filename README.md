@@ -10,6 +10,7 @@ order against dollar caps signed into a locked envelope, and writes every
 request, grant, and refusal to an append-only audit tape.
 
 Built for a trading hackathon on [safe-agents](https://github.com/wjatx/ptc-gal-reference).
+The one-page write-up the challenge asked for is [WRITEUP.md](WRITEUP.md).
 
 NOTE: This project contains code that was written with AI.
 
